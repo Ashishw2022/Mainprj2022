@@ -75,7 +75,7 @@ public class Available_Doctors extends AppCompatActivity {
             }
         });
 
-        final DatabaseReference nm = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
+        final DatabaseReference nm = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Doctors_Data");
         nm.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

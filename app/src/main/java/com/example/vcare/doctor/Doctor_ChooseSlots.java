@@ -70,14 +70,14 @@ public class Doctor_ChooseSlots extends AppCompatActivity {
         firebaseStorage = FirebaseStorage.getInstance();
 
         databaseReference = firebaseStorage.getReference().child(email);
-        reference_doctor = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
-        reference_appt = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Appointments");
-        reference_user = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users");
-        reference_booking = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Chosen_Slots");
-        reference_token = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Tokens");
-        reference_patient = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Chosen_Slots");
-        reference_details = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Details");
-        reference_payment = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Admin_Payment");
+        reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Doctors_Data");
+        reference_appt = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Doctors_Appointments");
+        reference_user = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users");
+        reference_booking = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Doctors_Chosen_Slots");
+        reference_token = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Tokens");
+        reference_patient = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Patient_Chosen_Slots");
+        reference_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Patient_Details");
+        reference_payment = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Admin_Payment");
 
 
         date_layout = (TextInputLayout) findViewById(R.id.dateLayout);

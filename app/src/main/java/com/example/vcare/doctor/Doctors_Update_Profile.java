@@ -90,8 +90,8 @@ public class Doctors_Update_Profile extends AppCompatActivity {
 
         firebaseStorage = FirebaseStorage.getInstance();
         databaseReference = firebaseStorage.getReference().child(email);
-        reference_doctor = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
-        reference_user = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users");
+        reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Doctors_Data");
+        reference_user = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users");
         gender_layout = (TextInputLayout) findViewById(R.id.ageLayout);
         gender_view = (AutoCompleteTextView) findViewById(R.id.desTextView);
         gender = getResources().getStringArray(R.array.Gender);

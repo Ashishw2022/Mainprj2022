@@ -37,7 +37,7 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
         pname = (String) getIntent().getSerializableExtra("name");
         Questions = (String) getIntent().getSerializableExtra("Questions");
         phone = (String) getIntent().getSerializableExtra("phone");
-        feedback = FirebaseDatabase.getInstance("https://vcaredb-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Feedback");
+        feedback = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Doctors_Feedback");
         Quest = findViewById(R.id.detaildesc_ques);
         name = findViewById(R.id.detailhead);
         date_booked = findViewById(R.id.detail_date);
