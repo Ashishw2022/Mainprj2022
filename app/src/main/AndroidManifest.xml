@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.vcare">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.stepcounter"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.stepdetector"
+        android:required="true" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Vcare">
+        <activity
+            android:name=".admin.Admin_Dashboard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.Doctors_Add_Admin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.Admin_Available_Appointments"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.Admin_Doctor_Details"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.Admin_FeedBack"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.Admin_User_Details"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.Doctor_admin_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.Useradmin_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.Admin_Show_FeedBack"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".payment.Admin_Payments"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".appointments.Appointments"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".appointments.Patient_Appointments"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".appointments.Patient_Booking_Appointments"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".appointments.Patient_Payment_Appt"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient.Patient_Details_Doctors_Side"
+            android:screenOrientation="portrait" />
+
+
+
+        <activity
+            android:name=".patient.View_All_Speciality"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient.Patient"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient.Available_Doctors"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient.Patient_Display_Doctor"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".doctor.Doctors_View_Profile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".doctor.Doctors_Update_Profile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".doctor.Doctors"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".doctor.Doctor_ChooseSlots"
+            android:screenOrientation="portrait" />
+
+
+
+
+
+
+        <activity
+            android:name=".register.Login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".register.Signup"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".register.ForgotPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

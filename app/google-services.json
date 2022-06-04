@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "69299868838",
+    "firebase_url": "https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "vcare-healthapp",
+    "storage_bucket": "vcare-healthapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69299868838:android:43920729d5b18f534dd067",
+        "android_client_info": {
+          "package_name": "com.example.vcare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "69299868838-o7q8k8nd7k6mmpjgccgk44p16csqevi6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBesGt8lMbWaPsMYBJOY5tG30h5m-0BlNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "69299868838-o7q8k8nd7k6mmpjgccgk44p16csqevi6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
