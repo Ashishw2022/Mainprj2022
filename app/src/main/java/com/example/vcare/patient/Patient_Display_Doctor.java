@@ -57,10 +57,10 @@ public class Patient_Display_Doctor extends AppCompatActivity {
         String name = getIntent().getSerializableExtra("Doctors Name").toString();
         String speciality = getIntent().getSerializableExtra("Speciality").toString();
         encoded_email = email.replace(".", ",");
-        reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Doctors_Data");
-        reference_booking = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Doctors_Chosen_Slots");
+        reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
+        reference_booking = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Chosen_Slots");
         emailid.setText("Email: " + email);
-        DatabaseReference reference_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Patient_Details");
+        DatabaseReference reference_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Details");
         reference_details.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

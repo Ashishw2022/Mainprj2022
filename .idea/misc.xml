@@ -8,6 +8,7 @@
         <entry key="..\:/Mainproject_2022/app/src/main/res/font/goblin_one.xml" value="0.11851851851851852" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_admin.xml" value="0.25052083333333336" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_admin_.xml" value="0.11041666666666666" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_admin_user_details.xml" value="0.25052083333333336" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_appointments.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_available__doctors.xml" value="0.11302083333333333" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_choose_slots.xml" value="0.11302083333333333" />
@@ -30,6 +31,7 @@
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/dropdown_gender.xml" value="0.25052083333333336" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/row_previous.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/slider_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/udata.xml" value="0.25052083333333336" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/update_password.xml" value="0.22327898550724637" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/menu/admin_menu.xml" value="0.25052083333333336" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/menu/patient_menu.xml" value="0.25416666666666665" />

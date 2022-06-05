@@ -149,7 +149,7 @@ public class Admin_Payments_Current extends Fragment {
                                                     Appointment_notif appointment_notif = new Appointment_notif("1", payment_class.getDate(), payment_class.getTime(), ques, payment_class.getPhone(), payment_class.getName());
                                                     reference_doctor_appt.child(encoded_email).child(payment_class.getDate()).child(payment_class.getTime()).setValue(appointment_notif);
                                                     String check = payment_class.getTime().split(" - ", 5)[0];
-                                                    Booking_Appointments booking = new Booking_Appointments(1, payment_class.getPhone());
+                                                    Booking_Appointments booking = new Booking_Appointments(1, payment_class.getEmail());
                                                     reference_booking.child(encoded_email).child(payment_class.getDate()).addListenerForSingleValueEvent(new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -39,7 +39,7 @@ import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 public class Patient_Booking_Appointments extends AppCompatActivity {
-    private String phone,email,date_val,chosen_time="",question_data,fees;
+    private String phone,email,date_val,chosen_time="",question_data,fees,bookemail_id;
     private TextView doctor_name, speciality;
     private HorizontalCalendar horizontalCalendar;
     private DatabaseReference reference_user, reference_doctor, reference_booking, reference_patient, reference_details, reference_doctor_appt, reference_payment;
@@ -77,7 +77,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
         email = getIntent().getSerializableExtra("Email ID").toString();
         email = email.replace(".", ",");
         Patient_Session_Management session = new Patient_Session_Management(Patient_Booking_Appointments.this);
-        phone = session.getSession();
+        bookemail_id = session.getSession();
         isresumed = true;
         reference_booking = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Chosen_Slots");
         reference_patient = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Chosen_Slots");
@@ -286,7 +286,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
                 }
 
                 String check = chosen_time.split(" - ", 5)[0];
-                Booking_Appointments booking_appointments = new Booking_Appointments(1, phone);
+                Booking_Appointments booking_appointments = new Booking_Appointments(1, bookemail_id);
                 String slot_val="";
                 for(String item: set_timeSlot){
                     int s = Integer.parseInt(item.split(" - ",5)[0]);
@@ -299,7 +299,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
                     }
                 }
 
-                Booking_Appointments booking = new Booking_Appointments(1, phone);
+                Booking_Appointments booking = new Booking_Appointments(1, bookemail_id);
                 String finalSlot_val = slot_val;
                 reference_booking.child(email).child(date_val).child(slot_val).child(check).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -340,7 +340,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
 
 
 
-//                Appointment_notif appointment_notif = new Appointment_notif("", date_val, chosen_time, question_data, phone, pname);
+//                Appointment_notif appointment_notif = new Appointment_notif("", date_val, chosen_time, question_data, bookemail_id, pname);
 //                reference_doctor_appt.child(email).child(date_val).child(chosen_time).setValue(appointment_notif);
 
 

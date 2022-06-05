@@ -65,8 +65,8 @@ public class Admin_Doctor_Details extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 if (datasnapshot.exists()) {
-                    String status = datasnapshot.child("status").getValue(String.class);
-                    if(status.equals("offline")){
+                    String status = datasnapshot.child("u_active").getValue(String.class);
+                    if(status.equals("0")){
                         disablebtn.setVisibility(View.GONE);
                         enablebtn.setVisibility(View.VISIBLE);
                     }else{
@@ -138,7 +138,7 @@ public class Admin_Doctor_Details extends AppCompatActivity {
        disablebtn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               reference_status.child(encoded_email).child("status").setValue("offline");
+               reference_status.child(encoded_email).child("u_active").setValue("0");
                disablebtn.setVisibility(View.GONE);
                enablebtn.setVisibility(View.VISIBLE);
            }
@@ -146,7 +146,7 @@ public class Admin_Doctor_Details extends AppCompatActivity {
         enablebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reference_status.child(encoded_email).child("status").setValue("online");
+                reference_status.child(encoded_email).child("u_active").setValue("1");
                 enablebtn.setVisibility(View.GONE);
                 disablebtn.setVisibility(View.VISIBLE);
             }

@@ -25,7 +25,7 @@ public class Admin_All_User_Adapter extends RecyclerView.Adapter<Admin_All_User_
     private String speciality;
 
     public Admin_All_User_Adapter(List<User_Profile> listData, List<String> emaildata, Context mContext) {
-        //this.listData = listData;
+        this.listData = listData;
         this.emaildata = emaildata;
         this.mContext = mContext;
     }
@@ -33,13 +33,13 @@ public class Admin_All_User_Adapter extends RecyclerView.Adapter<Admin_All_User_
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.data,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.udata,parent,false);
         ViewHolder viewHolder=new ViewHolder(view);
         return viewHolder;
     }
 
     public void filterList(ArrayList<User_Profile> filterdNames) {
-       // this.listData = filterdNames;
+        this.listData = filterdNames;
         notifyDataSetChanged();
     }
 
@@ -49,7 +49,7 @@ public class Admin_All_User_Adapter extends RecyclerView.Adapter<Admin_All_User_
 
         holder.name.setText(ld.getName());
         holder.emailid.setText(emaildata.get(position));
-//        holder.spec.setText(ld.getType());
+        holder.phn.setText(ld.getPhMain());
 //        if(ld.getDoc_pic()!=null){
 //            Picasso.with(mContext).load(ld.getDoc_pic().getUrl()).into(holder.doc_image);}
     }
@@ -60,13 +60,13 @@ public class Admin_All_User_Adapter extends RecyclerView.Adapter<Admin_All_User_
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView name,emailid,spec;
+        private TextView name,emailid,phn;
         //ImageView doc_image;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name=(TextView)itemView.findViewById(R.id.nameTextView);
             emailid=(TextView) itemView.findViewById(R.id.emailTextView);
-//            spec=(TextView) itemView.findViewById(R.id.specialityTextView);
+            phn=(TextView) itemView.findViewById(R.id.specialityTextView);
 //            doc_image=(ImageView) itemView.findViewById(R.id.imageView_doc);
         }
     }

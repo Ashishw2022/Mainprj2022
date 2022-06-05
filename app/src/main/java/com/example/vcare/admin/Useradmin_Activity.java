@@ -81,7 +81,7 @@ public class Useradmin_Activity extends AppCompatActivity implements NavigationV
         navigationView.setCheckedItem(R.id.nav_home);
         textView_appointments=findViewById(R.id.textView_appointments);
 
-        final DatabaseReference nm= FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_Data");
+        final DatabaseReference nm= FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_data");
         nm.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

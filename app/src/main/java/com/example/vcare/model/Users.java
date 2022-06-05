@@ -15,6 +15,12 @@ public class Users {
         this.phMain = phMain;
     }
 
+    public Users(String name, String email,String phMain) {
+        this.name = name;
+        this.email = email;
+        this.phMain = phMain;
+    }
+
     public String getName() {
         return name;
     }

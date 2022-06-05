@@ -23,7 +23,9 @@ import com.example.vcare.doctor.Doctor_Email_Id;
 //import com.example.vcare.doctor.Doctors;
 import com.example.vcare.doctor.Doctors;
 import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.model.Patient_email_id;
 import com.example.vcare.patient.Patient;
+import com.example.vcare.patient.Patient_Session_Management;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -94,6 +96,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         String emailMain = editTextEmailMain.getText().toString().trim();
         String passwordMain = editTextPasswordMain.getText().toString().trim();
         encoded_email = EncodeString(emailMain);
+
         if (emailMain.isEmpty()) {
             editTextEmailMain.setError("Email is a required field !");
             editTextEmailMain.requestFocus();
@@ -115,15 +118,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
+
         myAuth.signInWithEmailAndPassword(emailMain, passwordMain).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 if (task.isSuccessful()) {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user.isEmailVerified()) {
-
-
-
                         databaseReference.child(encoded_email).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -134,14 +137,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                                         String usertype = dataSnapshot.child("user_type").getValue(String.class);
                                         if (usertype.equals("Doctor")) {
-
+                                            flag=0;
+                                            /*if (flag == 0) {
+                                                showChangePasswordDialog();
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                            }*/
                                             Doctor_Email_Id doctor_email_id = new Doctor_Email_Id(emailMain, "Doctor");
                                             Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Login.this);
                                             doctors_session_mangement.saveDoctorSession(doctor_email_id);
+                                            Patient_email_id patient = new Patient_email_id(encoded_email);
+                                            Patient_Session_Management session_management = new Patient_Session_Management(Login.this);
+                                            session_management.saveSession(patient);
                                             startActivity(new Intent(Login.this, Doctors.class));
                                             progressBar.setVisibility(View.INVISIBLE);
                                         } else if (usertype.equals("user")) {
-                                            flag = 2;
+
                                             Doctor_Email_Id doctor_email_id = new Doctor_Email_Id(emailMain, "user");
                                             Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Login.this);
                                             doctors_session_mangement.saveDoctorSession(doctor_email_id);
@@ -171,10 +181,31 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         });
                         progressBar.setVisibility(View.INVISIBLE);
 
-                    } else if (flag == 0) {
-                        showChangePasswordDialog();
-                        progressBar.setVisibility(View.INVISIBLE);
+                     }else if (flag == 0) {
+                        databaseReference.child(encoded_email).addValueEventListener(new ValueEventListener() {
+
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String usertype = snapshot.child("user_type").getValue(String.class);
+                                if(usertype.equalsIgnoreCase("Doctor")) {
+                                    showChangePasswordDialog();
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }else{
+                                    user.sendEmailVerification();
+                                    flag =3;
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
+
+
                     else if(flag==2)
                     {
                         progressBar.setVisibility(View.INVISIBLE);

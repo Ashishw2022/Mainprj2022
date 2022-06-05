@@ -135,7 +135,26 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                         if(task.isSuccessful())
                         {
                             Users user = new Users(lname,emailMain,"offline", "user","1",phMain);//1 active,0 inactive
+
                             String encodedemail = EncodeString(emailMain);
+                            Users user_data = new Users(lname,emailMain,phMain);
+                            FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_data")
+                                    .child(encodedemail)
+                                    .setValue(user_data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful())
+                                    {    progressBar.setVisibility(View.INVISIBLE);
+                                      //  Toast.makeText(Signup.this,"User has been registered successfully !",Toast.LENGTH_LONG).show();
+                                        //firebaseAuth.signOut();
+                                        // startActivity(new Intent(Signup.this, Login.class));
+                                    }
+                                    else
+                                    {   progressBar.setVisibility(View.INVISIBLE);
+                                    //    Toast.makeText(Signup.this,"Failed to Register. User already exists !",Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
                             FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users")
                                     .child(encodedemail)
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -153,6 +172,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                                     }
                                 }
                             });
+
                         }
                         else
                         {   progressBar.setVisibility(View.INVISIBLE);

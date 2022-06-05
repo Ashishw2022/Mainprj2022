@@ -3,7 +3,7 @@ package com.example.vcare.patient;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.vcare.model.Patient_Phone_No;
+import com.example.vcare.model.Patient_email_id;
 
 public class Patient_Session_Management {
     private SharedPreferences sharedPreferences;
@@ -16,10 +16,13 @@ public class Patient_Session_Management {
         editor=sharedPreferences.edit();
     }
 
-    public  void saveSession(Patient_Phone_No patientPhoneNo){
+    public  void saveSession(Patient_email_id patient){
 
-        String phone_no= patientPhoneNo.getPhone_no();
-        editor.putString(SESSION_KEY,phone_no).commit();
+        String phone_no= patient.getPhone_no();
+        String email= patient.getEmail_id();
+        editor.putString(SESSION_KEY,email);
+      //  editor.putString(SESSION_KEY,phone_no);
+        editor.commit();
 
     }
 

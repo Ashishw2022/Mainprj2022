@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Patient_Payment_Appt extends AppCompatActivity {
 
-    private String check,date_val,fees,phone,email,chosen_time,question_data,pname,slot_val,fees_val;
+    private String check,date_val,fees,phone,email,chosen_time,question_data,pname,slot_val,fees_val,bookemail_id;
     private TextView fees_show;
     private EditText tid;
     private DatabaseReference reference_user, reference_doctor, reference_booking, reference_patient, reference_details, reference_doctor_appt, reference_payment;
@@ -44,7 +44,7 @@ public class Patient_Payment_Appt extends AppCompatActivity {
         reference_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Details");
         reference_payment = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Admin_Payment");
         Patient_Session_Management session = new Patient_Session_Management(Patient_Payment_Appt.this);
-        phone = session.getSession();
+        bookemail_id = session.getSession();
         pname = getIntent().getSerializableExtra("pname").toString();
         email = getIntent().getSerializableExtra("email").toString();
         chosen_time = getIntent().getSerializableExtra("chosen_time").toString();
@@ -84,18 +84,18 @@ public class Patient_Payment_Appt extends AppCompatActivity {
                         if(snapshot.exists()) {
                             int count = snapshot.getValue(Integer.class);
                             count = count + 1;
-                            Booking_Appointments booking_appointments = new Booking_Appointments(1, phone);
+                            Booking_Appointments booking_appointments = new Booking_Appointments(1, bookemail_id);
                             reference_booking.child(email).child(date_val).child(slot_val).child(check).setValue(booking_appointments);
                             reference_booking.child(email).child(date_val).child(finalSlot_val).child("Count").setValue(count);
                             Patient_Chosen_Slot_Class patient = new Patient_Chosen_Slot_Class(chosen_time, 0, question_data, pname, 0,transactionid);
-                            reference_patient.child(phone).child(email).child(date_val).child(chosen_time).setValue(patient);
+                            reference_patient.child(bookemail_id).child(email).child(date_val).child(chosen_time).setValue(patient);
                             reference_doctor.child(email).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     if (snapshot.exists()) {
                                         String dname = snapshot.getValue(String.class);
-                                        Admin_Payment_Class payment = new Admin_Payment_Class(transactionid, dname, email, phone, pname, 0, date_val, chosen_time, 0);
-                                        reference_payment.child("Payment0").child(phone).child(date_val).child(chosen_time).setValue(payment);
+                                        Admin_Payment_Class payment = new Admin_Payment_Class(transactionid, dname, email, bookemail_id, pname, 0, date_val, chosen_time, 0);
+                                        reference_payment.child("Payment0").child(bookemail_id).child(date_val).child(chosen_time).setValue(payment);
                                         Toast.makeText(Patient_Payment_Appt.this, "Payment Done! Please Wait for Confirmation!", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(Patient_Payment_Appt.this, Patient.class));
                                     }
@@ -129,8 +129,8 @@ public class Patient_Payment_Appt extends AppCompatActivity {
 //                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                        if(snapshot.exists()){
 //                            String dname = snapshot.getValue(String.class);
-//                            Admin_Payment_Class payment = new Admin_Payment_Class(transactionid, dname, email, phone, pname, 0, date_val, chosen_time, 0);
-//                            reference_payment.child("Payment0").child(phone).child(date_val).child(chosen_time).setValue(payment);
+//                            Admin_Payment_Class payment = new Admin_Payment_Class(transactionid, dname, email, bookemail_id, pname, 0, date_val, chosen_time, 0);
+//                            reference_payment.child("Payment0").child(bookemail_id).child(date_val).child(chosen_time).setValue(payment);
 //                            reference_booking.child(email).child(date_val).child(finalSlot_val).child("Count").addListenerForSingleValueEvent(new ValueEventListener() {
 //                                @Override
 //                                public void onDataChange(@NonNull DataSnapshot snapshot) {
