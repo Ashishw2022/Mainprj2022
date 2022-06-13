@@ -23,6 +23,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static java.net.HttpURLConnection.HTTP_OK;
+
 public class Doctors_Add_Admin extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -62,7 +74,9 @@ public class Doctors_Add_Admin extends AppCompatActivity {
         String fullName = editTextFullName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
-
+        String frommail="vcarehealthapp@gmail.com";
+        String subject="New Doctor account credentials";
+        String message="\nemail"+email+"\npassword"+password;
         if(fullName.isEmpty())
         {
             editTextFullName.setError("Full Name is a required field !");
@@ -119,10 +133,11 @@ public class Doctors_Add_Admin extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful())
                                     {    progressBar.setVisibility(View.INVISIBLE);
+
                                         Toast.makeText(Doctors_Add_Admin.this,"Doctor has been registered successfully !",Toast.LENGTH_LONG).show();
 //                                       mAuth.signOut();
 //                                        startActivity(new Intent(Doctors_Add_Admin.this,DoctorsLogin.class));
-                                        startActivity(getSendEmailIntent(Doctors_Add_Admin.this,email,"Doctor Added","your name is added as doctor"));
+                                        //startActivity((Doctors_Add_Admin.this,"Doctor Added","your name is added as doctor"))
                                     }
                                     else
                                     {   progressBar.setVisibility(View.INVISIBLE);
@@ -130,6 +145,27 @@ public class Doctors_Add_Admin extends AppCompatActivity {
                                     }
                                 }
                             });
+                            RetrofitClient.getInstance()
+                                    .getApi()
+                                    .sendEmail(frommail,email, subject, message)
+                                    .enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                            if (response.code() == HTTP_OK) {
+                                                try {
+                                                    JSONObject obj = new JSONObject(response.body().string());
+                                                    Toast.makeText(Doctors_Add_Admin.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                                                } catch (JSONException | IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                            Toast.makeText(Doctors_Add_Admin.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    });
                         }
                         else
                         {   progressBar.setVisibility(View.INVISIBLE);
@@ -137,60 +173,6 @@ public class Doctors_Add_Admin extends AppCompatActivity {
                         }
                     }
                 });
-    }
-
-    public Intent getSendEmailIntent(Context context, String email, String subject, String body) {
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-        try {
-
-            // Explicitly only use Gmail to send
-            emailIntent.setClassName("com.google.android.gm",
-                    "com.google.android.gm.ComposeActivityGmail");
-
-            emailIntent.setType("text/html");
-
-            // Add the recipients
-            if (email != null)
-                emailIntent.putExtra(Intent.EXTRA_EMAIL,
-                        new String[] { email });
-
-            if (subject != null)
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT,
-                        subject);
-
-            if (body != null)
-                emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(body));
-
-            // Add the attachment by specifying a reference to our custom
-            // ContentProvider
-            // and the specific file of interest
-            // emailIntent.putExtra(
-            // Intent.EXTRA_STREAM,
-            // Uri.parse("content://" + CachedFileProvider.AUTHORITY + "/"
-            // + fileName));
-
-            return emailIntent;
-            //          myContext.startActivity(emailIntent);
-        } catch (Exception e) {
-            emailIntent.setType("text/html");
-
-            // Add the recipients
-            if (email != null)
-                emailIntent.putExtra(Intent.EXTRA_EMAIL,
-                        new String[] { email });
-
-            if (subject != null)
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT,
-                        subject);
-
-            if (body != null)
-                emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(body));
-
-            //          myContext.startActivity(Intent.createChooser(emailIntent,
-            //                  "Share Via"));
-            return emailIntent;
-        }
     }
     public static String EncodeString(String string) {
         return string.replace(".", ",");

@@ -29,9 +29,9 @@
             android:title="Chats" />
 
         <item
-            android:id="@+id/step"
+            android:id="@+id/diseasepred"
             android:icon="@drawable/ic_baseline_health"
-            android:title="PhyziHealth" />
+            android:title="Predico" />
 
 
         <item

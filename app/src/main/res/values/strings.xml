@@ -9,6 +9,17 @@
     <string name="nav_drawer_open">Open Navigation Drawer</string>
     <string name="nav_drawer_close">Close Navigation Drawer</string>
 
+    <string name="account_info_btn_done">Done</string>
+    <string name="account_info_txt_title">Personal Information</string>
+    <string name="account_info_doctor_experience">Experience (Year)</string>
+    <string name="account_info_doctor_experience_format">&lt;b>Experience:&lt;/b>   %1$s year(s)</string>
+    <string name="account_info_doctor_specialization">Specialization</string>
+    <string name="account_info_doctor_specialization_format">&lt;b>Specialization:&lt;/b>  %1$s</string>
+    <string name="account_info_doctor_description">Short description</string>
+    <string name="account_info_doctor_description_format">&lt;b>Short description: &lt;/b>  %1$s</string>
+    <string name="account_info_doctor_txt_title">Doctor Information</string>
+    <string name="account_info_txt_subtitle">Please fill in your personal information</string>
+
     <string-array name="Speciality">
         <item>Infectious Disease</item>
         <item>Dermatology &amp; Venereology</item>

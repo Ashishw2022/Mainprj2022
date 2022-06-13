@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.vcare">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,6 +15,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
         android:required="true" />
@@ -23,6 +25,7 @@
     <uses-feature
         android:name="android.hardware.sensor.stepdetector"
         android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -30,6 +33,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Vcare">
+        <activity
+            android:name=".PatientDashboard"
+            android:exported="false" />
         <activity
             android:name=".admin.Admin_Dashboard"
             android:screenOrientation="portrait" />
@@ -60,12 +66,9 @@
         <activity
             android:name=".payment.Admin_Payments"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name=".appointments.Appointments"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".appointments.Patient_Appointments"
             android:screenOrientation="portrait" />
@@ -78,9 +81,6 @@
         <activity
             android:name=".patient.Patient_Details_Doctors_Side"
             android:screenOrientation="portrait" />
-
-
-
         <activity
             android:name=".patient.View_All_Speciality"
             android:screenOrientation="portrait" />
@@ -93,7 +93,6 @@
         <activity
             android:name=".patient.Patient_Display_Doctor"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".doctor.Doctors_View_Profile"
             android:screenOrientation="portrait" />
@@ -106,12 +105,6 @@
         <activity
             android:name=".doctor.Doctor_ChooseSlots"
             android:screenOrientation="portrait" />
-
-
-
-
-
-
         <activity
             android:name=".register.Login"
             android:screenOrientation="portrait" />
@@ -123,8 +116,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

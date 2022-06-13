@@ -25,6 +25,7 @@ import com.example.vcare.appointments.Patient_Appointments;
 import com.example.vcare.doctor.Main_Specialisation;
 import com.example.vcare.doctor.SliderAdapter;
 import com.example.vcare.doctor.Slider_Data;
+import com.example.vcare.predictor.PatientDashboard;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.smarteist.autoimageslider.SliderView;
@@ -164,8 +165,8 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
             case R.id.chats:
              //   startActivity(new Intent(Patient.this, Patient_Chat_Display.class));
                 break;
-            case R.id.step:
-            //   startActivity(new Intent(Patient.this, PhyziHealth.class));
+            case R.id.diseasepred:
+               startActivity(new Intent(Patient.this, PatientDashboard.class));
                 break;
             case R.id.logout:
                 Patient_Session_Management session_management=new Patient_Session_Management(Patient.this);
