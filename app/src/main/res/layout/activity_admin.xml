@@ -20,10 +20,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="100dp"
+            android:orientation="vertical">
 
-            >
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/contact_animation_view2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="admin_dash.json"
+                app:lottie_loop="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"

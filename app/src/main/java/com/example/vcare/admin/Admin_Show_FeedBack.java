@@ -65,7 +65,8 @@ public class Admin_Show_FeedBack extends AppCompatActivity {
                         feedbackText.setText("Satisfied");
                     } else if (rating == 5) {
                         feedbackText.setText("Very Satisfied");
-                    } else {
+                    }
+                    else {
 
                     }
                 }

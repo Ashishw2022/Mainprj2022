@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
+public class  FragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> fragmentList = new ArrayList<>();
     private List<String> stringList = new ArrayList<>();

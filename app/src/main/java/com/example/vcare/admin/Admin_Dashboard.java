@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -25,6 +26,8 @@ public class Admin_Dashboard extends AppCompatActivity implements NavigationView
     private NavigationView navigationView;
     private Toolbar toolbar;
 
+    private Toast backToast;
+    private long backPressedTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +78,32 @@ public class Admin_Dashboard extends AppCompatActivity implements NavigationView
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+
+        if(drawerLayout3.isDrawerOpen(GravityCompat.START))
+        {
+            drawerLayout3.closeDrawer(GravityCompat.START);
+        }
+        else
+        {
+            if(backPressedTime+2000>System.currentTimeMillis())
+            {
+                finishAffinity();
+                backToast.cancel();
+                super.onBackPressed();
+                return;
+            }
+            else
+            {
+                backToast = Toast.makeText(getBaseContext(),"Press Back again to exit",Toast.LENGTH_SHORT);
+                backToast.show();
+            }
+            backPressedTime = System.currentTimeMillis();
+        }
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -83,9 +112,6 @@ public class Admin_Dashboard extends AppCompatActivity implements NavigationView
                 break;
             case R.id.appointment_doc:
                 startActivity(new Intent(this, Admin_Available_Appointments.class));
-                break;
-            case R.id.payment_doc:
-                //startActivity(new Intent(this, Admin_Payments.class));
                 break;
             case R.id.chat:
                 //startActivity(new Intent(Admin.this, Admin_ChatDisplay.class));

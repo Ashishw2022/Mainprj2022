@@ -33,8 +33,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Vcare">
+
         <activity
-            android:name=".PatientDashboard"
+            android:name=".predictor.Result"
+            android:exported="false" />
+        <activity
+            android:name=".predictor.PatientDashboard"
             android:exported="false" />
         <activity
             android:name=".admin.Admin_Dashboard"
@@ -70,13 +74,13 @@
             android:name=".appointments.Appointments"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".appointments.Patient_Appointments"
+            android:name=".patient.Patient_Appointments"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".appointments.Patient_Booking_Appointments"
+            android:name=".patient.Patient_Booking_Appointments"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".appointments.Patient_Payment_Appt"
+            android:name=".patient.Patient_Appointment_Status"
             android:screenOrientation="portrait" />
         <activity
             android:name=".patient.Patient_Details_Doctors_Side"
@@ -92,6 +96,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".patient.Patient_Display_Doctor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".doctor.Doctor_appointment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".register.ForgotPassword"
             android:screenOrientation="portrait" />
         <activity
             android:name=".doctor.Doctors_View_Profile"

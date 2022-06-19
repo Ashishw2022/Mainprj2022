@@ -1,14 +1,14 @@
-package com.example.vcare.payment;
+package com.example.vcare.doctor;
 
-public class Admin_Payment_Class {
+public class Appointment_details {
 
     private String transaction, dname, phone,name, date, time, email;
     private int status, payment;
 
-    public Admin_Payment_Class() {
+    public Appointment_details() {
     }
 
-    public Admin_Payment_Class(String transaction, String dname, String email, String phone, String name, int status, String date, String time, int payment) {
+    public Appointment_details(String transaction, String dname, String email, String phone, String name, int status, String date, String time, int payment) {
         this.transaction = transaction;
         this.dname = dname;
         this.email = email;

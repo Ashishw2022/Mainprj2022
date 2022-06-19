@@ -169,9 +169,6 @@ public class Useradmin_Activity extends AppCompatActivity implements NavigationV
             case R.id.appointment_doc:
                 startActivity(new Intent(this, Admin_Available_Appointments.class));
                 break;
-            case R.id.payment_doc:
-                //startActivity(new Intent(this, Admin_Payments.class));
-                break;
             case R.id.chat:
                 //startActivity(new Intent(Useradmin_Activity.this, Admin_ChatDisplay.class));
                 break;

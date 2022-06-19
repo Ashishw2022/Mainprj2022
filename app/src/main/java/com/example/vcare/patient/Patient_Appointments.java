@@ -1,4 +1,4 @@
-package com.example.vcare.appointments;
+package com.example.vcare.patient;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -43,7 +43,7 @@ public class Patient_Appointments extends AppCompatActivity {
             public void run() {
 
                 fragmentPagerAdapter.addFragment(Patient_PreviousApts.getInstance(),"Previous");
-                fragmentPagerAdapter.addFragment(Patient_CurrentAppts.getInstance(),"Upcoming");
+               fragmentPagerAdapter.addFragment(Patient_CurrentAppts.getInstance(),"Upcoming");
 
                 viewPager.setAdapter(fragmentPagerAdapter);
                 tabLayout.setupWithViewPager(viewPager);

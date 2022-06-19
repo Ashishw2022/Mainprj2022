@@ -1,4 +1,4 @@
-package com.example.vcare.appointments;
+package com.example.vcare.patient;
 
 import android.content.Intent;
 import android.os.Build;
@@ -19,8 +19,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vcare.R;
+import com.example.vcare.appointments.Booking_Appointments;
 import com.example.vcare.doctor.Doctor_Images;
-import com.example.vcare.patient.Patient_Session_Management;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,7 +42,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
     private String phone,email,date_val,chosen_time="",question_data,fees,bookemail_id;
     private TextView doctor_name, speciality;
     private HorizontalCalendar horizontalCalendar;
-    private DatabaseReference reference_user, reference_doctor, reference_booking, reference_patient, reference_details, reference_doctor_appt, reference_payment;
+    private DatabaseReference reference_user, reference_doctor, reference_booking, reference_patient, reference_details, reference_doctor_appt;
     private ArrayList<String> dates;
     private CircleImageView circle_image;
     private Doctor_Images doctor_images;
@@ -63,7 +63,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
         circle_image = (CircleImageView) findViewById(R.id.profile_image);
         doctor_name = (TextView) findViewById(R.id.doctor_name);
         speciality = (TextView) findViewById(R.id.doctor_speciality);
-        tid = (EditText) findViewById(R.id.paymentsinput);
+        //tid = (EditText) findViewById(R.id.paymentsinput);
         reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
         reference_doctor_appt = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Appointments");
         dates = new ArrayList<>();
@@ -72,7 +72,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
         time_view = (AutoCompleteTextView) findViewById(R.id.timeview);
         question = (EditText) findViewById(R.id.questioninput);
         book_app = (Button) findViewById(R.id.book_button);
-        paymentLink = findViewById(R.id.linkPayment);
+        //paymentLink = findViewById(R.id.linkPayment);
         patient_name = (EditText) findViewById(R.id.name_patient_input);
         email = getIntent().getSerializableExtra("Email ID").toString();
         email = email.replace(".", ",");
@@ -82,7 +82,6 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
         reference_booking = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Chosen_Slots");
         reference_patient = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Chosen_Slots");
         reference_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Details");
-        reference_payment = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Admin_Payment");
         reference_doctor.child(email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
@@ -314,7 +313,8 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
                             } else {
                                 Booking_Appointments booking_appointments = new Booking_Appointments(1, "null");
                                 reference_booking.child(email).child(date_val).child(finalSlot_val).child(check).setValue(booking_appointments);
-                                Intent intent = new Intent(Patient_Booking_Appointments.this, Patient_Payment_Appt.class);
+                                Toast.makeText(Patient_Booking_Appointments.this, "The Slot is Booked.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Patient_Booking_Appointments.this, Patient_Appointment_Status.class);
                                 intent.putExtra("pname", pname);
                                 intent.putExtra("email", email);
                                 intent.putExtra("chosen_time", chosen_time);
@@ -322,6 +322,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
                                 intent.putExtra("slot_val", finalSlot_val);
                                 intent.putExtra("date", date_val);
                                 intent.putExtra("fees", fees);
+                                intent.putExtra("check", check);
                                 intent.putExtra("check", check);
                                 startActivity(intent);
                             }

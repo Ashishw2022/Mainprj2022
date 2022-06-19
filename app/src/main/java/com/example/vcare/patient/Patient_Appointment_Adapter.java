@@ -1,4 +1,4 @@
-package com.example.vcare.appointments;
+package com.example.vcare.patient;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
-import com.example.vcare.payment.Admin_Payment_Class;
+import com.example.vcare.doctor.Appointment_details;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,9 +26,9 @@ import java.util.List;
 
 public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Appointment_Adapter.ViewHolder>{
 
-    private List<Admin_Payment_Class> payments;
+    private List<Appointment_details> payments;
 
-    public Patient_Appointment_Adapter(List<Admin_Payment_Class> payments) {
+    public Patient_Appointment_Adapter(List<Appointment_details> payments) {
         this.payments = payments;
     }
 
@@ -42,20 +42,20 @@ public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Ap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Admin_Payment_Class admin_payment_class = payments.get(position);
+        Appointment_details admin_payment_class = payments.get(position);
         holder.name.setText("Booked For: "+ admin_payment_class.getDname());
         holder.transaction.setText("Transaction ID: "+ admin_payment_class.getTransaction());
         holder.date.setText("Date: "+ admin_payment_class.getDate());
         holder.time.setText("Time: "+admin_payment_class.getTime());
         if(admin_payment_class.getPayment() == 0){
-            holder.payment.setText("Payment On Progress");
+            holder.payment.setText("Approval On Progress");
         }
         else if(admin_payment_class.getPayment() == 1){
-            holder.payment.setText("Payment Done!");
+            holder.payment.setText("Approved !");
             holder.payment.setTextColor(Color.GREEN);
         }
         else{
-            holder.payment.setText("Incorrect ID. Payment Declined!");
+            holder.payment.setText("Incorrect ID. Approval Declined!");
         }
         if(admin_payment_class.getStatus() == 2){
             holder.cancel.setText("Appointment Cancelled by Doctor!");
@@ -99,7 +99,7 @@ public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Ap
                     i.putExtra("allDay", false);
                     i.putExtra("endTime", endMillis);
                     //    i.putExtra("description", question_data);
-                    i.putExtra("hasalarm", "true");
+                    i.putExtra("has alarm", "true");
                     i.putExtra("location", "Online Consultation");
                     i.putExtra("title", "Phyzician Teleconsultation Appointment");
                     holder.itemView.getContext().startActivity(i);
@@ -128,7 +128,7 @@ public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Ap
         return payments.size();
     }
 
-    public void filterList(ArrayList<Admin_Payment_Class> filterdNames) {
+    public void filterList(ArrayList<Appointment_details> filterdNames) {
         this.payments = filterdNames;
         notifyDataSetChanged();
     }

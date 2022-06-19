@@ -1,4 +1,4 @@
-package com.example.vcare.payment;
+package com.example.vcare.doctor;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,16 +8,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.vcare.R;
 
 import java.util.ArrayList;
 
-public class Admin_Payment_Show_Adapter extends RecyclerView.Adapter<Admin_Payment_Show_Adapter.ViewHolder> {
+public class Doctor_Appointment_Show_Adapter extends RecyclerView.Adapter<Doctor_Appointment_Show_Adapter.ViewHolder> {
 
-    private ArrayList<Admin_Payment_Class> payments;
+    private ArrayList<Appointment_details> payments;
 
-    public Admin_Payment_Show_Adapter(ArrayList<Admin_Payment_Class> payments){
+    public Doctor_Appointment_Show_Adapter(ArrayList<Appointment_details> payments){
         this.payments = payments;
     }
     @NonNull
@@ -30,7 +29,7 @@ public class Admin_Payment_Show_Adapter extends RecyclerView.Adapter<Admin_Payme
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Admin_Payment_Class p_class = payments.get(position);
+        Appointment_details p_class = payments.get(position);
         holder.name.setText(p_class.getName() + ": " +p_class.getPhone());
         holder.phone.setText("Transaction ID: "+p_class.getTransaction());
         holder.email.setText("Booked for: "+p_class.getDname());
@@ -43,7 +42,7 @@ public class Admin_Payment_Show_Adapter extends RecyclerView.Adapter<Admin_Payme
         return payments.size();
     }
 
-    public void filterList(ArrayList<Admin_Payment_Class> filterdNames) {
+    public void filterList(ArrayList<Appointment_details> filterdNames) {
         this.payments=filterdNames;
         notifyDataSetChanged();
     }

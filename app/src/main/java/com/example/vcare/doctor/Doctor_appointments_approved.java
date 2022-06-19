@@ -1,4 +1,4 @@
-package com.example.vcare.payment;
+package com.example.vcare.doctor;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,24 +28,26 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Admin_Payments_Previous extends Fragment {
+public class Doctor_appointments_approved extends Fragment {
 
     private RecyclerView recyclerView;
     private FirebaseUser user;
     private DatabaseReference reference;
-    private ArrayList<Admin_Payment_Class> previous_payment;
+    private ArrayList<Appointment_details> previous_payment;
     private String email;
     private Date d1, d2;
-    private Admin_Payment_Show_Adapter adapter;
+    private Doctor_Appointment_Show_Adapter adapter;
     private EditText search;
     private Context mcontext;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-    public Admin_Payments_Previous() {
+
+    public Doctor_appointments_approved() {
 
     }
 
-    public static Admin_Payments_Previous getInstance() {
-        Admin_Payments_Previous previousFragment = new Admin_Payments_Previous();
+    public static Doctor_appointments_approved getInstance() {
+        Doctor_appointments_approved previousFragment = new Doctor_appointments_approved();
 
         return previousFragment;
     }
@@ -61,7 +64,7 @@ public class Admin_Payments_Previous extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.row_previous, container, false);
-
+        user=firebaseAuth.getCurrentUser();
         search = (EditText) view.findViewById(R.id.editTextSearch_previous);
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -85,25 +88,26 @@ public class Admin_Payments_Previous extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         previous_payment = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Admin_Payment");
-        reference.child("Payment1").addValueEventListener(new ValueEventListener() {
+
+        reference = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Appointment");
+        reference.child("appointment_approved").child(user.getEmail().replace(".",",")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     previous_payment = new ArrayList<>();
-                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+                //    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                        for (DataSnapshot snapshot2 : snapshot.getChildren()) {
                             for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                Admin_Payment_Class payment_data = snapshot3.getValue(Admin_Payment_Class.class);
+                                Appointment_details payment_data = snapshot3.getValue(Appointment_details.class);
                                 previous_payment.add(payment_data);
                             }
                         }
-                    }
-                    adapter = new Admin_Payment_Show_Adapter(previous_payment);
+                //    }
+                    adapter = new Doctor_Appointment_Show_Adapter(previous_payment);
                     recyclerView.setAdapter(adapter);
                 } else {
                     if (mcontext != null) {
-                        Toast.makeText(getActivity(), "There are no Completed Payments!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "There are no Completed Appointments!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -118,8 +122,8 @@ public class Admin_Payments_Previous extends Fragment {
 
     private void filter(String text) {
 
-        ArrayList<Admin_Payment_Class> filterdNames = new ArrayList<>();
-        for (Admin_Payment_Class data : previous_payment) {
+        ArrayList<Appointment_details> filterdNames = new ArrayList<>();
+        for (Appointment_details data : previous_payment) {
             //if the existing elements contains the search input
             if (data.getDate().toLowerCase().contains(text.toLowerCase())) {
                 //adding the element to filtered list

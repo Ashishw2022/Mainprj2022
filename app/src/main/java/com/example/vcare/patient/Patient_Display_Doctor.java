@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vcare.R;
-import com.example.vcare.appointments.Patient_Booking_Appointments;
 import com.example.vcare.doctor.Doctor_Images;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

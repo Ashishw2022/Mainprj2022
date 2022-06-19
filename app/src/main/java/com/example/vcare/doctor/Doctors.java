@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
 import com.example.vcare.appointments.Appointment_notif;
-import com.example.vcare.appointments.Appointments;
 import com.example.vcare.appointments.Appointments_Adapter;
 import com.example.vcare.appointments.Retrieve_Appointments;
 import com.example.vcare.register.Login;
@@ -207,7 +206,7 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(new Intent(this, Doctor_ChooseSlots.class));
                 break;
             case R.id.appointment:
-                startActivity(new Intent(this, Appointments.class));
+                startActivity(new Intent(this, Doctor_appointment.class));
                 break;
             case R.id.chats:
             //    startActivity(new Intent(Doctors.this, Doctor_Chat_Display.class));

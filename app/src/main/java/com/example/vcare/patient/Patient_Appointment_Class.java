@@ -1,6 +1,6 @@
-package com.example.vcare.appointments;
+package com.example.vcare.patient;
 
-public class Patient_Appointment_Class {
+public class  Patient_Appointment_Class {
 
     private String dname, email, date, time, specialist;
     private int payment_status, cancelled;

@@ -2,9 +2,7 @@ package com.example.vcare.patient;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,13 +19,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
-import com.example.vcare.appointments.Patient_Appointments;
+import com.example.vcare.doctor.Doctors_Session_Mangement;
 import com.example.vcare.doctor.Main_Specialisation;
 import com.example.vcare.doctor.SliderAdapter;
 import com.example.vcare.doctor.Slider_Data;
 import com.example.vcare.predictor.PatientDashboard;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -37,6 +36,7 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
     private Toast backToast;
     private long backPressedTime;
     private DrawerLayout drawerLayout1;
+    FirebaseAuth mauth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,11 +116,7 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
 
     }
 
-    private void moveToMainpage() {
-        Intent intent=new Intent(Patient.this, Login.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
+
 
     @Override
     public void onBackPressed() {
@@ -169,9 +165,12 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
                startActivity(new Intent(Patient.this, PatientDashboard.class));
                 break;
             case R.id.logout:
-                Patient_Session_Management session_management=new Patient_Session_Management(Patient.this);
-                session_management.removeSession();
-                moveToMainpage();
+                Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Patient.this);
+                doctors_session_mangement.removeSession();
+                FirebaseAuth.getInstance().signOut();
+                Intent intent1 = new Intent(Patient.this, Login.class);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent1);
                 break;
             case R.id.speciality_view_all:
                 startActivity(new Intent(Patient.this,View_All_Speciality.class));

@@ -41,9 +41,9 @@ public class Appointments extends AppCompatActivity {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-
-        fragmentPagerAdapter.addFragment(PreviousFragment.getInstance(),"Previous");
-        fragmentPagerAdapter.addFragment(CurrentFragment.getInstance(),"Current");
+//
+       fragmentPagerAdapter.addFragment(PreviousFragment.getInstance(),"Previous");
+       fragmentPagerAdapter.addFragment(CurrentFragment.getInstance(),"Current");
 
         viewPager.setAdapter(fragmentPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

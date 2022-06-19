@@ -57,7 +57,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_doctors_login);
+
 
         signIn = (Button) findViewById(R.id.loginButton);
         signIn.setOnClickListener(this);
@@ -73,7 +75,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         newuser = (TextView) findViewById(R.id.newuser);
         newuser.setOnClickListener(this);
         databaseReference = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users");
-
+        checkDoctorSession();
     }
 
     @Override
@@ -132,7 +134,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
                                     String status = dataSnapshot.child("u_active").getValue(String.class);
-                                    if(status.equals("1"))
+                                    if(user!=null) {
+
+                                        if(status.equals("1"))
                                     {
 
                                         String usertype = dataSnapshot.child("user_type").getValue(String.class);
@@ -170,7 +174,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     {
                                         Toast.makeText(Login.this, " Account Disabled  ", Toast.LENGTH_SHORT).show();
 
-                                    }
+                                    }}
                                 }
 //
                             }
@@ -289,6 +293,37 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    private void checkDoctorSession() {
+
+        Doctors_Session_Mangement doctors_session_mangement=new Doctors_Session_Mangement(Login.this);
+        String isDoctorLoggedin[] =doctors_session_mangement.getDoctorSession();
+        if(!isDoctorLoggedin[0].equals("-1")){
+            moveToDoctorActivity();
+        }
+
+    }
+
+    private void moveToDoctorActivity() {
+        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Login.this);
+        String type[] = doctors_session_mangement.getDoctorSession();
+
+
+        if(type[1].equals("Doctor")){
+            Intent intent = new Intent(Login.this, Doctors.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        else if (type[1].equals("Admin")){
+            Intent intent = new Intent(Login.this, Admin_Dashboard.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        else if (type[1].equals("user")){
+            Intent intent = new Intent(Login.this, Patient.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+    }
 
     public static String EncodeString(String string) {
         return string.replace(".", ",");

@@ -85,6 +85,22 @@ public class Admin_Doctor_Details extends AppCompatActivity {
 
             }
         });
+        disablebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reference_status.child(encoded_email).child("u_active").setValue("0");
+                disablebtn.setVisibility(View.GONE);
+                enablebtn.setVisibility(View.VISIBLE);
+            }
+        });
+        enablebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reference_status.child(encoded_email).child("u_active").setValue("1");
+                enablebtn.setVisibility(View.GONE);
+                disablebtn.setVisibility(View.VISIBLE);
+            }
+        });
         reference_doctor.child(encoded_email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
@@ -135,22 +151,7 @@ public class Admin_Doctor_Details extends AppCompatActivity {
         });
 
 
-       disablebtn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               reference_status.child(encoded_email).child("u_active").setValue("0");
-               disablebtn.setVisibility(View.GONE);
-               enablebtn.setVisibility(View.VISIBLE);
-           }
-       });
-        enablebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reference_status.child(encoded_email).child("u_active").setValue("1");
-                enablebtn.setVisibility(View.GONE);
-                disablebtn.setVisibility(View.VISIBLE);
-            }
-        });
+
 
 
 

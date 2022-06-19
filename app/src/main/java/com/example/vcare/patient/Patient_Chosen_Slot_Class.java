@@ -1,4 +1,4 @@
-package com.example.vcare.appointments;
+package com.example.vcare.patient;
 
 public class Patient_Chosen_Slot_Class {
     private String time;

@@ -38,7 +38,7 @@ public class Doctor_ChooseSlots extends AppCompatActivity {
     private ArrayList<String> dates, start_time1, end_time1, start_time, end_time, date_slot;
     private ArrayAdapter<String> date_adapter, start_adapter, end_adapter;
     private String chosen_date = "";
-    private DatabaseReference reference_user, reference_doctor, reference_booking, reference_token, reference_patient, reference_payment, reference_details, reference_appt;
+    private DatabaseReference reference_user, reference_doctor, reference_booking, reference_token, reference_patient, reference_payment, reference_details, reference_appt,reference_appointment;
     private String start_data = "", end_data = "", email;
     private StorageReference databaseReference;
     private FirebaseStorage firebaseStorage;
@@ -49,7 +49,7 @@ public class Doctor_ChooseSlots extends AppCompatActivity {
     private int start = 0, end = 0;
     private RequestQueue mRequestQue;
     private ArrayList<Integer> count;
-
+// doctor choose slot
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,21 +63,22 @@ public class Doctor_ChooseSlots extends AppCompatActivity {
 //        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //        email = user.getEmail();
 //        email = email.replace(".",",");
-
+//session mangmen
         Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
         email = doctors_session_mangement.getDoctorSession()[0].replace(".", ",");
         Toast.makeText(Doctor_ChooseSlots.this, "Swipe to cancel the slots from the chosen!", Toast.LENGTH_LONG).show();
         firebaseStorage = FirebaseStorage.getInstance();
 
         databaseReference = firebaseStorage.getReference().child(email);
+        //firebase db
         reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
         reference_appt = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Appointments");
         reference_user = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users");
         reference_booking = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Chosen_Slots");
-        reference_token = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Tokens");
+       reference_token = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Tokens");
         reference_patient = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Chosen_Slots");
         reference_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Details");
-        reference_payment = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Admin_Payment");
+       reference_appointment = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Appointment");
 
 
         date_layout = (TextInputLayout) findViewById(R.id.dateLayout);
@@ -307,7 +308,7 @@ public class Doctor_ChooseSlots extends AppCompatActivity {
                                                             slot = datasnap.getKey() + " - " + (start + 1) + ":00";
                                                         }
                                                         Booking_Appointments appts = datasnap.getValue(Booking_Appointments.class);
-                                                        String bookedemail_id = appts.getEmail();
+                                                        String bookedemail_id = appts.getEmail().replace(".",",");
                                                         if (!bookedemail_id.equals("null")) {
                                                             reference_patient.child(bookedemail_id).child(email).child(date).child(slot).child("status").setValue(2);
                                                             reference_appt.child(email).child(date).child(slot).child("appointment_text").setValue("2");
@@ -317,9 +318,9 @@ public class Doctor_ChooseSlots extends AppCompatActivity {
                                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                                     int value = snapshot.child("payment").getValue(Integer.class);
                                                                     if (value == 1) {
-                                                                        reference_payment.child("Payment1").child(bookedemail_id).child(date).child(finalSlot).child("status").setValue(2);
+                                                                        reference_appointment.child("appointment_approved").child(bookedemail_id).child(date).child(finalSlot).child("status").setValue(2);
                                                                     } else {
-                                                                        reference_payment.child("Payment0").child(bookedemail_id).child(date).child(finalSlot).child("status").setValue(2);
+                                                                        reference_appointment.child("waiting_approval").child(bookedemail_id).child(date).child(finalSlot).child("status").setValue(2);
                                                                     }
                                                                 }
 
