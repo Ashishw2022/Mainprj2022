@@ -14,6 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.vcare.R;
 import com.example.vcare.appointments.Booking_Appointments;
 import com.example.vcare.doctor.Appointment_details;
+import com.example.vcare.model.Users;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,11 +32,14 @@ public class Patient_Appointment_Status extends AppCompatActivity {
     private DatabaseReference reference_user, reference_doctor, reference_booking, reference_patient, reference_details, reference_doctor_appt, reference_appointment;
     private Button pay_app;
     private TextView timeslot;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_apppointment_status);
+        firebaseAuth=FirebaseAuth.getInstance();
         reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
         reference_doctor_appt = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Appointments");
         reference_booking = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Chosen_Slots");
@@ -54,6 +60,8 @@ public class Patient_Appointment_Status extends AppCompatActivity {
         timeslot = (TextView) findViewById(R.id.timeslot);
         name.setText(pname);
         timeslot.setText(chosen_time );
+        firebaseUser=firebaseAuth.getCurrentUser();
+        Users obj=new Users();
 
 
         String finalSlot_val = slot_val;
@@ -68,14 +76,14 @@ public class Patient_Appointment_Status extends AppCompatActivity {
                     reference_booking.child(email).child(date_val).child(slot_val).child(check).setValue(booking_appointments);
                     reference_booking.child(email).child(date_val).child(finalSlot_val).child("Count").setValue(count);
                     Patient_Chosen_Slot_Class patient = new Patient_Chosen_Slot_Class(chosen_time, 0, question_data, pname, 0,"");
-                    reference_patient.child(bookemail_id).child(email).child(date_val).child(chosen_time).setValue(patient);
+                    reference_patient.child(email).child(date_val).child(chosen_time).setValue(patient);
                     reference_doctor.child(email).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
                                 String dname = snapshot.getValue(String.class);
-                                Appointment_details payment = new Appointment_details("transactionid", dname, email, phone, pname, 0, date_val, chosen_time, 0);
-                                reference_appointment.child("waiting_approval").child(bookemail_id).child(date_val).child(chosen_time).setValue(payment);
+                                Appointment_details payment = new Appointment_details("transactionid", dname, email.replace(".",","),firebaseUser.getEmail().replace(",","."),"", pname, 0, date_val, chosen_time, 0);
+                                reference_appointment.child("waiting_approval").child(email).child(date_val).child(chosen_time).setValue(payment);
                             }
                         }
                         @Override

@@ -26,10 +26,10 @@ import java.util.List;
 
 public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Appointment_Adapter.ViewHolder>{
 
-    private List<Appointment_details> payments;
+    private List<Appointment_details> appointments;
 
-    public Patient_Appointment_Adapter(List<Appointment_details> payments) {
-        this.payments = payments;
+    public Patient_Appointment_Adapter(List<Appointment_details> appointments) {
+        this.appointments = appointments;
     }
 
     @NonNull
@@ -42,9 +42,9 @@ public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Ap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Appointment_details admin_payment_class = payments.get(position);
+        Appointment_details admin_payment_class = appointments.get(position);
         holder.name.setText("Booked For: "+ admin_payment_class.getDname());
-        holder.transaction.setText("Transaction ID: "+ admin_payment_class.getTransaction());
+        holder.transaction.setText("Token ID: "+ admin_payment_class.getTransaction());
         holder.date.setText("Date: "+ admin_payment_class.getDate());
         holder.time.setText("Time: "+admin_payment_class.getTime());
         if(admin_payment_class.getPayment() == 0){
@@ -125,11 +125,11 @@ public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Ap
 
     @Override
     public int getItemCount() {
-        return payments.size();
+        return appointments.size();
     }
 
     public void filterList(ArrayList<Appointment_details> filterdNames) {
-        this.payments = filterdNames;
+        this.appointments = filterdNames;
         notifyDataSetChanged();
     }
 

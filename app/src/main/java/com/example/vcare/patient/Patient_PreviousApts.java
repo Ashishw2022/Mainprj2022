@@ -40,6 +40,7 @@ public class Patient_PreviousApts extends Fragment {
     private Date d1, d2;
     private Patient_Appointment_Adapter adapter;
     private EditText search;
+    private Context context;
 
     public Patient_PreviousApts(){
 
@@ -55,6 +56,8 @@ public class Patient_PreviousApts extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        this.context=context;
+
     }
 
 
@@ -150,7 +153,7 @@ public class Patient_PreviousApts extends Fragment {
                             }
                         }
                         if(previous_appt.size() == 0){
-                            Toast.makeText(getActivity(), "There are no Previous Appointments!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "There are no Previous Appointments!", Toast.LENGTH_SHORT).show();
                         }
 
                         adapter = new Patient_Appointment_Adapter(previous_appt);

@@ -2,16 +2,18 @@ package com.example.vcare.doctor;
 
 public class Appointment_details {
 
-    private String transaction, dname, phone,name, date, time, email;
+    private String transaction, dname, phone,name, date, time, email,pemail;
     private int status, payment;
 
     public Appointment_details() {
     }
 
-    public Appointment_details(String transaction, String dname, String email, String phone, String name, int status, String date, String time, int payment) {
+    public Appointment_details(String transaction, String dname, String email,String pemail,String phone, String name, int status, String date, String time, int payment) {
         this.transaction = transaction;
         this.dname = dname;
         this.email = email;
+        this.pemail = pemail;
+
         this.phone = phone;
         this.name = name;
         this.status = status;
@@ -90,5 +92,13 @@ public class Appointment_details {
 
     public void setPayment(int payment) {
         this.payment = payment;
+    }
+
+    public String getPemail() {
+        return pemail;
+    }
+
+    public void setPemail(String pemail) {
+        this.pemail = pemail;
     }
 }

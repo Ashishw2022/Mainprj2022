@@ -33,7 +33,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Vcare">
-
+        <activity
+            android:name=".Patient_home"
+            android:exported="false" />
         <activity
             android:name=".predictor.Result"
             android:exported="false" />
@@ -66,9 +68,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".admin.Admin_Show_FeedBack"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".payment.Admin_Payments"
             android:screenOrientation="portrait" />
         <activity
             android:name=".appointments.Appointments"
@@ -120,9 +119,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".register.Signup"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".register.ForgotPassword"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
