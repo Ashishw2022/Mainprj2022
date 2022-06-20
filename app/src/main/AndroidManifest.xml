@@ -33,8 +33,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Vcare">
+
         <activity
-            android:name=".Patient_home"
+            android:name=".news.news"
+            android:exported="false" />
+        <activity
+            android:name=".news.WebViewActivity"
             android:exported="false" />
         <activity
             android:name=".predictor.Result"
@@ -71,6 +75,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".appointments.Appointments"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".patient.Patient_home"
             android:screenOrientation="portrait" />
         <activity
             android:name=".patient.Patient_Appointments"

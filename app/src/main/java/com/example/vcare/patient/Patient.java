@@ -23,6 +23,7 @@ import com.example.vcare.doctor.Doctors_Session_Mangement;
 import com.example.vcare.doctor.Main_Specialisation;
 import com.example.vcare.doctor.SliderAdapter;
 import com.example.vcare.doctor.Slider_Data;
+import com.example.vcare.news.news;
 import com.example.vcare.predictor.PatientDashboard;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
@@ -148,7 +149,7 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                startActivity(new Intent(this, Patient.class));
+                startActivity(new Intent(this, Patient_home.class));
                 break;
             case R.id.doctors:
                 Intent intent=new Intent(Patient.this,Available_Doctors.class);
@@ -158,8 +159,8 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
             case R.id.appointments:
                 startActivity(new Intent(Patient.this, Patient_Appointments.class));
                 break;
-            case R.id.chats:
-             //   startActivity(new Intent(Patient.this, Patient_Chat_Display.class));
+            case R.id.news:
+                startActivity(new Intent(Patient.this, news.class));
                 break;
             case R.id.diseasepred:
                startActivity(new Intent(Patient.this, PatientDashboard.class));
