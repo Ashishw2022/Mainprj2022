@@ -99,21 +99,25 @@ public class Doctor_appointments_waiting_approval extends Fragment {
         reference_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Details");
         reference_doctor_appt = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Appointments");
 
-        reference.child("waiting_approval").child(user.getEmail().replace(".",",")).addValueEventListener(new ValueEventListener() {
+        reference.child("waiting_approval").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     current_payment = new ArrayList<>();
                     data_payment = new ArrayList<>();
-                 //   for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         for (DataSnapshot snapshot2 : snapshot.getChildren()) {
                             for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
                                 Appointment_details payment_data = snapshot3.getValue(Appointment_details.class);
-                                current_payment.add(payment_data);
-                                data_payment.add(snapshot3);
+                                if(payment_data.getEmail().equals(user.getEmail().replace(".",",")))
+                                {
+                                    current_payment.add(payment_data);
+                                    data_payment.add(snapshot3);
+                                }
+
                             }
                         }
-                   // }
+                    }
                     adapter = new Doctor_Appointment_Show_Adapter(current_payment);
                     recyclerView.setAdapter(adapter);
 
@@ -133,12 +137,13 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                             int position = viewHolder.getAdapterPosition();
                                             DataSnapshot data = data_payment.get(position);
                                             Appointment_details payment_class = current_payment.get(position);
-                                            reference.child("appointment_approved").child(payment_class.getEmail()).child(payment_class.getDate()).child(payment_class.getTime()).setValue(payment_class);
-                                            reference.child("appointment_approved").child(payment_class.getEmail()).child(payment_class.getDate()).child(payment_class.getTime()).child("payment").setValue(1);
+                                            reference.child("appointment_approved").child(payment_class.getPemail()).child(payment_class.getDate()).child(payment_class.getTime()).setValue(payment_class);
+                                            reference.child("appointment_approved").child(payment_class.getPemail()).child(payment_class.getDate()).child(payment_class.getTime()).child("payment").setValue(1);
                                             data.getRef().removeValue();
-                                            Patient_Details details = new Patient_Details(payment_class.getEmail(), payment_class.getName());
+                                            Patient_Details details = new Patient_Details(payment_class.getPemail().replace(".",","), payment_class.getName());
+                                            //patient email added
                                             String encoded_email = payment_class.getEmail().replace(".", ",");
-                                            reference_details.child(encoded_email).child(payment_class.getEmail()).setValue(details);
+                                            reference_details.child(encoded_email).child(payment_class.getPemail().replace(".",",")).setValue(details);
                                             reference_patient.child(encoded_email).child(payment_class.getDate()).child(payment_class.getTime()).child("payment").setValue(1);
                                             reference_patient.child(encoded_email).child(payment_class.getDate()).child(payment_class.getTime()).child("question").addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
@@ -193,8 +198,8 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                             int position = viewHolder.getAdapterPosition();
                                             DataSnapshot data = data_payment.get(position);
                                             Appointment_details payment_class = current_payment.get(position);
-                                            reference.child("appointment_approved").child(payment_class.getPhone()).child(payment_class.getDate()).child(payment_class.getTime()).setValue(payment_class);
-                                            reference.child("appointment_approved").child(payment_class.getPhone()).child(payment_class.getDate()).child(payment_class.getTime()).child("payment").setValue(2);
+                                            reference.child("appointment_approved").child(payment_class.getPemail()).child(payment_class.getDate()).child(payment_class.getTime()).setValue(payment_class);
+                                            reference.child("appointment_approved").child(payment_class.getPemail()).child(payment_class.getDate()).child(payment_class.getTime()).child("payment").setValue(2);
                                             data.getRef().removeValue();
                                             String encoded_email = payment_class.getEmail().replace(".", ",");
                                             reference_patient.child(payment_class.getPhone()).child(encoded_email).child(payment_class.getDate()).child(payment_class.getTime()).child("appointment").setValue(2);

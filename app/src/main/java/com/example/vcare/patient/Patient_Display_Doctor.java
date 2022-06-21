@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vcare.R;
+import com.example.vcare.chat.Patient_MessageActivity;
 import com.example.vcare.doctor.Doctor_Images;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -66,11 +67,11 @@ public class Patient_Display_Doctor extends AppCompatActivity {
 
                 if (snapshot.exists()) {
                     Patient_Session_Management session = new Patient_Session_Management(Patient_Display_Doctor.this);
-                    String phone = session.getSession();
+                    String email = session.getSession();
 
                     if (snapshot.child(encoded_email).exists()) {
 
-                        if (snapshot.child(encoded_email).child(phone).exists()) {
+                        if (snapshot.child(encoded_email).child(email).exists()) {
                             chat_btn.setVisibility(View.VISIBLE);
                         } else {
                             chat_btn.setVisibility(View.INVISIBLE);
@@ -108,7 +109,7 @@ public class Patient_Display_Doctor extends AppCompatActivity {
 
             }
         });
-
+//set doctor availablity in about page
         doctor_slots.setText("");
         reference_booking.child(encoded_email).child(date_val).addValueEventListener(new ValueEventListener() {
             @Override
@@ -132,7 +133,7 @@ public class Patient_Display_Doctor extends AppCompatActivity {
 
             }
         });
-
+//redirect to booking page
         book_app.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,16 +145,16 @@ public class Patient_Display_Doctor extends AppCompatActivity {
         });
     }
 
-   /* public void current_prescription(View view) {
-        Intent intent = new Intent(Patient_Display_Doctor.this, Patient_side_prescription_recycler.class);
-        intent.putExtra("email", encoded_email);
-        intent.putExtra("dr_name", doctor_name.getText().toString().trim());
-        startActivity(intent);
-    }*/
-
-   /* public void open_chat(View view) {
+//    public void current_prescription(View view) {
+//        Intent intent = new Intent(Patient_Display_Doctor.this, Patient_side_prescription_recycler.class);
+//        intent.putExtra("email", encoded_email);
+//        intent.putExtra("dr_name", doctor_name.getText().toString().trim());
+//        startActivity(intent);
+//    }
+//open chat for doctor and user
+    public void open_chat(View view) {
         Intent intent = new Intent(Patient_Display_Doctor.this, Patient_MessageActivity.class);
         intent.putExtra("email", encoded_email);
         startActivity(intent);
-    }*/
+    }
 }

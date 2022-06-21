@@ -2,22 +2,23 @@ package com.example.vcare.patient;
 
 public class Patient_Details {
 
-    private String phone,name;
+    private String pemail, name;
 
     public Patient_Details() {
     }
 
-    public Patient_Details(String phone, String name) {
-        this.phone = phone;
+
+    public Patient_Details(String pemail, String name) {
+        this.pemail = pemail;
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPemail() {
+        return pemail;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPemail(String pemail) {
+        this.pemail = pemail;
     }
 
     public String getName() {

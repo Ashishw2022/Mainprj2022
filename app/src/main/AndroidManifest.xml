@@ -90,7 +90,7 @@
             android:name=".patient.Patient_Appointment_Status"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".patient.Patient_Details_Doctors_Side"
+            android:name=".doctor.Patient_Details_Doctors_Side"
             android:screenOrientation="portrait" />
         <activity
             android:name=".patient.View_All_Speciality"
@@ -128,6 +128,23 @@
         <activity
             android:name=".register.Signup"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".chat.Doctor_Chat_Display"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".chat.Doctor_MessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".chat.Patient_Chat_Display"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".chat.Patient_MessageActivity"
+            android:screenOrientation="portrait" />
+
+
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

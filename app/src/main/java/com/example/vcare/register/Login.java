@@ -149,9 +149,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                             Doctor_Email_Id doctor_email_id = new Doctor_Email_Id(emailMain, "Doctor");
                                             Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Login.this);
                                             doctors_session_mangement.saveDoctorSession(doctor_email_id);
-                                            Patient_email_id patient = new Patient_email_id(encoded_email);
-                                            Patient_Session_Management session_management = new Patient_Session_Management(Login.this);
-                                            session_management.saveSession(patient);
+
                                             startActivity(new Intent(Login.this, Doctors.class));
                                             progressBar.setVisibility(View.INVISIBLE);
                                         } else if (usertype.equals("user")) {
@@ -159,6 +157,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                             Doctor_Email_Id doctor_email_id = new Doctor_Email_Id(emailMain, "user");
                                             Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Login.this);
                                             doctors_session_mangement.saveDoctorSession(doctor_email_id);
+                                            Patient_email_id patient = new Patient_email_id(encoded_email);
+                                            Patient_Session_Management session_management = new Patient_Session_Management(Login.this);
+                                            session_management.saveSession(patient);
                                             startActivity(new Intent(Login.this, Patient.class));
                                             progressBar.setVisibility(View.INVISIBLE);
                                         } else {

@@ -23,6 +23,7 @@ import com.example.vcare.R;
 import com.example.vcare.appointments.Appointment_notif;
 import com.example.vcare.appointments.Appointments_Adapter;
 import com.example.vcare.appointments.Retrieve_Appointments;
+import com.example.vcare.chat.Doctor_Chat_Display;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -209,7 +210,7 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(new Intent(this, Doctor_appointment.class));
                 break;
             case R.id.chats:
-            //    startActivity(new Intent(Doctors.this, Doctor_Chat_Display.class));
+                startActivity(new Intent(Doctors.this, Doctor_Chat_Display.class));
                 break;
             case R.id.logout:
                 Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Doctors.this);

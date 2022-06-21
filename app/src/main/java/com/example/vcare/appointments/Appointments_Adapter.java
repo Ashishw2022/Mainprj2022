@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
-import com.example.vcare.patient.Patient_Details_Doctors_Side;
+import com.example.vcare.doctor.Patient_Details_Doctors_Side;
 
 import java.util.ArrayList;
 import java.util.List;

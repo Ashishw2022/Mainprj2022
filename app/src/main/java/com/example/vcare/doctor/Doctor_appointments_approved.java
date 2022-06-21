@@ -90,19 +90,24 @@ public class Doctor_appointments_approved extends Fragment {
         previous_payment = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Appointment");
-        reference.child("appointment_approved").child(user.getEmail().replace(".",",")).addValueEventListener(new ValueEventListener() {
+        reference.child("appointment_approved").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     previous_payment = new ArrayList<>();
-                //    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         for (DataSnapshot snapshot2 : snapshot.getChildren()) {
                             for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
                                 Appointment_details payment_data = snapshot3.getValue(Appointment_details.class);
-                                previous_payment.add(payment_data);
+                                payment_data.getEmail();
+                                 if(payment_data.getEmail().equals(user.getEmail().replace(".",",")))
+                                {
+                                    previous_payment.add(payment_data);
+                                }
+
                             }
                         }
-                //    }
+                   }
                     adapter = new Doctor_Appointment_Show_Adapter(previous_payment);
                     recyclerView.setAdapter(adapter);
                 } else {

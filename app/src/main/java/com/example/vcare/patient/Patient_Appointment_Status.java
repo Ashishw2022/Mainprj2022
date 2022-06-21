@@ -82,8 +82,8 @@ public class Patient_Appointment_Status extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
                                 String dname = snapshot.getValue(String.class);
-                                Appointment_details payment = new Appointment_details("transactionid", dname, email.replace(".",","),firebaseUser.getEmail().replace(",","."),"", pname, 0, date_val, chosen_time, 0);
-                                reference_appointment.child("waiting_approval").child(email).child(date_val).child(chosen_time).setValue(payment);
+                                Appointment_details payment = new Appointment_details("transactionid", dname, email.replace(".",","),firebaseUser.getEmail().replace(".",","),"", pname, 0, date_val, chosen_time, 0);
+                                reference_appointment.child("waiting_approval").child(firebaseUser.getEmail().replace(".",",")).child(date_val).child(chosen_time).setValue(payment);
                             }
                         }
                         @Override

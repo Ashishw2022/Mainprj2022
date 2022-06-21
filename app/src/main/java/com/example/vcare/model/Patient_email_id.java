@@ -19,6 +19,7 @@ public class Patient_email_id {
     }
 
     public String getEmail_id() {
+
         return email_id;
     }
 

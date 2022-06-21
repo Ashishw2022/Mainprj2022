@@ -1,4 +1,4 @@
-package com.example.vcare.patient;
+package com.example.vcare.doctor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

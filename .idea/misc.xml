@@ -22,6 +22,7 @@
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_add_admin.xml" value="0.12291666666666666" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_appointment_approval.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_choose_slots.xml" value="0.11302083333333333" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_display_chats.xml" value="0.1" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_view_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctors.xml" value="0.22327898550724637" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctors_login.xml" value="0.22327898550724637" />
@@ -33,7 +34,10 @@
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_patient_apppointment_status.xml" value="0.2391304347826087" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_patient_book_appointment.xml" value="0.264" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_patient_dashboard.xml" value="0.264" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_patient_display_chats.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_patient_home.xml" value="0.176" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_patient_message.xml" value="0.25416666666666665" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_patient_view_doctor.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_reg.xml" value="0.22327898550724637" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_result.xml" value="0.1111111111111111" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_signup.xml" value="0.22327898550724637" />
@@ -45,8 +49,11 @@
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/adminnav.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/appointment_doc.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/appointment_rv_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/chat_item_left.xml" value="0.25416666666666665" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/chat_item_right.xml" value="0.264" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/data.xml" value="0.25052083333333336" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/doctor_messageactivity.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/doctor_view_slot_card.xml" value="0.11302083333333333" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/dropdown_gender.xml" value="0.25052083333333336" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/fragment_health.xml" value="0.2210144927536232" />
@@ -61,6 +68,7 @@
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/toolbar.xml" value="0.2210144927536232" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/udata.xml" value="0.25052083333333336" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/update_password.xml" value="0.22327898550724637" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/user_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/menu/admin_menu.xml" value="0.25052083333333336" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/menu/doctor_menu.xml" value="0.1015625" />
