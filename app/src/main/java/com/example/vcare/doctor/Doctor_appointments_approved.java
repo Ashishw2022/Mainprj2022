@@ -96,7 +96,7 @@ public class Doctor_appointments_approved extends Fragment {
                 if (snapshot.exists()) {
                     previous_payment = new ArrayList<>();
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        for (DataSnapshot snapshot2 : snapshot.getChildren()) {
+                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
                             for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
                                 Appointment_details payment_data = snapshot3.getValue(Appointment_details.class);
                                 payment_data.getEmail();
