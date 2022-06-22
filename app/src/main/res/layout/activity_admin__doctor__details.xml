@@ -247,10 +247,10 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="#009688"
                 android:text="Speciality"
+                android:textColor="#009688"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView_doc_display"
                 app:layout_constraintTop_toBottomOf="@+id/doc_name_textview" />
@@ -265,11 +265,11 @@
                 android:layout_marginEnd="40dp"
                 android:layout_marginRight="40dp"
                 android:gravity="left"
-                android:text="About Doctor"
                 android:paddingLeft="4dp"
                 android:paddingTop="4dp"
                 android:paddingRight="4dp"
                 android:paddingBottom="4dp"
+                android:text="About Doctor"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -281,10 +281,8 @@
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="40dp"
-                android:layout_marginRight="40dp"
                 android:layout_marginBottom="32dp"
                 android:gravity="left"
                 android:paddingLeft="8dp"
@@ -294,15 +292,17 @@
                 android:text="doc_info"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bio_text" />
+                app:layout_constraintTop_toBottomOf="@+id/bio_text"
+                app:layout_constraintVertical_bias="0.0" />
 
             <Button
                 android:id="@+id/disable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DISABLE"
                 android:backgroundTint="@color/red"
+                android:text="DISABLE"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -319,6 +319,31 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/about_doctor"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/notVrf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doctor Verify"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/enable"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/vrf"
+                android:layout_width="172dp"
+                android:layout_height="65dp"
+                android:backgroundTint="@color/text_success"
+                android:text="Verified"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/enable"
                 tools:ignore="MissingConstraints" />
 
 

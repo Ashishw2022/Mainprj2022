@@ -32,6 +32,7 @@
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:layout_alignBaseline="@+id/enter_name"
         android:layout_marginLeft="180dp"
         android:layout_marginRight="30dp" />
@@ -53,6 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/enter_age"
+        android:digits="0123456789"
         android:layout_marginLeft="180dp"
         android:layout_marginRight="30dp"/>
 
@@ -87,14 +89,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Female" />
+
     </RadioGroup>
 
+
+    <TextView
+        android:id="@+id/vali"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:layout_below="@+id/radio_gender"
+        />
 
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radio_gender"
+        android:layout_below="@+id/vali"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="50dp"

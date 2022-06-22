@@ -26,7 +26,7 @@ public class Admin_Doctor_Details extends AppCompatActivity {
     private TextView doctor_name, doctor_spec, doctor_experience, doctor_fee, doctor_slots, doctor_about, emailid;
     private ImageView doctor_image;
     private Doctor_Images doctor_images;
-    private Button disablebtn,enablebtn;
+    private Button disablebtn,enablebtn,notvrf,vrf;
     private DatabaseReference reference_doctor, reference_booking,reference_status;
     private int start, end;
     private String encoded_email;
@@ -47,6 +47,9 @@ public class Admin_Doctor_Details extends AppCompatActivity {
         disablebtn=findViewById(R.id.disable);
         enablebtn=findViewById(R.id.enable);
 
+        notvrf=findViewById(R.id.notVrf);
+        vrf=findViewById(R.id.vrf);
+
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.MONTH, 0);
 
@@ -59,9 +62,35 @@ public class Admin_Doctor_Details extends AppCompatActivity {
         reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
         reference_booking = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Chosen_Slots");
         emailid.setText(email);
+
+        reference_doctor.child(encoded_email).addValueEventListener(new ValueEventListener() {
+
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                if (datasnapshot.exists()) {
+                    String status = datasnapshot.child("verf").getValue(String.class);
+                    if(status.equals("0")){
+                        notvrf.setVisibility(View.GONE);
+                        vrf.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        vrf.setVisibility(View.GONE);
+                        notvrf.setVisibility(View.VISIBLE);
+                    }
+
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         reference_status.child(encoded_email).addValueEventListener(new ValueEventListener() {
-
-
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 if (datasnapshot.exists()) {
@@ -101,6 +130,26 @@ public class Admin_Doctor_Details extends AppCompatActivity {
                 disablebtn.setVisibility(View.VISIBLE);
             }
         });
+
+
+        notvrf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reference_doctor.child(encoded_email).child("verf").setValue("0");
+                notvrf.setVisibility(View.GONE);
+                vrf.setVisibility(View.VISIBLE);
+            }
+        });
+        vrf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reference_doctor.child(encoded_email).child("verf").setValue("1");
+                vrf.setVisibility(View.GONE);
+                notvrf.setVisibility(View.VISIBLE);
+            }
+        });
+
+
         reference_doctor.child(encoded_email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {

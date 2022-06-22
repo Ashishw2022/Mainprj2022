@@ -269,7 +269,7 @@ public class Doctors_Update_Profile extends AppCompatActivity {
                     return;
                 }
 
-                Doctors_Profile data = new Doctors_Profile(name, speciality_data, alternate_email, bio, gender_data, experience,doctor_images,sign_images, fees);
+                Doctors_Profile data = new Doctors_Profile(name, speciality_data, alternate_email, bio, gender_data, experience,doctor_images,sign_images, fees,"0");
                 reference_doctor.child(email).setValue(data);
                 reference_user.child(email).child("name").setValue(name);
                 if (flag != 0) {

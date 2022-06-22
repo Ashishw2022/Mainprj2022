@@ -33,7 +33,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Vcare">
-
+        <activity
+            android:name=".predictor.Loading"
+            android:exported="false" />
         <activity
             android:name=".news.news"
             android:exported="false" />
@@ -76,7 +78,6 @@
         <activity
             android:name=".appointments.Appointments"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".patient.Patient_home"
             android:screenOrientation="portrait" />
@@ -128,7 +129,6 @@
         <activity
             android:name=".register.Signup"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".chat.Doctor_Chat_Display"
             android:screenOrientation="portrait" />
@@ -141,10 +141,6 @@
         <activity
             android:name=".chat.Patient_MessageActivity"
             android:screenOrientation="portrait" />
-
-
-
-
         <activity
             android:name=".MainActivity"
             android:exported="true"

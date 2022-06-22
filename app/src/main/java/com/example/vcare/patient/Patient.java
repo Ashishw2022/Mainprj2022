@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -28,12 +29,19 @@ import com.example.vcare.predictor.PatientDashboard;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
 
 public class Patient extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    TextView tvname;
+    String patemail;
+    private DatabaseReference reference_user_details;
     private Toast backToast;
     private long backPressedTime;
     private DrawerLayout drawerLayout1;
@@ -43,6 +51,8 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient);
+        tvname=findViewById(R.id.tvname);
+
 
         RecyclerView recyclerView_spec = (RecyclerView) findViewById(R.id.recycler_spec);
         ImageView all_doctors = (ImageView) findViewById(R.id.imageView_doc);

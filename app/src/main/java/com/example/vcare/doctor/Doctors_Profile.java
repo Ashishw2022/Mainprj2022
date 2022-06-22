@@ -1,14 +1,14 @@
 package com.example.vcare.doctor;
 
 public class Doctors_Profile {
-    private String name, type, aemail, desc, gender, experience, fees;
+    private String name, type, aemail, desc, gender, experience, fees,verf;
     private Doctor_Images doc_pic, sign_pic;
 
     public Doctors_Profile(){
 
     }
 
-    public Doctors_Profile(String name, String type, String aemail, String desc, String gender, String experience, Doctor_Images doc_pic, Doctor_Images sign_pic, String fees) {
+    public Doctors_Profile(String name, String type, String aemail, String desc, String gender, String experience, Doctor_Images doc_pic, Doctor_Images sign_pic, String fees,String verf) {
         this.name = name;
         this.type = type;
         this.aemail = aemail;
@@ -18,6 +18,8 @@ public class Doctors_Profile {
         this.doc_pic = doc_pic;
         this.sign_pic = sign_pic;
         this.fees = fees;
+        this.verf = verf;
+
     }
 
     public String getName() {
@@ -90,5 +92,13 @@ public class Doctors_Profile {
 
     public void setFees(String fees) {
         this.fees = fees;
+    }
+
+    public String getverf() {
+        return verf;
+    }
+
+    public void setverf(String feesverf) {
+        this.verf = verf;
     }
 }

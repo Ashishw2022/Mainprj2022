@@ -21,7 +21,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.vcare.R;
 import com.example.vcare.appointments.Booking_Appointments;
 import com.example.vcare.doctor.Doctor_Images;
+import com.example.vcare.model.Users;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,10 +41,10 @@ import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 public class Patient_Booking_Appointments extends AppCompatActivity {
-    private String phone,email,date_val,chosen_time="",question_data,fees,bookemail_id;
+    private String phone,email,date_val,chosen_time="",question_data,fees,bookemail_id,name;
     private TextView doctor_name, speciality;
     private HorizontalCalendar horizontalCalendar;
-    private DatabaseReference reference_user, reference_doctor, reference_booking, reference_patient, reference_details, reference_doctor_appt;
+    private DatabaseReference reference_user, reference_doctor,reference_user_details, reference_booking, reference_patient, reference_details, reference_doctor_appt;
     private ArrayList<String> dates;
     private CircleImageView circle_image;
     private Doctor_Images doctor_images;
@@ -51,6 +53,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
     private ArrayAdapter<String> time_adapter;
     private EditText question,patient_name, tid;
     private Button book_app;
+    FirebaseUser firebaseUser;
     private Set<String> set_timeSlot;
     private TextView paymentLink;
     private boolean isresumed = false;
@@ -63,9 +66,15 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
         circle_image = (CircleImageView) findViewById(R.id.profile_image);
         doctor_name = (TextView) findViewById(R.id.doctor_name);
         speciality = (TextView) findViewById(R.id.doctor_speciality);
+        patient_name = (EditText) findViewById(R.id.name_patient_input);
+
         //tid = (EditText) findViewById(R.id.paymentsinput);
         reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
         reference_doctor_appt = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Appointments");
+        reference_user_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_data");
+
+
+
         dates = new ArrayList<>();
         set_timeSlot=new HashSet<String>();
         time_layout = (TextInputLayout) findViewById(R.id.timeLayout);
@@ -73,15 +82,27 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
         question = (EditText) findViewById(R.id.questioninput);
         book_app = (Button) findViewById(R.id.book_button);
         //paymentLink = findViewById(R.id.linkPayment);
-        patient_name = (EditText) findViewById(R.id.name_patient_input);
         email = getIntent().getSerializableExtra("Email ID").toString();
         email = email.replace(".", ",");
         Patient_Session_Management session = new Patient_Session_Management(Patient_Booking_Appointments.this);
         bookemail_id = session.getSession();
         isresumed = true;
+        reference_user_details.child(bookemail_id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    patient_name.setText(snapshot.child("name").getValue(String.class));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         reference_booking = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Chosen_Slots");
         reference_patient = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Chosen_Slots");
         reference_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Details");
+
         reference_doctor.child(email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
@@ -276,6 +297,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
                     return;
                 }
                 question_data = question.getText().toString().trim();
+
                 String pname = patient_name.getText().toString().trim();
 
                 if(pname.isEmpty()){
