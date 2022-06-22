@@ -68,12 +68,11 @@
                 android:id="@+id/author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="By Sumon"
-                android:textSize="13sp"
-                android:textStyle="italic"
-                android:textColor="@color/purple_200"
                 android:padding="5dp"
-                />
+                android:text="By Ashish"
+                android:textColor="@color/purple_200"
+                android:textSize="13sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/time"

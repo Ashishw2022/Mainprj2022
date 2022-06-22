@@ -101,7 +101,7 @@ public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Ap
                     //    i.putExtra("description", question_data);
                     i.putExtra("has alarm", "true");
                     i.putExtra("location", "Online Consultation");
-                    i.putExtra("title", "Phyzician Teleconsultation Appointment");
+                    i.putExtra("title", "v-care");
                     holder.itemView.getContext().startActivity(i);
 
                 }

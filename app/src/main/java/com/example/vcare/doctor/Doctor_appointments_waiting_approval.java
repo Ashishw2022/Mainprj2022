@@ -33,6 +33,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Properties;
+
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class Doctor_appointments_waiting_approval extends Fragment {
 
@@ -60,6 +71,59 @@ public class Doctor_appointments_waiting_approval extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mcontext = context;
+    }
+
+
+    private void senddocmail(String rvmai,String msg) {
+        try {
+            final String frommail = "ashishvwprj@gmail.com";
+            final String fpass = "gqezrowmplvieddv";
+            String subject = "Appointment Status";
+
+
+            //String msg="\n Welcome DR."+name+"\nYour Account credintials are: \n" +"    Email: "+mail+"\n   Password: "+pass;
+
+            String message=msg;
+
+            String stringHost = "smtp.gmail.com";
+
+            Properties properties = System.getProperties();
+
+            properties.put("mail.smtp.host", stringHost);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+
+            Session session = Session.getInstance(properties,
+                    new javax.mail.Authenticator() {
+                        @Override
+                        protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(frommail,fpass);
+                        }
+                    });
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.setFrom(new InternetAddress(frommail));
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(rvmai));
+            mimeMessage.setSubject(subject);
+            mimeMessage.setText(message);
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Transport.send(mimeMessage);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+
+        } catch (AddressException e) {
+            e.printStackTrace();
+        }
+        catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -130,7 +194,7 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                         @Override
                         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                             new AlertDialog.Builder(viewHolder.itemView.getContext())
-                                    .setMessage("Do you want to mark this Payment as Done? or Cancel the Appointment")
+                                    .setMessage("Do you want to mark this Appointment as Done? or Cancel the Appointment")
                                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
@@ -171,7 +235,8 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                                                         break;
                                                                     }
                                                                 }
-                                                                reference_booking.child(encoded_email).child(payment_class.getDate()).child(slot_val).child(check).child("phone").setValue(payment_class.getPhone());
+                                                                reference_booking.child(encoded_email).child(payment_class.getDate()).child(slot_val).child(check).child("email").setValue(payment_class.getPemail());
+                                                                senddocmail(payment_class.getPemail().replace(",","."),"your appointment is Approved by  doctor for time slot"+payment_class.getTime()+"on"+payment_class.getDate());
                                                             }
                                                         }
 
@@ -229,6 +294,8 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                                                     int count = snapshot.getValue(Integer.class);
                                                                     count = count - 1;
                                                                     reference_booking.child(encoded_email).child(payment_class.getDate()).child(finalSlot_val).child("Count").setValue(count);
+                                                                    senddocmail(payment_class.getPemail().replace(",","."),"your appointment is Declined by  doctor for time slot"+payment_class.getTime()+"on"+payment_class.getDate());
+
                                                                 }
 
                                                                 @Override
@@ -256,7 +323,7 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                     itemTouchHelper.attachToRecyclerView(recyclerView);
                 } else {
                     if (mcontext != null) {
-                        Toast.makeText(mcontext, "There are no Payments!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mcontext, "There are no Appointments!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

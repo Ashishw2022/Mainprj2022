@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 public class Doctor_appointments_approved extends Fragment {
 
     private RecyclerView recyclerView;
@@ -103,6 +104,7 @@ public class Doctor_appointments_approved extends Fragment {
                                  if(payment_data.getEmail().equals(user.getEmail().replace(".",",")))
                                 {
                                     previous_payment.add(payment_data);
+
                                 }
 
                             }

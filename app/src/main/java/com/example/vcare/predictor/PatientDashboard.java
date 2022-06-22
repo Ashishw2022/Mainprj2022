@@ -22,7 +22,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class PatientDashboard extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText ename, eage;
@@ -30,7 +32,8 @@ public class PatientDashboard extends AppCompatActivity implements AdapterView.O
 
     Interpreter interpreter;
     int i = 0;
-    String[] all_symptoms = {"select a symptom",
+    String[] selected={};
+    String[] all_symptoms = {"select a symptom ",
             "itching", "skin_rash", "nodal_skin_eruptions", "continuous_sneezing", "shivering",
             "chills", "joint_pain", "stomach_pain", "acidity", "ulcers_on_tongue", "muscle_wasting vomiting",
             "burning_micturition", "spotting_ urination", "fatigue", "weight_gain", "anxiety", "cold_hands_and_feets",
@@ -102,13 +105,22 @@ public class PatientDashboard extends AppCompatActivity implements AdapterView.O
         spin3.setOnItemSelectedListener(this);
         Spinner spin4 = (Spinner) findViewById(R.id.spinner4);
         spin4.setOnItemSelectedListener(this);
-
+        selected=all_symptoms;
+        String[] abc={"1","2","3"};
         ArrayAdapter aa1 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, all_symptoms);
         aa1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin1.setAdapter(aa1);
+        System.out.println(spin1);
         Log.d("main", "Main function 1");
 
-        ArrayAdapter aa2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, all_symptoms);
+
+
+
+
+
+
+
+        ArrayAdapter aa2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, abc);
         aa2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin2.setAdapter(aa2);
         Log.d("main", "Main function 2");

@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Patient_Appointment_Status extends AppCompatActivity {
 
-    private String check,date_val,fees,phone,email,chosen_time,question_data,pname,slot_val,fees_val,bookemail_id;
+    private String check,date_val,fees,phone,email,chosen_time,question_data,pname,slot_val,fees_val,bookemail_id,phn;
     private TextView name;
     private EditText tid;
     private DatabaseReference reference_user, reference_doctor, reference_booking, reference_patient,reference_user_details, reference_details, reference_doctor_appt, reference_appointment;
@@ -62,13 +62,15 @@ public class Patient_Appointment_Status extends AppCompatActivity {
         name.setText(pname);
         timeslot.setText(chosen_time );
         firebaseUser=firebaseAuth.getCurrentUser();
-        Users obj=new Users();
+        Users users=null;
         reference_user_details.child(firebaseUser.getEmail().replace(".",",")).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
-                    int count = snapshot.getValue(Integer.class);
+
+                    Users user = snapshot.getValue(Users.class);
+                    phn=user.getPhMain();
                 }
             }
 
@@ -98,7 +100,7 @@ public class Patient_Appointment_Status extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
                                 String dname = snapshot.getValue(String.class);
-                                Appointment_details payment = new Appointment_details(token, dname, email.replace(".",","),firebaseUser.getEmail().replace(".",","),"", pname, 0, date_val, chosen_time, 0);
+                                Appointment_details payment = new Appointment_details(token, dname, email.replace(".",","),firebaseUser.getEmail().replace(".",","),""+phn.toString(), pname, 0, date_val, chosen_time, 0);
                                 reference_appointment.child("waiting_approval").child(firebaseUser.getEmail().replace(".",",")).child(date_val).child(chosen_time).setValue(payment);
                             }
                         }
@@ -162,8 +164,8 @@ public class Patient_Appointment_Status extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Booking_Appointments booking_appointments = new Booking_Appointments(0, "null");
-        reference_booking.child(email).child(date_val).child(slot_val).child(check).setValue(booking_appointments);
+        //Booking_Appointments booking_appointments = new Booking_Appointments(0, "null");
+        //reference_booking.child(email).child(date_val).child(slot_val).child(check).setValue(booking_appointments);
         startActivity(new Intent(Patient_Appointment_Status.this, Patient.class));
     }
 }
