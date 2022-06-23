@@ -167,8 +167,7 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //Fetch values from you database child and set it to the specific view object.
-                mName.setText("Dr. "+dataSnapshot.child("name").getValue().toString().toUpperCase());
-
+                mName.setText(dataSnapshot.child("name").getValue().toString());
 //                String link =dataSnapshot.child("doc_pic").getValue().toString();
 //                Picasso.with(getBaseContext()).load(link).into(mImageView);
                 doctor_images = dataSnapshot.child("doc_pic").getValue(Doctor_Images.class);

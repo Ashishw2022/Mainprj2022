@@ -26,7 +26,7 @@ import java.util.Calendar;
 public class Patient_Display_Doctor extends AppCompatActivity {
     private Button book_app;
     private TextView doctor_name, doctor_spec, doctor_experience, doctor_fee, doctor_slots, doctor_about, emailid;
-    private ImageView doctor_image;
+    private ImageView doctor_image,verf;
     private Doctor_Images doctor_images;
     private DatabaseReference reference_doctor, reference_booking;
     private int start, end;
@@ -46,7 +46,7 @@ public class Patient_Display_Doctor extends AppCompatActivity {
         emailid = (TextView) findViewById(R.id.email_text_val);
         chat_btn = (Button) findViewById(R.id.chat_button);
         doctor_image = (ImageView) findViewById(R.id.imageView_doc_display);
-
+        verf=findViewById(R.id.doc_verfy);
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.MONTH, 0);
 
@@ -100,6 +100,14 @@ public class Patient_Display_Doctor extends AppCompatActivity {
                     doctor_images = datasnapshot.child("doc_pic").getValue(Doctor_Images.class);
                     if (doctor_images != null) {
                         Picasso.with(Patient_Display_Doctor.this).load(doctor_images.getUrl()).into(doctor_image);
+                    }
+                    String verfication=datasnapshot.child("verf").getValue(String.class);
+
+                    if (verfication.equals("1")) {
+                        verf.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        verf.setVisibility(View.INVISIBLE);
                     }
                 }
             }

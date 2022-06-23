@@ -308,6 +308,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/about_doctor"
+                app:layout_constraintVertical_bias="0.238"
                 tools:ignore="MissingConstraints" />
 
             <Button
@@ -317,33 +318,37 @@
                 android:text="ENABLE"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.493"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/about_doctor"
+                app:layout_constraintVertical_bias="1.0"
                 tools:ignore="MissingConstraints" />
 
             <Button
                 android:id="@+id/notVrf"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="Doctor Verify"
+                android:backgroundTint="@color/text_error"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/enable"
+                app:layout_constraintTop_toBottomOf="@+id/disable"
                 tools:ignore="MissingConstraints" />
 
             <Button
                 android:id="@+id/vrf"
-                android:layout_width="172dp"
-                android:layout_height="65dp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
                 android:backgroundTint="@color/text_success"
                 android:text="Verified"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/enable"
+                app:layout_constraintTop_toBottomOf="@+id/disable"
+                app:layout_constraintVertical_bias="0.0"
                 tools:ignore="MissingConstraints" />
 
 

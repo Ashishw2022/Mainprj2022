@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
+import com.example.vcare.doctor.Doctor_Images;
+import com.example.vcare.doctor.Doctors;
 import com.example.vcare.doctor.Doctors_Session_Mangement;
 import com.example.vcare.doctor.Main_Specialisation;
 import com.example.vcare.doctor.SliderAdapter;
@@ -29,10 +31,17 @@ import com.example.vcare.predictor.PatientDashboard;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.SliderView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Patient extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView tvname;
@@ -42,13 +51,17 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
     private long backPressedTime;
     private DrawerLayout drawerLayout1;
     FirebaseAuth mauth;
-
+    private CircleImageView mImageView;
+    private TextView mName;
+    private Doctor_Images doctor_images;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient);
         tvname=findViewById(R.id.doc_name);
 
+        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
+        patemail = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
 
         RecyclerView recyclerView_spec = (RecyclerView) findViewById(R.id.recycler_spec);
         ImageView all_doctors = (ImageView) findViewById(R.id.imageView_doc);
@@ -59,6 +72,8 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
         Toolbar toolbar1 = findViewById(R.id.toolbar1);
 
         setSupportActionBar(toolbar1);
+        mName   = (TextView)navigationView1.getHeaderView(0).findViewById(R.id.lpat_name);
+        mImageView = (CircleImageView) navigationView1.getHeaderView(0).findViewById(R.id.pat_img);;
 
         navigationView1.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout1, toolbar1, R.string.nav_drawer_open, R.string.nav_drawer_close);
@@ -67,7 +82,27 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
         navigationView1.setNavigationItemSelectedListener(Patient.this);
         navigationView1.setCheckedItem(R.id.nav_home);
 
+        reference_user_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_Data");
 
+//        reference_user_details.child(patemail).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                //Fetch values from you database child and set it to the specific view object.
+//                mName.setText(dataSnapshot.child("name").getValue().toString());
+////                String link =dataSnapshot.child("doc_pic").getValue().toString();
+////                Picasso.with(getBaseContext()).load(link).into(mImageView);
+//                doctor_images = dataSnapshot.child("doc_pic").getValue(Doctor_Images.class);
+//                //sign_images = datasnapshot.child("sign_pic").getValue(Doctor_Images.class);
+//                if(doctor_images != null) {
+//                    Picasso.with(Patient.this).load(doctor_images.getUrl()).into(mImageView);
+//                }
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
         Integer [] specialisation_pic={R.drawable.infectious,R.drawable.dermavenereolepro,R.drawable.skin,R.drawable.diabetes,
                                         R.drawable.thyroid,R.drawable.hormone, R.drawable.immunology, R.drawable.rheuma, R.drawable.neuro, R.drawable.ophtha, R.drawable.cardiac, R.drawable.cancer,
@@ -149,6 +184,8 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
             backPressedTime = System.currentTimeMillis();
         }
     }
+
+
 
     @SuppressLint("NonConstantResourceId")
     @Override

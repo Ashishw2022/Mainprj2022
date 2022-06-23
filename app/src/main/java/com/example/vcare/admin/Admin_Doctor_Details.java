@@ -70,7 +70,7 @@ public class Admin_Doctor_Details extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 if (datasnapshot.exists()) {
                     String status = datasnapshot.child("verf").getValue(String.class);
-                    if(status.equals("0")){
+                    if(status.equals("1")){
                         notvrf.setVisibility(View.GONE);
                         vrf.setVisibility(View.VISIBLE);
                     }

@@ -1,5 +1,6 @@
 package com.example.vcare.predictor;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,25 +9,51 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.example.vcare.R;
+import com.example.vcare.patient.Patient;
+import com.example.vcare.patient.Patient_Appointment_Status;
+import com.example.vcare.patient.Patient_Session_Management;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Result extends AppCompatActivity {
+    private DatabaseReference reference_prediction,reference_user_details;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseUser user;
+    private String patemail,ename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String desc = "";
+
         setContentView(R.layout.activity_result);
+
+        Patient_Session_Management session = new Patient_Session_Management(Result.this);
+        patemail = session.getSession();
+
+
         Intent intent1=getIntent();
         String str=intent1.getStringExtra("Disease_name");
+        String pname=intent1.getStringExtra("name");
+
+        String symList = intent1.getStringExtra("Symptoms");
+        String category = intent1.getStringExtra("disease_category");
         Log.d("main", "Main function 2"+str);
         //TextView tv1 =  findViewById(R.id.predicted_disease_name);
         //tv1.setText(str);
+        reference_prediction = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("disease_prediction");
 
         if(str.equals("Fungal infection")) {
             TextView tv1 =  findViewById(R.id.predicted_disease_name);
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Fungal infections are common throughout much of the natural world. In humans, fungal infections occur when an invading fungus takes over an area of the body and is too much for the immune system to handle.  \n" +
+             desc = "Fungal infections are common throughout much of the natural world. In humans, fungal infections occur when an invading fungus takes over an area of the body and is too much for the immune system to handle.  \n" +
                     "The symptoms of a fungal infection will depend on the type, but common symptoms include the following:skin changes, including red and possibly cracking or peeling skin,itching.\n" +
                     "\n" +
                     "Diagnosis, treatment, and prevention\n" +
@@ -43,7 +70,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Symptoms\n" +
+             desc ="Symptoms\n" +
                     "Symptoms may include:\n" +
                     "•\tCough producing mucus\n" +
                     "•\tFever\n" +
@@ -95,7 +122,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Symptoms\n" +
+             desc = "Symptoms\n" +
                     "Symptoms occur 1-3 days after viral infection. Symptoms include:\n" +
                     "•\tNose stuffiness\n" +
                     "•\tRunny nose\n" +
@@ -130,7 +157,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Symptoms\n" +
+             desc ="Symptoms\n" +
                     "Early infection causes no symptoms as the body's immune system protects spread, and in many cases, it remains inactive - this stage is referred to as Latent TB and shows no symptoms. Early diagnosis and treatment is necessary to control the spread of the infection.\n" +
                     "Active TB is a stage where immediate medications and care is required, the common symptoms include:\n" +
                     "•\tPersistent cough (which lasts for more than 2 - 3 weeks)\n" +
@@ -151,7 +178,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Symptoms\n" +
+             desc ="Symptoms\n" +
                     "The most common symptom is jaundice, characterised by yellowing of the skin and eyes.\n" +
                     "Other symptoms are\n" +
                     "•\tNausea and vomiting\n" +
@@ -191,7 +218,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Symptoms\n" +
+             desc ="Symptoms\n" +
                     "You might not have any. If you do have symptoms, they may start anywhere from 2 to 6 weeks after your infection. They may include:\n" +
                     "•\tMild fever\n" +
                     "•\tFeeling very tired\n" +
@@ -225,7 +252,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Hepatitis D doesn’t always cause symptomsTrusted Source. When symptoms do occur, they often include:\n" +
+             desc ="Hepatitis D doesn’t always cause symptomsTrusted Source. When symptoms do occur, they often include:\n" +
                     "•\tyellowing of the skin and eyes, which is called jaundice\n" +
                     "•\tjoint pain\n" +
                     "•\tabdominal pain\n" +
@@ -246,7 +273,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Symptoms\n" +
+           desc="Symptoms\n" +
                     "During the acute phase (first 6 months after infection) most persons show no symptoms or might experience a mild illness.\n" +
                     "During the chronic phase the symptoms include:\n" +
                     "•\tJaundice (yellow discolouration of the skin and eyes)\n" +
@@ -280,7 +307,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Symptoms\n" +
+             desc ="Symptoms\n" +
                     "Common symptoms are:\n" +
                     "•\tPain in the area of liver or abdominal pain\n" +
                     "•\tDark urine\n" +
@@ -317,7 +344,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Symptoms\n" +
+             desc ="Symptoms\n" +
                     "•\tSymptoms of hepatitis A virus infection are noted a few weeks after the virus enters the body\n" +
                     "•\tNot all people with infection develop symptoms\n" +
                     "•\tNotable symptoms include\n" +
@@ -340,7 +367,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Symptoms\n" +
+             desc ="Symptoms\n" +
                     "In some cases, complications such as dehydration, delirium, intestinal bleeding, intestinal perforation, haemorrhage, meningitis etc; can occur after around three weeks.\n" +
                     "•\tLow to high fever\n" +
                     "•\tHeadache and body pain\n" +
@@ -361,7 +388,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Symptoms\n" +
+             desc ="Symptoms\n" +
                     "Commonly observed symptoms are as follows:\n" +
                     "•\tSudden onset of very high fever\n" +
                     "•\tSevere headache usually at the back of eyes\n" +
@@ -389,7 +416,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Symptoms\n" +
+           desc="Symptoms\n" +
                     "Symptoms include\n" +
                     "•\tFever\n" +
                     "•\tLoss of appetite\n" +
@@ -418,7 +445,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Malaria is a disease having symptoms of recurrent fever with chill and headache. After onset of fever it subsides after sometimes and again reoccurs. In severe cases it can progress to coma or even death. It is caused by parasites known as Plasmodium. It commences with the bite of female Anopheles mosquitoes which carries this parasite.\n" +
+             desc ="Malaria is a disease having symptoms of recurrent fever with chill and headache. After onset of fever it subsides after sometimes and again reoccurs. In severe cases it can progress to coma or even death. It is caused by parasites known as Plasmodium. It commences with the bite of female Anopheles mosquitoes which carries this parasite.\n" +
                     "The treatment chosen will depend upon whether the patient has vivax malaria or falciparum malaria as diagnosed by the blood test, age of the patient, the pregnancy status of the female patient and location of the patient.\n" +
                     "Individual Preventions\n" +
                     "•\tUse an intact mosquito net while sleeping.\n" +
@@ -432,7 +459,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Common causes\n" +
+             desc ="Common causes\n" +
                     "Jaundice is not always related to an underlying condition. It may be caused by:\n" +
                     "•\tLarge bruises leading to high amounts of unconjugated bilirubin\n" +
                     "•\tFasting for long periods\n" +
@@ -454,7 +481,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Sleep paralysis is a state, during waking up or falling asleep, in which a person is aware but unable to move or speak. During an episode, one may hallucinate (hear, feel, or see things that are not there), which often results in fear.[1] Episodes generally last less than a couple of minutes. It may occur as a single episode or be recurrent. \n" +
+             desc = "Sleep paralysis is a state, during waking up or falling asleep, in which a person is aware but unable to move or speak. During an episode, one may hallucinate (hear, feel, or see things that are not there), which often results in fear.[1] Episodes generally last less than a couple of minutes. It may occur as a single episode or be recurrent. \n" +
                     "The condition may occur in those who are otherwise healthy or those with narcolepsy, or it may run in families as a result of specific genetic changes. The condition can be triggered by sleep deprivation, psychological stress, or abnormal sleep cycles. The underlying mechanism is believed to involve a dysfunction in REM sleep.] Diagnosis is based on a person's description.[2] Other conditions that can present similarly include narcolepsy, atonic seizure, and hypokalemic periodic paralysis.\n" +
                     "\n" +
                     "Symptoms:\n" +
@@ -473,7 +500,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Cervical spondylosis:\n" +
+           desc="Cervical spondylosis:\n" +
                     "Spondylosis is the degeneration of the vertebral column from any cause. In the more narrow sense it refers to spinal osteoarthritis, the age-related wear and tear of the spinal column, which is the most common cause of spondylosis. The degenerative process in osteoarthritis chiefly affects the vertebral bodies, the neural foramina and the facet joints (facet syndrome). If severe, it may cause pressure on the spinal cord or nerve roots with subsequent sensory or motor disturbances, such as pain, paresthesia, imbalance, and muscle weakness in the limbs.\n" +
                     "Symptoms:\n" +
                     "A rare but severe complication of this disease is vertebrobasilar insufficiency. This is a result of the vertebral artery becoming occluded as it passes up in the transverse foramen. The spinal joints become stiff in cervical spondylosis. Thus the chondrocytes which maintain the disc become deprived of nutrition and die. Secondary osteophytes may cause stenosis for spinal nerves, manifesting as radiculopathy.\n" +
@@ -486,7 +513,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="A migraine is a medical condition which usually causes a pounding, throbbing headache on one side of the head. The pain may be very bad and hurt so much that a person may have a hard time doing anything. While most people who have migraines get a headache, not everyone does. There are different kinds of migraines, and some do not cause a headache but do have other symptoms.\n" +
+           desc="A migraine is a medical condition which usually causes a pounding, throbbing headache on one side of the head. The pain may be very bad and hurt so much that a person may have a hard time doing anything. While most people who have migraines get a headache, not everyone does. There are different kinds of migraines, and some do not cause a headache but do have other symptoms.\n" +
                     "Symptoms:\n" +
                     "Most migraines cause a headache and nausea and might make the person dizzy or very sensitive to bright lights or loud noises. Some people have \"auras\" before a migraine starts, which means their ability to see becomes different. They may see funny patterns, have blurry vision, or may not be able to see at all. Other senses can change before or during a migraine, and the person may sense funny smells or tastes. Migraines can last a long time. Migraines usually last between four and 72 hours.\n" +
                     "\n" + "Diagnosis:\n" +
@@ -498,7 +525,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Hypertension (HTN or HT), also known as high blood pressure (HBP), is a long-term medical condition in which the blood pressure in the arteries is persistently elevated. High blood pressure typically does not cause symptoms. Long-term high blood pressure, however, is a major risk factor for coronary artery disease, stroke, heart failure, atrial fibrillation, peripheral arterial disease, vision loss, chronic kidney disease, and dementia.\n" +
+           desc="Hypertension (HTN or HT), also known as high blood pressure (HBP), is a long-term medical condition in which the blood pressure in the arteries is persistently elevated. High blood pressure typically does not cause symptoms. Long-term high blood pressure, however, is a major risk factor for coronary artery disease, stroke, heart failure, atrial fibrillation, peripheral arterial disease, vision loss, chronic kidney disease, and dementia.\n" +
                     "Symptoms:\n" +
                     "Hypertension is rarely accompanied by symptoms, and its identification is usually through screening, or when seeking healthcare for an unrelated problem. Some people with high blood pressure report headaches (particularly at the back of the head and in the morning), as well as lightheadedness, vertigo, tinnitus (buzzing or hissing in the ears), altered vision or fainting episodes.[20] These symptoms, however, might be related to associated anxiety rather than the high blood pressure itself.\n" +
                     "\n" + "Medication:\n" +
@@ -512,7 +539,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Asthma is a long-term inflammatory disease of the airways of the lungs. It is characterized by variable and recurring symptoms, reversible airflow obstruction, and easily triggered bronchospasms. Symptoms include episodes of wheezing,coughing, chest tightness, and shortness of breath. These may occur a few times a day or a few times per week. Depending on the person, asthma symptoms may become worse at night or with exercise.\n" +
+           desc="Asthma is a long-term inflammatory disease of the airways of the lungs. It is characterized by variable and recurring symptoms, reversible airflow obstruction, and easily triggered bronchospasms. Symptoms include episodes of wheezing,coughing, chest tightness, and shortness of breath. These may occur a few times a day or a few times per week. Depending on the person, asthma symptoms may become worse at night or with exercise.\n" +
                     "Symptoms:\n" +
                     "Asthma is characterized by recurrent episodes of wheezing, shortness of breath, chest tightness, and coughing. Sputummay be produced from the lung by coughing but is often hard to bring up. During recovery from an asthma attack (exacerbation), it may appear pus-like due to high levels of white blood cells called eosinophils. Symptoms are usually worse at night and in the early morning or in response to exercise or cold air. Some people with asthma rarely experience symptoms, usually in response to triggers, whereas others may react frequently and readily and experience persistent symptoms.\n" +
                     "\n" + "Prevention:\n" +
@@ -526,7 +553,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Gastroenteritis, also known as infectious diarrhea and gastro, is inflammation of the gastrointestinal tract—the stomachand small intestine. Symptoms may include diarrhea, vomiting and abdominal pain. Fever, lack of energy and dehydrationmay also occur. This typically lasts less than two weeks. It is not related to influenza, though it has erroneously been called the \"stomach flu\"\n" +
+           desc="Gastroenteritis, also known as infectious diarrhea and gastro, is inflammation of the gastrointestinal tract—the stomachand small intestine. Symptoms may include diarrhea, vomiting and abdominal pain. Fever, lack of energy and dehydrationmay also occur. This typically lasts less than two weeks. It is not related to influenza, though it has erroneously been called the \"stomach flu\"\n" +
                     "Symptoms:\n" +
                     "Gastroenteritis usually involves both diarrhea and vomiting. Sometimes, only one or the other is present. This may be accompanied by abdominal cramps. Signs and symptoms usually begin 12–72 hours after contracting the infectious agent. If due to a virus, the condition usually resolves within one week. Some viral infections also involve fever, fatigue, headache and muscle pain. If the stool is bloody, the cause is less likely to be viral and more likely to be bacterial. Some bacterial infections cause severe abdominal pain and may persist for several weeks.\n" +
                     "\n" +"Precautions:\n" +
@@ -538,7 +565,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Diabetes mellitus (DM), commonly known as diabetes, is a group of metabolic disorders characterized by a high blood sugar level over a prolonged period of time. Symptoms often include frequent urination, increased thirst, and increased appetite. If left untreated, diabetes can cause many complications. Acute complications can include diabetic ketoacidosis, hyperosmolar hyperglycemic state, or death. Serious long-term complications include cardiovascular disease, stroke, chronic kidney disease, foot ulcers, damage to the nerves, damage to the eyes and cognitive impairment\n" +
+           desc="Diabetes mellitus (DM), commonly known as diabetes, is a group of metabolic disorders characterized by a high blood sugar level over a prolonged period of time. Symptoms often include frequent urination, increased thirst, and increased appetite. If left untreated, diabetes can cause many complications. Acute complications can include diabetic ketoacidosis, hyperosmolar hyperglycemic state, or death. Serious long-term complications include cardiovascular disease, stroke, chronic kidney disease, foot ulcers, damage to the nerves, damage to the eyes and cognitive impairment\n" +
                     "Symptoms:\n" +
                     "The classic symptoms of untreated diabetes are unintended weight loss, polyuria (increased urination), polydipsia(increased thirst), and polyphagia (increased hunger). Symptoms may develop rapidly (weeks or months) in type 1 diabetes, while they usually develop much more slowly and may be subtle or absent in type 2 diabetes.\n" +
                     "\n" +"Medication:\n" +
@@ -550,7 +577,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Human immunodeficiency virus infection and acquired immune deficiency syndrome (HIV/AIDS) is a spectrum of conditions caused by infection with the human immunodeficiency virus (HIV). Following initial infection a person may not notice any symptoms, or may experience a brief period of influenza-like illness. Typically, this is followed by a prolonged period with no symptoms. If the infection progresses, it interferes more with the immune system, increasing the risk of developing common infections such as tuberculosis, as well as other opportunistic infections, and tumors which are otherwise rare in people who have normal immune function. These late symptoms of infection are referred to as acquired immunodeficiency syndrome (AIDS). This stage is often also associated with unintended weight loss.\n" +
+           desc= "Human immunodeficiency virus infection and acquired immune deficiency syndrome (HIV/AIDS) is a spectrum of conditions caused by infection with the human immunodeficiency virus (HIV). Following initial infection a person may not notice any symptoms, or may experience a brief period of influenza-like illness. Typically, this is followed by a prolonged period with no symptoms. If the infection progresses, it interferes more with the immune system, increasing the risk of developing common infections such as tuberculosis, as well as other opportunistic infections, and tumors which are otherwise rare in people who have normal immune function. These late symptoms of infection are referred to as acquired immunodeficiency syndrome (AIDS). This stage is often also associated with unintended weight loss.\n" +
                     "There is currently no cure, nor an effective HIV vaccine. Treatment consists of highly active antiretroviral therapy (HAART) which slows progression of the disease. As of 2010more than 6.6 million people were receiving this in low- and middle-income countries Treatment also includes preventive and active treatment of opportunistic infections. As of March 2020, two persons have been successfully cleared of HIV. Rapid initiation of anti-retroviral therapy within one week of diagnosis appear to improve treatment outcomes in low and medium-income settings\n";
             tv2.setText(desc);
         }
@@ -559,7 +586,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Peptic ulcer disease (PUD) is a break in the inner lining of the stomach, the first part of the small intestine, or sometimes the lower esophagus. An ulcer in the stomach is called a gastric ulcer, while one in the first part of the intestines is aduodenal ulcer. The most common symptoms of a duodenal ulcer are waking at night with upper abdominal pain and upper abdominal pain that improves with eating. With a gastric ulcer, the pain may worsen with eating. The pain is often described as a burning or dull ache. Other symptoms include belching, vomiting, weight loss, or poor appetite. About a third of older people have no symptoms. Complications may include bleeding, perforation, and blockage of the stomach.[2]Bleeding occurs in as many as 15% of cases.\n" +
+           desc= "Peptic ulcer disease (PUD) is a break in the inner lining of the stomach, the first part of the small intestine, or sometimes the lower esophagus. An ulcer in the stomach is called a gastric ulcer, while one in the first part of the intestines is aduodenal ulcer. The most common symptoms of a duodenal ulcer are waking at night with upper abdominal pain and upper abdominal pain that improves with eating. With a gastric ulcer, the pain may worsen with eating. The pain is often described as a burning or dull ache. Other symptoms include belching, vomiting, weight loss, or poor appetite. About a third of older people have no symptoms. Complications may include bleeding, perforation, and blockage of the stomach.[2]Bleeding occurs in as many as 15% of cases.\n" +
                     "Symptoms:\n" +
                     "\n" +
                     "Signs and symptoms of a peptic ulcer can include one or more of the following:\n" +
@@ -575,7 +602,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "An adverse drug reaction (ADR) is an injury caused by taking medication. ADRs may occur following a single dose or prolonged administration of a drug or result from the combination of two or more drugs. The meaning of this term differs from the term \"side effect\" because side effects can be beneficial as well as detrimental. The study of ADRs is the concern of the field known as pharmacovigilance. An adverse drug event (ADE) refers to any injury occurring at the time a drug is used, whether or not it is identified as a cause of the injury. An ADR is a special type of ADE in which a causative relationship can be shown. ADRs are only one type of medication-related harm, as harm can also be caused by omitting to take indicated medications.\n" +
+           desc= "An adverse drug reaction (ADR) is an injury caused by taking medication. ADRs may occur following a single dose or prolonged administration of a drug or result from the combination of two or more drugs. The meaning of this term differs from the term \"side effect\" because side effects can be beneficial as well as detrimental. The study of ADRs is the concern of the field known as pharmacovigilance. An adverse drug event (ADE) refers to any injury occurring at the time a drug is used, whether or not it is identified as a cause of the injury. An ADR is a special type of ADE in which a causative relationship can be shown. ADRs are only one type of medication-related harm, as harm can also be caused by omitting to take indicated medications.\n" +
                     "\n" +"Causes:\n" +
                     "The U.S Food and Drug Administration defines a serious adverse event as one when the patient outcome is one of the following: \n" +
                     "•\tDeath\n" +
@@ -591,7 +618,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Cholestasis is a condition where bile cannot flow from the liver to the duodenum. The two basic distinctions are an obstructive type of cholestasis where there is a mechanical blockage in the duct system that can occur from a gallstone ormalignancy, and metabolic types of cholestasis which are disturbances in bile formation that can occur because of genetic defects or acquired as a side effect of many medications.\n" +
+           desc= "Cholestasis is a condition where bile cannot flow from the liver to the duodenum. The two basic distinctions are an obstructive type of cholestasis where there is a mechanical blockage in the duct system that can occur from a gallstone ormalignancy, and metabolic types of cholestasis which are disturbances in bile formation that can occur because of genetic defects or acquired as a side effect of many medications.\n" +
                     "•\tItchiness (pruritus). Pruritus is the primary symptom of cholestasis and is thought to be due to interactions of serum bile acids with opioidergic nerves. In fact, the opioid antagonist naltrexone is used to treat pruritus due to cholestasis.\n" +
                     "•\tJaundice. Jaundice is an uncommon occurrence in intrahepatic (metabolic) cholestasis, but is common in obstructive cholestasis.\n" +
                     "•\tPale stool. This symptom implies obstructive cholestasis.\n" +
@@ -613,7 +640,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "GERD\n" +
+           desc= "GERD\n" +
                     "Gastroesophageal reflux disease (GERD), also known as acid reflux, is a long-term condition in which stomach contents rise up into the esophagus, resulting in either symptoms or complications. Symptoms include the taste of acid in the back of the mouth, heartburn, bad breath, chest pain, regurgitation, breathing problems, and wearing away of the teeth.Complications include esophagitis, esophageal stricture, and Barrett's esophagus.\n" +
                     "\n" +"Symptoms:\n" +
                     "The most common symptoms of GERD in adults are an acidic taste in the mouth, regurgitation, and heartburn. Less common symptoms include pain with swallowing/sore throat, increased salivation (also known as water brash), nausea, chest pain, and coughing.\n" +
@@ -631,7 +658,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Impetigo:\n" +
+           desc= "Impetigo:\n" +
                     "\n" +
                     "Impetigo is a common and highly contagious skin infection that mainly affects infants and children. Impetigo usually appears as red sores on the face, especially around a child's nose and mouth, and on hands and feet. The sores burst and develop honey-coloured crusts. Impetigo most commonly occurs in children ages 2 to 5.\n" +
                     "\n" +
@@ -664,7 +691,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Psoriasis:\n" +
+           desc= "Psoriasis:\n" +
                     "\n" +
                     "Psoriasis is a skin disorder that causes skin cells to multiply up to 10 times faster than normal. This makes the skin build up into bumpy red patches covered with white scales. They can grow anywhere, but most appear on the scalp, elbows, knees, and lower back.\n" +
                     "\n" +
@@ -687,7 +714,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Urinary tract infection:\n" +
+           desc="Urinary tract infection:\n" +
                     "\n" +
                     "A urinary tract infection (UTI) is an infection in any part of your urinary system — your kidneys, ureters, bladder and urethra. Most infections involve the lower urinary tract — the bladder and the urethra.\n" +
                     "\n" +
@@ -716,7 +743,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Acne:\n" +
+           desc="Acne:\n" +
                     "\n" +
                     "Acne is a skin condition that occurs when your hair follicles become plugged with oil and dead skin cells. It causes whiteheads, blackheads or pimples. Acne is most common among teenagers, though it affects people of all ages.\n" +
                     "\n" +
@@ -735,7 +762,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Benign paroxysmal positional vertigo (BPPV):\n" +
+           desc="Benign paroxysmal positional vertigo (BPPV):\n" +
                     "\n" +
                     "Benign paroxysmal positional vertigo (BPPV) is one of the most common causes of vertigo — the sudden sensation that you're spinning or that the inside of your head is spinning.\n" +
                     "\n" +
@@ -768,7 +795,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Arthritis:\n" +
+           desc= "Arthritis:\n" +
                     "Arthritis is the swelling and tenderness of one or more of your joints. The main symptoms of arthritis are joint pain and stiffness, which typically worsen with age. The most common types of arthritis are osteoarthritis and rheumatoid arthritis.\n" +
                     "\n" +
                     "Causes:\n" +
@@ -801,7 +828,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Osteoarthristis:\n" +
+           desc= "Osteoarthristis:\n" +
                     "\n" +
                     "Osteoarthritis occurs when the protective cartilage that cushions the ends of your bones wears down over time. Although osteoarthritis can damage any joint, the disorder most commonly affects joints in your hands, knees, hips and spine.\n" +
                     "\n" +
@@ -835,7 +862,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Hypoglycemia:\n" +
+           desc="Hypoglycemia:\n" +
                     "\n" +
                     "Hypoglycemia is a condition caused by low blood glucose (blood sugar) levels. Glucose is the main way your body gets energy. The condition is most common in people with diabetes who have issues with medicine, food, or exercise. But sometimes people who don't have diabetes can also get low blood glucose.\n" +
                     "\n" +
@@ -863,7 +890,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Hyperthyroidism:\n" +
+           desc="Hyperthyroidism:\n" +
                     "Hyperthyroidism (overactive thyroid) occurs when your thyroid gland produces too much of the hormone thyroxine. Hyperthyroidism can accelerate your body's metabolism, causing unintentional weight loss and a rapid or irregular heartbeat.\n" +
                     "\n" +
                     "Causes:\n" +
@@ -886,7 +913,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc ="Hypothyroidism:\n" +
+           desc="Hypothyroidism:\n" +
                     "Causes:\n" +
                     "When your thyroid doesn't produce enough hormones, the balance of chemical reactions in your body can be upset. There can be a number of causes, including autoimmune disease, hyperthyroidism treatments, radiation therapy, thyroid surgery and certain medications. Hypothyroidism results when the thyroid gland fails to produce enough hormones. \n" +
                     "Hypothyroidism may be due to a number of factors, including:\n" +
@@ -908,7 +935,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Varicose veins:\n" +
+           desc= "Varicose veins:\n" +
                     "Varicose veins are twisted, enlarged veins. Any superficial vein may become varicosed, but the veins most commonly affected are those in your legs. That's because standing and walking upright increases the pressure in the veins of your lower body. For many people, varicose veins and spider veins — a common, mild variation of varicose veins — are simply a cosmetic concern. For other people, varicose veins can cause aching pain and discomfort. Sometimes varicose veins lead to more-serious problems.\n" +
                     "\n" +
                     "Causes:\n" +
@@ -933,7 +960,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Heart attack:\n" +
+           desc= "Heart attack:\n" +
                     "Causes:\n" +
                     "A heart attack occurs when the flow of blood to the heart is blocked. The blockage is most often a build-up of fat, cholesterol and other substances, which form a plaque in the arteries that feed the heart (coronary arteries). Sometimes, a plaque can rupture and form a clot that blocks blood flow. The interrupted blood flow can damage or destroy part of the heart muscle.\n" +
                     "\n" +
@@ -959,7 +986,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Dimorphic hemorrhoids(piles):\n" +
+           desc= "Dimorphic hemorrhoids(piles):\n" +
                     "Hemorrhoids (HEM-uh-roids), also called piles, are swollen veins in your anus and lower rectum, similar to varicose veins. Hemorrhoids can develop inside the rectum (internal hemorrhoids) or under the skin around the anus (external hemorrhoids).\n" +
                     "\n" +
                     "Causes:\n" +
@@ -988,7 +1015,7 @@ public class Result extends AppCompatActivity {
             tv1.setText(str);
 
             TextView tv2 =  findViewById(R.id.desc);
-            String desc = "Allergies, also known as allergic diseases, are a number of conditions caused by hypersensitivity of the immune system to typically harmless substances in the environment." +
+           desc= "Allergies, also known as allergic diseases, are a number of conditions caused by hypersensitivity of the immune system to typically harmless substances in the environment." +
                     " These diseases include hay fever, food allergies, atopic dermatitis,allergic asthma, and anaphylaxis." +
                     " Symptoms may include red eyes, an itchy rash, sneezing, a runny nose, shortness of breath, or swelling." +
                     " Food intolerances and food poisoning are separate conditions.\n" +
@@ -1001,6 +1028,45 @@ public class Result extends AppCompatActivity {
                     "An allergic reaction will not occur on the first exposure to a substance. The first exposure allows the body to create antibodies and memory lymphocyte cells for the antigen. However, drugs often contain many different substances, including dyes, which could cause allergic reactions.\n";
             tv2.setText(desc);
         }
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference_prediction = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("disease_prediction");
+
+
+
+        reference_prediction.child("new").child(patemail).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    DiseasePrediction details = snapshot.getValue(DiseasePrediction.class);
+
+                    reference_prediction.child("history").child(patemail).setValue(details);
+                    DiseasePrediction details1= new   DiseasePrediction(symList,str, 0,"",pname,user.getEmail(),category) ;
+
+                    reference_prediction.child("new").child(patemail).setValue(details1);
+
+                }else{
+                    DiseasePrediction details= new   DiseasePrediction(symList,str, 0,"",pname,user.getEmail(),category) ;
+
+                    reference_prediction.child("new").child(patemail).setValue(details);
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        }
+
+        );
+
+    }
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        //Booking_Appointments booking_appointments = new Booking_Appointments(0, "null");
+        //reference_booking.child(email).child(date_val).child(slot_val).child(check).setValue(booking_appointments);
+        startActivity(new Intent(Result.this, Patient.class));
     }
 }
 

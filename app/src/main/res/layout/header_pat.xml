@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:gravity="bottom"
+    >
+
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/pat_img"
+        android:layout_width="167dp"
+        android:layout_height="149dp"
+        android:layout_marginTop="44dp"
+        android:src="@drawable/ic_person"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lpat_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:fontFamily="monospace"
+        android:padding="8dp"
+        android:text=""
+        android:textColor="@color/teal_700"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:fontFamily="monospace"
+        android:padding="8dp"
+        android:text="USER"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>
+</ScrollView>

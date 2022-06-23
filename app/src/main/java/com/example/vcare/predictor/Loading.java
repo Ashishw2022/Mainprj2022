@@ -26,10 +26,20 @@ public class Loading extends AppCompatActivity {
             public void run() {
                 Intent intent1=getIntent();
                 String str=intent1.getStringExtra("Disease_name");
+                String str2=intent1.getStringExtra("pname");
+                String str3=intent1.getStringExtra("disease_category");
+                String str4=intent1.getStringExtra("Symptoms");
 
                 Intent intent3 = new Intent(Loading.this, Result.class);
                 String dis = str;
+                String pname=str2;
+                String dc=str3;
+                String syp=str4;
                 intent3.putExtra("Disease_name", dis);
+                intent3.putExtra("name", pname);
+                intent3.putExtra("disease_category", dc);
+                intent3.putExtra("Symptoms", syp);
+
                 startActivity(intent3);
                 //Intent i=new Intent(Loading.this,
                         //Result.class);
