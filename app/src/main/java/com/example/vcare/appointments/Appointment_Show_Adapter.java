@@ -38,7 +38,7 @@ public class Appointment_Show_Adapter extends RecyclerView.Adapter<Appointment_S
         holder.time.setText("Time: "+ notif.getTime());
         if(notif.getAppointment_text().equals("1")){
             holder.status.setTextColor(Color.GREEN);
-            holder.status.setText("Payment Verified and Booked!");
+            holder.status.setText("Appointment Verified and Booked!");
         }
         else{
             holder.status.setTextColor(Color.RED);

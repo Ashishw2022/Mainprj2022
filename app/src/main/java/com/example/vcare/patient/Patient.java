@@ -29,11 +29,7 @@ import com.example.vcare.predictor.PatientDashboard;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -51,7 +47,7 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient);
-        tvname=findViewById(R.id.tvname);
+        tvname=findViewById(R.id.doc_name);
 
 
         RecyclerView recyclerView_spec = (RecyclerView) findViewById(R.id.recycler_spec);
@@ -165,6 +161,9 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
                 Intent intent=new Intent(Patient.this,Available_Doctors.class);
                 intent.putExtra("flag",0+"");
                 startActivity(intent);
+                break;
+            case R.id.profile:
+                startActivity(new Intent(Patient.this, Patient_viewprofile.class));
                 break;
             case R.id.appointments:
                 startActivity(new Intent(Patient.this, Patient_Appointments.class));

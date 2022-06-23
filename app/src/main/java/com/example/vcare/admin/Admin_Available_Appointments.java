@@ -94,8 +94,8 @@ public class Admin_Available_Appointments extends AppCompatActivity {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-               // fragmentPagerAdapter.addFragment(AdminPreviousFragment.getInstance(doctor_email),"Previous", doctor_email);
-                //fragmentPagerAdapter.addFragment(AdminCurrentFragment.getInstance(doctor_email),"Current", doctor_email);
+                fragmentPagerAdapter.addFragment(AdminPreviousFragment.getInstance(doctor_email),"Previous", doctor_email);
+                fragmentPagerAdapter.addFragment(AdminCurrentFragment.getInstance(doctor_email),"Current", doctor_email);
                 viewPager.setAdapter(fragmentPagerAdapter);
                 tabLayout.setupWithViewPager(viewPager);
             }

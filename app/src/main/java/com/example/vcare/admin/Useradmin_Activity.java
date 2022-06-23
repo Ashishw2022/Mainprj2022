@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
 import com.example.vcare.doctor.Doctors_Session_Mangement;
-import com.example.vcare.patient.User_Profile;
+import com.example.vcare.patient.Patient_Profile;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,7 +52,7 @@ public class Useradmin_Activity extends AppCompatActivity implements NavigationV
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private List<User_Profile> listData;
+    private List<Patient_Profile> listData;
     private List<String> emaildata;
     private TextView textView_appointments;
     private int studentCounter = 0;
@@ -126,7 +126,7 @@ public class Useradmin_Activity extends AppCompatActivity implements NavigationV
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()){
                         String email=npsnapshot.getKey();
                         email = email.replace(",",".");
-                        User_Profile l=npsnapshot.getValue(User_Profile.class);
+                        Patient_Profile l=npsnapshot.getValue(Patient_Profile.class);
                         listData.add(l);
                         emaildata.add(email);
                     }

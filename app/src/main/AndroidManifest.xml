@@ -34,6 +34,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vcare">
         <activity
+            android:name=".Patient_viewprofile"
+            android:exported="false" />
+        <activity
+            android:name=".Patient_Update_Profile"
+            android:exported="false" />
+        <activity
+            android:name=".Chat_bot"
+            android:exported="false" />
+        <activity
             android:name=".predictor.Loading"
             android:exported="false" />
         <activity
@@ -104,6 +113,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".patient.Patient_Display_Doctor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient.Patient_Update_Profile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient.Patient_viewprofile"
             android:screenOrientation="portrait" />
         <activity
             android:name=".doctor.Doctor_appointment"

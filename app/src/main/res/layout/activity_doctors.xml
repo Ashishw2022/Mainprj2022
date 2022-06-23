@@ -5,7 +5,6 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Doctors"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
@@ -13,7 +12,7 @@
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:headerLayout="@layout/header"
+        app:headerLayout="@layout/header_doctor"
         app:menu="@menu/doctor_menu"
         android:layout_gravity="start"
         />

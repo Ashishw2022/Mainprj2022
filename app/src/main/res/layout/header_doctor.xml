@@ -15,23 +15,30 @@
     android:background="@color/white"
     android:gravity="bottom"
     >
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_marginTop="32dp"
-        android:padding="8dp"
-        android:layout_gravity="center_horizontal"/>
+
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/doc_img"
+        android:layout_width="167dp"
+        android:layout_height="149dp"
+        android:layout_marginTop="44dp"
+        android:src="@drawable/ic_person"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/doc_name"
+        android:id="@+id/ldoc_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="4dp"
         android:fontFamily="monospace"
         android:padding="8dp"
-        android:text=""
+        android:text="DR."
         android:textColor="@color/teal_700"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -39,13 +46,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="12sp"
-        android:layout_marginTop="2dp"
-        android:textStyle="bold"
-        android:fontFamily="monospace"
         android:layout_gravity="center"
-        android:padding="8dp"/>
+        android:layout_marginTop="2dp"
+        android:fontFamily="monospace"
+        android:padding="8dp"
+        android:text="DOCTOR"
+        android:textSize="12sp"
+        android:textStyle="bold" />
 
 
 </LinearLayout>

@@ -1,13 +1,17 @@
 package com.example.vcare.doctor;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +28,7 @@ import com.example.vcare.appointments.Appointment_notif;
 import com.example.vcare.appointments.Appointments_Adapter;
 import com.example.vcare.appointments.Retrieve_Appointments;
 import com.example.vcare.chat.Doctor_Chat_Display;
+import com.example.vcare.patient.Patient_viewprofile;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +38,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,9 +46,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Doctors extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Button add_doc, choose_slots;
-
+    private View navView;
     private RecyclerView rv;
     private Appointments_Adapter adapter ;
     private FirebaseUser user;
@@ -62,9 +70,12 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
     private ArrayList<Appointment_notif> current_appt;
     private String email;
     private Date d1, d2;
+    private TextView mName;
+    private CircleImageView mImageView;
+    private Doctor_Images doctor_images;
 
 
-
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +87,12 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
 
         Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
         email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+
+
+
+        //navView = navigationView.inflateHeaderView(R.layout.header_doctor);
+       // NavProfileImage = (CircleImageView)findViewById(R.id.doc_img);
+        //mName = (TextView)navView.findViewById(R.id.ldoc_name);
 
         rv=(RecyclerView)findViewById(R.id.recycler_available_appointments);
         final DatabaseReference nm= FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Chosen_Slots");
@@ -95,6 +112,21 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
 
             }
         });
+
+//                 }if (dataSnapshot.hasChild("doc_pic")) {
+//                    doctor_images = dataSnapshot.child("doc_pic").getValue(Doctor_Images.class);
+//                    //String image = dataSnapshot.child("doc_pic").getValue().toString();
+//                    Picasso.with(Doctors.this).load(doctor_images.getUrl()).into(NavProfileImage);
+//
+//
+//                }else {
+//                    Toast.makeText(Doctors.this, "Profile name do not exists...", Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
 
@@ -104,6 +136,8 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
         toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
+        mName   = (TextView)navigationView.getHeaderView(0).findViewById(R.id.ldoc_name);
+        mImageView = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.doc_img);
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close);
@@ -128,6 +162,26 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        reference_doctor.child(email).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //Fetch values from you database child and set it to the specific view object.
+                mName.setText("Dr. "+dataSnapshot.child("name").getValue().toString().toUpperCase());
+
+//                String link =dataSnapshot.child("doc_pic").getValue().toString();
+//                Picasso.with(getBaseContext()).load(link).into(mImageView);
+                doctor_images = dataSnapshot.child("doc_pic").getValue(Doctor_Images.class);
+                //sign_images = datasnapshot.child("sign_pic").getValue(Doctor_Images.class);
+                if(doctor_images != null) {
+                    Picasso.with(Doctors.this).load(doctor_images.getUrl()).into(mImageView);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         reference.child(email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

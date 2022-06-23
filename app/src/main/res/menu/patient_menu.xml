@@ -8,6 +8,10 @@
             android:icon="@drawable/ic_home"
             android:title="Home" />
         <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_person1"
+            android:title="Profile" />
+        <item
             android:id="@+id/diseasepred"
             android:icon="@drawable/ic_baseline_health"
             android:title="Predico" />
