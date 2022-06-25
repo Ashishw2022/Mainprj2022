@@ -51,7 +51,7 @@ public class Doctor_Chat_Display extends AppCompatActivity {
         Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
         email = doctors_session_mangement.getDoctorSession()[0].replace(".", ",");
         usersList = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance("https://adsd-ce4a7-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Chats");
+        reference = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

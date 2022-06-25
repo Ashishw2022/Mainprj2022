@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Patient_MessageActivity">
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/barLayout"
@@ -38,11 +38,11 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerView"
-        android:layout_below="@+id/barLayout"
         android:layout_above="@+id/bottom"
+        android:layout_below="@+id/barLayout"
         android:layout_marginBottom="20dp">
 
 

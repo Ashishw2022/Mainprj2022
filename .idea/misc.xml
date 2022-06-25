@@ -28,11 +28,14 @@
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_appointment_approval.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_choose_slots.xml" value="0.11302083333333333" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_display_chats.xml" value="0.1" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_recommendation.xml" value="0.24010416666666667" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_update_profile.xml" value="0.24818840579710144" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctor_view_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctors.xml" value="0.22327898550724637" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_doctors_login.xml" value="0.22327898550724637" />
-        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_loading.xml" value="0.10400000000000001" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_feedback.xml" value="0.12864583333333332" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_forgot_password.xml" value="0.25416666666666665" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_loading.xml" value="0.2" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_main.xml" value="0.22327898550724637" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_make_payment.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_news.xml" value="0.2210144927536232" />
@@ -48,7 +51,7 @@
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_patient_view_doctor.xml" value="0.25416666666666665" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_patient_viewprofile.xml" value="0.264" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_reg.xml" value="0.22327898550724637" />
-        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_result.xml" value="0.1111111111111111" />
+        <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_result.xml" value="0.2" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_signup.xml" value="0.22327898550724637" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_useradmin.xml" value="0.25052083333333336" />
         <entry key="..\:/Mainproject_2022/app/src/main/res/layout/activity_view__all__speciality.xml" value="0.11302083333333333" />

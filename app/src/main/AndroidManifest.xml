@@ -34,14 +34,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vcare">
         <activity
-            android:name=".Patient_viewprofile"
+            android:name=".predictor.Doctor_recommendation"
             android:exported="false" />
-        <activity
-            android:name=".Patient_Update_Profile"
-            android:exported="false" />
-        <activity
-            android:name=".Chat_bot"
-            android:exported="false" />
+
         <activity
             android:name=".predictor.Loading"
             android:exported="false" />

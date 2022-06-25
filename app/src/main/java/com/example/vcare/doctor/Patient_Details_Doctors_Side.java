@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.vcare.R;
 import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.patient.PrescriptionActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -77,8 +78,8 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
 
 
         }
-
-      /*  public void upload_prescription (View view){
+//todo change the commented line
+      /* public void upload_prescription (View view){
 
             Intent intent = new Intent(Patient_Details_Doctors_Side.this, PrescriptionActivity.class);
             intent.putExtra("name", pname);

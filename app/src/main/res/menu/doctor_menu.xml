@@ -27,7 +27,10 @@
             android:id="@+id/chats"
             android:icon="@drawable/ic_chat"
             android:title="Chats" />
-
+        <item
+            android:id="@+id/news"
+            android:icon="@drawable/ic_news"
+            android:title="Health News" />
 
         <item
             android:id="@+id/logout"

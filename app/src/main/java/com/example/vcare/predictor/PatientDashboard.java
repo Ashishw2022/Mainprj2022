@@ -72,13 +72,8 @@ public class PatientDashboard extends AppCompatActivity implements AdapterView.O
             "distention_of_abdomen", "history_of_alcohol_consumption", "fluid_overload blood_in_sputum", "prominent_veins_on_calf",
             "palpitations", "painful_walking", "pus_filled_pimples", "blackheads", "scurring", "skin_peeling", "silver_like_dusting",
             "small_dents_in_nails", "inflammatory_nails", "blister", "red_sore_around_nose", "yellow_crust_ooze"};
-    String[] all_symptoms1 = {"select a symptom", "itching", "skin_rash", "nodal_skin_eruptions", "continuous_sneezing", "shivering",
-            "chills", "joint_pain", "stomach_pain", "acidity", "ulcers_on_tongue", "muscle_wasting vomiting",
-            "burning_micturition", "spotting_ urination", "fatigue", "weight_gain", "anxiety", "cold_hands_and_feets",
-            "mood_swings", "weight_loss", "restlessness", "lethargy", "patches_in_throat", "irregular_sugar_level", "cough",
-            "high_fever", "sunken_eyes", "breathlessness", "sweating ", "dehydration", "indigestion", "headache",
-            "yellowish_skin", "dark_urine", "nausea", "loss_of_appetite", "pain_behind_the_eyes", "back_pain",
-            "constipation", "abdominal_pain", "diarrhoea"};
+    String[] all_symptoms1 = {"itching","chills","stomach_pain","vomiting","muscle_wasting","fatigue","headache","stiff_neck","Back_pain","cough",
+            "muscle_weakness","Black heads"};
     String[] all_symptoms2 = {"select a symptom","mild_fever", "yellow_urine", "yellowing_of_eyes", "acute_liver_failure",
             "fluid_overload", "swelling_of_stomach", "swelled_lymph_nodes", "malaise", "blurred_and_distorted_vision",
             "phlegm", "throat_irritation", "redness_of_eyes", "sinus_pressure", "runny_nose", "congestion", "chest_pain",

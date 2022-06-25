@@ -11,29 +11,21 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/contact_animation_view2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
+
                 android:layout_marginEnd="2dp"
                 app:lottie_autoPlay="true"
                 app:lottie_fileName="loading.json"
+                android:foregroundGravity="center"
                 app:lottie_loop="true" />
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/contact_animation_view3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/contact_animation_view2"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
-                app:lottie_autoPlay="true"
-                app:lottie_fileName="load.json"
-
-                app:lottie_loop="true" />
         </RelativeLayout>
 
 

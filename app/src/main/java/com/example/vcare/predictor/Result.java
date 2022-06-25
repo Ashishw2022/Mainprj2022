@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.vcare.R;
@@ -25,6 +27,7 @@ public class Result extends AppCompatActivity {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser user;
     private String patemail,ename;
+    Button needdoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,6 @@ public class Result extends AppCompatActivity {
         String desc = "";
 
         setContentView(R.layout.activity_result);
-
         Patient_Session_Management session = new Patient_Session_Management(Result.this);
         patemail = session.getSession();
 
@@ -43,6 +45,17 @@ public class Result extends AppCompatActivity {
 
         String symList = intent1.getStringExtra("Symptoms");
         String category = intent1.getStringExtra("disease_category");
+
+        needdoc=findViewById(R.id.needdoc);
+        needdoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(Result.this, Doctor_recommendation.class);
+                intent1.putExtra("disease_category",category);
+                startActivity(intent1);
+            }
+        });
+
         Log.d("main", "Main function 2"+str);
         //TextView tv1 =  findViewById(R.id.predicted_disease_name);
         //tv1.setText(str);

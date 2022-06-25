@@ -64,7 +64,7 @@ public class Doctors_Add_Admin extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         registerUser = (Button) findViewById(R.id.registerUser);
-        sendmail = (Button) findViewById(R.id.sendmail);
+        //sendmail = (Button) findViewById(R.id.sendmail);
 
         editTextFullName = (EditText) findViewById(R.id.fullName);
         editTextEmail = (EditText) findViewById(R.id.email);

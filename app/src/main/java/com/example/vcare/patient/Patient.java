@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
+import com.example.vcare.chat.Doctor_Chat_Display;
+import com.example.vcare.chat.Patient_Chat_Display;
 import com.example.vcare.doctor.Doctor_Images;
 import com.example.vcare.doctor.Doctors;
 import com.example.vcare.doctor.Doctors_Session_Mangement;
@@ -82,27 +84,27 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
         navigationView1.setNavigationItemSelectedListener(Patient.this);
         navigationView1.setCheckedItem(R.id.nav_home);
 
-        reference_user_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_Data");
+        reference_user_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_data");
 
-//        reference_user_details.child(patemail).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                //Fetch values from you database child and set it to the specific view object.
-//                mName.setText(dataSnapshot.child("name").getValue().toString());
-////                String link =dataSnapshot.child("doc_pic").getValue().toString();
-////                Picasso.with(getBaseContext()).load(link).into(mImageView);
-//                doctor_images = dataSnapshot.child("doc_pic").getValue(Doctor_Images.class);
-//                //sign_images = datasnapshot.child("sign_pic").getValue(Doctor_Images.class);
-//                if(doctor_images != null) {
-//                    Picasso.with(Patient.this).load(doctor_images.getUrl()).into(mImageView);
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+        reference_user_details.child(patemail).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //Fetch values from you database child and set it to the specific view object.
+                mName.setText(dataSnapshot.child("name").getValue().toString());
+//                String link =dataSnapshot.child("doc_pic").getValue().toString();
+//                Picasso.with(getBaseContext()).load(link).into(mImageView);
+                doctor_images = dataSnapshot.child("doc_pic").getValue(Doctor_Images.class);
+                //sign_images = datasnapshot.child("sign_pic").getValue(Doctor_Images.class);
+                if(doctor_images != null) {
+                    Picasso.with(Patient.this).load(doctor_images.getUrl()).into(mImageView);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         Integer [] specialisation_pic={R.drawable.infectious,R.drawable.dermavenereolepro,R.drawable.skin,R.drawable.diabetes,
                                         R.drawable.thyroid,R.drawable.hormone, R.drawable.immunology, R.drawable.rheuma, R.drawable.neuro, R.drawable.ophtha, R.drawable.cardiac, R.drawable.cancer,
@@ -207,6 +209,9 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
                 break;
             case R.id.news:
                 startActivity(new Intent(Patient.this, news.class));
+                break;
+            case R.id.chats:
+                startActivity(new Intent(Patient.this, Patient_Chat_Display.class));
                 break;
             case R.id.diseasepred:
                startActivity(new Intent(Patient.this, PatientDashboard.class));

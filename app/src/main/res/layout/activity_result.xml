@@ -26,6 +26,26 @@
                 android:textSize="29sp" />
 
             <TextView
+                android:id="@+id/textView3"
+                android:gravity="center"
+                android:text="Approval Pending"
+                android:textColor="#D60000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/needdoc"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_marginTop="16dp"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:backgroundTint="@null"
+                android:background="@drawable/custom_button"
+                android:text="Need a Doctor"
+                android:textColor="@color/white" />
+
+            <TextView
                 android:id="@+id/desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
