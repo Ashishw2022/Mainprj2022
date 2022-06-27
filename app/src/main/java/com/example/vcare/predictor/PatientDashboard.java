@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +21,6 @@ import android.widget.Toast;
 import org.tensorflow.lite.Interpreter;
 
 import com.example.vcare.R;
-import com.example.vcare.patient.Patient_Booking_Appointments;
 import com.example.vcare.patient.Patient_Session_Management;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,15 +28,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class PatientDashboard extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+
+public class PatientDashboard extends AppCompatActivity{
     EditText ename, eage;
     String patemail;
     String user_name;
@@ -72,24 +80,7 @@ public class PatientDashboard extends AppCompatActivity implements AdapterView.O
             "distention_of_abdomen", "history_of_alcohol_consumption", "fluid_overload blood_in_sputum", "prominent_veins_on_calf",
             "palpitations", "painful_walking", "pus_filled_pimples", "blackheads", "scurring", "skin_peeling", "silver_like_dusting",
             "small_dents_in_nails", "inflammatory_nails", "blister", "red_sore_around_nose", "yellow_crust_ooze"};
-    String[] all_symptoms1 = {"itching","chills","stomach_pain","vomiting","muscle_wasting","fatigue","headache","stiff_neck","Back_pain","cough",
-            "muscle_weakness","Black heads"};
-    String[] all_symptoms2 = {"select a symptom","mild_fever", "yellow_urine", "yellowing_of_eyes", "acute_liver_failure",
-            "fluid_overload", "swelling_of_stomach", "swelled_lymph_nodes", "malaise", "blurred_and_distorted_vision",
-            "phlegm", "throat_irritation", "redness_of_eyes", "sinus_pressure", "runny_nose", "congestion", "chest_pain",
-            "weakness_in_limbs", "fast_heart_rate", "pain_during_bowel_movements", "pain_in_anal_region", "bloody_stool",
-            "irritation_in_anus", "neck_pain", "dizziness", "cramps", "bruising", "obesity", "swollen_legs", "swollen_blood_vessels",
-            "puffy_face_and_eyes", "enlarged_thyroid", "brittle_nails", "swollen_extremeties", "excessive_hunger", "extra_marital_contacts",
-            "drying_and_tingling_lips", "slurred_speech", "knee_pain", "hip_joint_pain", "muscle_weakness", "stiff_neck", "swelling_joints",
-            "movement_stiffness", "spinning_movements", "loss_of_balance", "unsteadiness", "weakness_of_one_body_side"};
-    String[] all_symptoms3 ={"select a symptom","loss_of_smell", "bladder_discomfort", "foul_smell_of urine", "continuous_feel_of_urine", "passage_of_gases",
-            "internal_itching", "toxic_look_(typhos)", "depression", "irritability", "muscle_pain", "altered_sensorium",
-            "red_spots_over_body", "belly_pain", "abnormal_menstruation", "dischromic _patches", "watering_from_eyes",
-            "increased_appetite", "polyuria", "family_history", "mucoid_sputum", "rusty_sputum", "lack_of_concentration",
-            "visual_disturbances", "receiving_blood_transfusion", "receiving_unsterile_injections", "coma", "stomach_bleeding",
-            "distention_of_abdomen", "history_of_alcohol_consumption", "fluid_overload blood_in_sputum", "prominent_veins_on_calf",
-            "palpitations", "painful_walking", "pus_filled_pimples", "blackheads", "scurring", "skin_peeling", "silver_like_dusting",
-            "small_dents_in_nails", "inflammatory_nails", "blister", "red_sore_around_nose", "yellow_crust_ooze"};
+
 
     float[] input = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -116,6 +107,8 @@ public class PatientDashboard extends AppCompatActivity implements AdapterView.O
             "Immunology","Hormone", "Ear Nose Throat","Gastroenterology, Hepatology & Endoscopy","Dermatology & Venereology","Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","Gastroenterology, Hepatology & Endoscopy",
             "Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","Infectious Disease","Endocrinology & Diabetes","Gastroenterology, Hepatology & Endoscopy",
             "Immunology","Hormone", "Ear Nose Throat","Gastroenterology, Hepatology & Endoscopy"};
+    Map<Integer, List<String>> resultMap = new HashMap<Integer, List<String>>();
+    List<String> selectedSymList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +120,16 @@ public class PatientDashboard extends AppCompatActivity implements AdapterView.O
         user_name = ename.getText().toString();
         String user_age = eage.getText().toString();
 
+        try {
+            AssetManager manager = getAssets();
+            InputStream in = manager.open("Training.csv");
+            resultMap = parse(in);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         reference_user_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_data");
 
         Patient_Session_Management session = new Patient_Session_Management(PatientDashboard.this);
@@ -168,34 +171,190 @@ public class PatientDashboard extends AppCompatActivity implements AdapterView.O
         //spin4.setOnItemSelectedListener(this);
         selected=all_symptoms;
 
-        ArrayAdapter aa1 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, all_symptoms1);
+
+        ArrayAdapter aa1 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, all_symptoms);
         aa1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin1.setAdapter(aa1);
         System.out.println(spin1);
-        spin1.setOnItemSelectedListener(this);
+        String[]  symp2 =null;
+        //   String txt ="";
+        spin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String sym = parent.getItemAtPosition(position).toString();
+                selectedSymList.add(sym);
+                //   int l =0;
+                input[position] = 1;
+                List<String> arrayList = new ArrayList<>();
+                arrayList =  displaySym(sym,arrayList);
+                String[] array = new String[arrayList.size()];
 
-        Log.d("main", "Main function 1");
-        ArrayAdapter aa2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, all_symptoms2);
-        aa2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin2.setAdapter(aa2);
-        spin2.setOnItemSelectedListener(this);
+                for (int i = 0; i < arrayList.size(); i++) {
+                    array[i] = arrayList.get(i);
+                }
 
-        Log.d("main", "Main function 2");
+                Log.d("main", "Main function 1");
+                ArrayAdapter aa2 = new ArrayAdapter(parent.getContext(), android.R.layout.simple_spinner_item,array);
+                aa2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spin2.setAdapter(aa2);
+                // spin2.setOnItemSelectedListener(this);
+                spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        String sym = parent.getItemAtPosition(position).toString();
+                        selectedSymList.add(sym);
+                        input[position] = 1;
+                       // List<String> spinner2list = Arrays.asList(array);
 
-        ArrayAdapter aa3 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, all_symptoms3);
-        aa3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin3.setAdapter(aa3);
-        spin3.setOnItemSelectedListener(this);
-        Log.d("main", "Main function 3");
+                            List<String> spinner2list = new ArrayList<>();
+                            spinner2list = displaySym(sym, spinner2list);
+                            String[] array2 = new String[spinner2list.size() + 1];
+                            array2[0] = "Select a symptom";
+                        if(sym != null) {
+                            if (!spinner2list.contains(sym)) {
+                                for (int i = 1; i <= (spinner2list.size() + 1); i++) {
+                                    array2[i] = spinner2list.get(i);
+                                }
+                            }
+                        }
 
-        ArrayAdapter aa4 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, all_symptoms2);
-        aa4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin4.setAdapter(aa4);
-        spin4.setOnItemSelectedListener(this);
-        Log.d("main", "Main function 4");
+                        Log.d("main", "Main function 2");
+
+                        ArrayAdapter aa3 = new ArrayAdapter(parent.getContext(), android.R.layout.simple_spinner_item, array2);
+                        aa3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spin3.setAdapter(aa3);
+                        // spin3.setOnItemSelectedListener(this);
+                        spin3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int p, long l) {
+                                String sym = adapterView.getItemAtPosition(p).toString();
+                                selectedSymList.add(sym);
+                                input[position] = 1;
+                             //   List<String> spinner3list = Arrays.asList(array2);
+
+
+                                List<String> spinner3list = new ArrayList<>();
+                                spinner3list =  displaySym(sym,spinner3list);
+                                String[] array3 = new String[spinner3list.size()+1];
+                                array3[0] ="Select a symptom";
+                                if(sym != null) {
+                                    if (!spinner3list.contains(sym)) {
+                                        for (int i = 1; i <= (spinner3list.size() + 1); i++) {
+                                            array3[i] = spinner3list.get(i);
+                                        }
+                                    }
+                                }
+                                ArrayAdapter aa4 = new ArrayAdapter(adapterView.getContext(), android.R.layout.simple_spinner_item, array3);
+                                aa4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spin4.setAdapter(aa4);
+                                spin4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        String sym = adapterView.getItemAtPosition(i).toString();
+
+                                        input[position] = 1;
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                    }
+                                });
+                                // spin4.setOnItemSelectedListener(this);
+                                Log.d("main", "Main function 4");
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+
+
+                        Log.d("main", "Main function 3");
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                        Log.i("GTOUTOUT", "Nothing Selected");
+                    }
+                });
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                Log.i("GTOUTOUT", "Nothing Selected");
+            }
+        });
+
+
+
+
+
+
     }
 
-    @Override
+    private List<String> displaySym(String sym, List<String> arrayList) {
+        arrayList = new ArrayList<>();
+        //  for(int i=0; i<resultMap.size();i++){
+        int i=0;
+        while(i <resultMap.size() ){
+            List<String> values = resultMap.get(i++);
+            if(values.contains(sym)){
+                for(int k=0;k<values.size();k++){
+
+                    if(!values.get(k).equals(sym)){
+                        if(!arrayList.contains(values.get(k)) && !selectedSymList.contains(values.get(k))) {
+                            arrayList.add(values.get(k));
+                        }
+                    }
+                }
+            }
+
+
+
+        }
+        return  arrayList;
+
+    }
+
+    private Map<Integer, List<String>> parse(InputStream in)  throws IOException {
+        Map<Integer, List<String>> results = new HashMap<>();
+        int k = 0;
+        String value ="";
+        String[] symArray = null;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        String nextLine = null;
+        int m =0;
+        while ((nextLine = reader.readLine()) != null) {
+            String[] tokens = nextLine.split(",");
+            if(m != 0) {
+
+                List<String> valuesList = new ArrayList<>();
+                for (int i = 0; i < tokens.length-2; i++) {
+
+                    if (tokens[i].equals("1")) {
+                        valuesList.add(symArray[i]);
+
+                    }
+                }
+                results.put(k++, valuesList);
+                value ="";
+            }else{
+
+                symArray=  nextLine.split(",");
+            }
+            m++;
+
+        }
+        in.close();
+        return results;
+    }
+
+   /* @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
         Toast.makeText(getApplicationContext(), all_symptoms[position], Toast.LENGTH_LONG).show();
         String sym = arg0.getItemAtPosition(position).toString();
@@ -208,13 +367,13 @@ public class PatientDashboard extends AppCompatActivity implements AdapterView.O
 
        //
         Log.d("onItemSelected", "Item selected ");
-    }
+    }*/
 
-    @Override
+ /*   @Override
     public void onNothingSelected(AdapterView<?> arg0) {
 // TODO Auto-generated method stub
 
-    }
+    }*/
 
     private MappedByteBuffer loadModelFile() throws IOException {
         AssetFileDescriptor assetFileDescriptor = this.getAssets().openFd("MPtflite.tflite");
