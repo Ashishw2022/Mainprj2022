@@ -2,15 +2,17 @@ package com.example.vcare.appointments;
 
 public class Appointment_notif {
 
-    String appointment_text,date,time,Questions,phone,pname;
+    private String appointment_text,date,time,Questions,phone,pname,token;
 
-    public Appointment_notif(String appointment_text, String date, String time, String questions, String phone, String pname) {
+    public Appointment_notif(String appointment_text, String date, String time, String questions, String phone, String pname,String token) {
         this.appointment_text = appointment_text;
         this.date = date;
         this.time = time;
         this.Questions = questions;
         this.phone = phone;
         this.pname = pname;
+        this.token=token;
+
     }
 
 
@@ -63,5 +65,14 @@ public class Appointment_notif {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

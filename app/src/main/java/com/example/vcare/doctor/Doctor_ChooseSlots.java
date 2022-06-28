@@ -103,6 +103,7 @@ public class Doctor_ChooseSlots extends AppCompatActivity {
             int day = cal.get(Calendar.DATE);
             String month = monthName[cal.get(Calendar.MONTH)];
             int year = cal.get(Calendar.YEAR);
+            //date here is gone as 1 not as 01
             String value = day + " " + month + " " + year;
             dates.add(value);
             cal.add(Calendar.DAY_OF_MONTH, 1);

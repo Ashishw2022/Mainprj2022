@@ -216,7 +216,7 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                                     if (snapshot.exists()) {
                                                         ques = snapshot.getValue(String.class);
                                                     }
-                                                    Appointment_notif appointment_notif = new Appointment_notif("1", payment_class.getDate(), payment_class.getTime(), ques, payment_class.getPhone(), payment_class.getName());
+                                                    Appointment_notif appointment_notif = new Appointment_notif("1", payment_class.getDate(), payment_class.getTime(), ques, payment_class.getPhone(), payment_class.getName(),payment_class.getTransaction());
                                                     reference_doctor_appt.child(encoded_email).child(payment_class.getDate()).child(payment_class.getTime()).setValue(appointment_notif);
                                                     String check = payment_class.getTime().split(" - ", 5)[0];
                                                     Booking_Appointments booking = new Booking_Appointments(1, payment_class.getPhone());
@@ -236,7 +236,9 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                                                     }
                                                                 }
                                                                 reference_booking.child(encoded_email).child(payment_class.getDate()).child(slot_val).child(check).child("email").setValue(payment_class.getPemail());
-                                                                senddocmail(payment_class.getPemail().replace(",","."),"your appointment is Approved by  doctor for time slot"+payment_class.getTime()+"on"+payment_class.getDate());
+                                                                senddocmail(payment_class.getPemail().replace(",","."),"\nHello "+payment_class.getName()+","+
+                                                                        "\n Thanks for booking an appointment on V-Care."+
+                                                                        "\nyour appointment is Approved by  doctor for time slot "+payment_class.getTime()+" on "+payment_class.getDate());
                                                             }
                                                         }
 
@@ -294,7 +296,9 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                                                     int count = snapshot.getValue(Integer.class);
                                                                     count = count - 1;
                                                                     reference_booking.child(encoded_email).child(payment_class.getDate()).child(finalSlot_val).child("Count").setValue(count);
-                                                                    senddocmail(payment_class.getPemail().replace(",","."),"your appointment is Declined by  doctor for time slot "+payment_class.getTime()+"on "+payment_class.getDate());
+                                                                    senddocmail(payment_class.getPemail().replace(",","."),"\nHello "+payment_class.getName()+","+
+                                                                            "\n Thanks for booking an appointment on V-Care."+
+                                                                            "\nyour appointment is Declined by  doctor for time slot "+payment_class.getTime()+" on "+payment_class.getDate());
 
                                                                 }
 

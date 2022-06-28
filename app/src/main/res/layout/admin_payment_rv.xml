@@ -14,21 +14,20 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/token"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:gravity="center"
-            android:text="Phone"
-            android:textColor="@color/teal_700"
-            android:textSize="15dp" />
+<!--        <TextView-->
+<!--            android:id="@+id/token"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="4dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Phone"-->
+<!--            android:textColor="@color/teal_700"-->
+<!--            android:textSize="15dp" />-->
 
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/token"
             android:layout_marginLeft="4dp"
             android:gravity="center"
             android:text="Name"

@@ -41,13 +41,16 @@ public class Appointments_Adapter extends RecyclerView.Adapter<Appointments_Adap
                 String name=obj.getPname();
                 String Questions=obj.getQuestions();
                 String phone=obj.getPhone();
+                String tran=obj.getToken();
 
                 Intent intent=new Intent(view.getContext(), Patient_Details_Doctors_Side.class);
                 intent.putExtra("date",date);
+                intent.putExtra("trans",date);
                 intent.putExtra("time",time);
                 intent.putExtra("name",name);
                 intent.putExtra("Questions",Questions);
                 intent.putExtra("phone",phone);
+                intent.putExtra("tran",tran);
 
                 view.getContext().startActivity(intent);
             }

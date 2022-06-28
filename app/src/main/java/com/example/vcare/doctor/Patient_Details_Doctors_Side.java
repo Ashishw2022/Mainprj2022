@@ -23,8 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Patient_Details_Doctors_Side extends AppCompatActivity {
 
-    private TextView Quest, name, phone_no, date_booked, time_booked;
-    private String date, time, pname, Questions, phone, email,pemail;
+    private TextView Quest, name, phone_no, date_booked, time_booked,trans;
+    private String date,tran, time, pname, Questions, phone, email,pemail;
     private String[] gender;
     private ArrayAdapter<String> gender_adapter;
     private DatabaseReference feedback,userdetails;
@@ -40,9 +40,12 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
         pname = (String) getIntent().getSerializableExtra("name");
         Questions = (String) getIntent().getSerializableExtra("Questions");
         phone = (String) getIntent().getSerializableExtra("phone");
+        tran = (String) getIntent().getSerializableExtra("tran");
+
         feedback = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Feedback");
         Quest = findViewById(R.id.detaildesc_ques);
         name = findViewById(R.id.detailhead);
+        trans = findViewById(R.id.detailtrans);
         date_booked = findViewById(R.id.detail_date);
         phone_no = findViewById(R.id.detailaddress);
         time_booked = findViewById(R.id.detail_time);
@@ -62,14 +65,16 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
         phone_no.setText(phone);
         date_booked.setText(date);
         time_booked.setText(time);
-        userdetails = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users");
+        trans.setText(tran);
+
+        userdetails = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_data");
         userdetails.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     Users userdata = snapshot1.getValue(Users.class);
-                    if(userdata.getPhMain().equals(phone) && userdata.getuser_type().equals("user")){
-                        pemail = userdata.getEmail();
+                    if(userdata.getPhMain().equals(phone) ){
+                        pemail = snapshot1.getKey();
                     }
                 }
             }

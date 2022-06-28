@@ -51,11 +51,12 @@ public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Ap
             holder.payment.setText("Approval On Progress");
         }
         else if(admin_payment_class.getPayment() == 1){
-            holder.payment.setText("Approved !");
+            holder.payment.setText("Approved by Doctor!");
             holder.payment.setTextColor(Color.GREEN);
         }
         else{
-            holder.payment.setText("Incorrect ID. Approval Declined!");
+            holder.payment.setTextColor(Color.RED);
+            holder.payment.setText("Appointment Cancelled by Doctor!");
         }
         if(admin_payment_class.getStatus() == 2){
             holder.cancel.setText("Appointment Cancelled by Doctor!");

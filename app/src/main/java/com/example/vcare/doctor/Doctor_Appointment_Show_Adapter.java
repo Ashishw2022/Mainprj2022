@@ -30,8 +30,8 @@ public class Doctor_Appointment_Show_Adapter extends RecyclerView.Adapter<Doctor
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Appointment_details p_class = payments.get(position);
-        holder.name.setText(p_class.getName() + ": " +p_class.getPhone());
-        holder.phone.setText("Transaction ID: "+p_class.getTransaction());
+        holder.name.setText("Transaction ID: "+p_class.getTransaction());
+        holder.phone.setText("\n Name: "+p_class.getName() + "\n Phone No: " +p_class.getPhone());
         holder.email.setText("Booked for: "+p_class.getDname());
         holder.date.setText("Date: "+p_class.getDate());
         holder.time.setText("Time: "+p_class.getTime());
