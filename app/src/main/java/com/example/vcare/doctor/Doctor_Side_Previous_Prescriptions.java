@@ -29,7 +29,7 @@ public class Doctor_Side_Previous_Prescriptions extends AppCompatActivity {
     private ArrayList<Get__Previous_Prescription_Details> presc;
     private com.example.vcare.doctor.Doctor_Previous_Prescription_Adapter adapter;
 
-    String name,phone,date,time;
+    String name,pemail,date,time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,10 @@ public class Doctor_Side_Previous_Prescriptions extends AppCompatActivity {
         Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
         email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
         name = getIntent().getStringExtra("pname");
-        phone = getIntent().getStringExtra("phone");
+        pemail = getIntent().getStringExtra("email");
 
         prescription_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Prescription_By_Doctor");
-        prescription_doctor.child(email).child(phone).addValueEventListener(new ValueEventListener() {
+        prescription_doctor.child(email).child(pemail).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 presc = new ArrayList<>();
@@ -56,7 +56,7 @@ public class Doctor_Side_Previous_Prescriptions extends AppCompatActivity {
                         date=dataSnapshot.getKey();
                         for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
                             time=dataSnapshot1.getKey();
-                            Get__Previous_Prescription_Details gpd= new Get__Previous_Prescription_Details(name,date,time,phone);
+                            Get__Previous_Prescription_Details gpd= new Get__Previous_Prescription_Details(name,date,time,pemail);
                             presc.add(gpd);
 
                         }

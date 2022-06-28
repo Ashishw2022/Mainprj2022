@@ -2,16 +2,16 @@ package com.example.vcare.patient;
 
 public class Get__Previous_Prescription_Details {
 
-    private String name,date,time,phone_no;
+    private String name,date,time,email;
 
     public Get__Previous_Prescription_Details() {
     }
 
-    public Get__Previous_Prescription_Details(String name, String date, String time, String phone_no) {
+    public Get__Previous_Prescription_Details(String name, String date, String time, String email) {
         this.name = name;
         this.date = date;
         this.time = time;
-        this.phone_no = phone_no;
+        this.email = email;
     }
 
     public String getName() {
@@ -38,11 +38,11 @@ public class Get__Previous_Prescription_Details {
         this.time = time;
     }
 
-    public String getPhone_no() {
-        return phone_no;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhone_no(String phone_no) {
-        this.phone_no = phone_no;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

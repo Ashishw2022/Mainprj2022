@@ -35,7 +35,7 @@ public class Doctor_Previous_Prescription_Adapter extends RecyclerView.Adapter<D
             public void onClick(View v) {
                 com.example.vcare.patient.Get__Previous_Prescription_Details obj=get_prescription_details.get(viewHolder.getAdapterPosition());
                 Intent intent1 = new Intent(view.getContext(), com.example.vcare.doctor.Doctors_Show_Previous_Prescription_Doctors.class);
-                intent1.putExtra("phone",obj.getPhone_no());
+                intent1.putExtra("email",obj.getEmail());
                 intent1.putExtra("date",obj.getDate());
                 intent1.putExtra("time",obj.getTime());
                 view.getContext().startActivity(intent1);

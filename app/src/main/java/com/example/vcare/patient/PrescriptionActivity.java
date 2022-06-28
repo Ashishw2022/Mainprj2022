@@ -41,7 +41,7 @@ public class PrescriptionActivity extends AppCompatActivity {
     private AutoCompleteTextView gender_view;
     private String gender_data,age_data,address_data,Height_data,Weight_data,Consultation_type_data,Previous_Lab_reports_data
             ,relevent_point_data,Diagnosis_data,exmination_data,instructions_data,Rx_data,date_data;
-    private String date,time,pname,phone,email;
+    private String date,time,pname,pemail,email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public class PrescriptionActivity extends AppCompatActivity {
         date= (String) getIntent().getSerializableExtra("date");
         time= (String) getIntent().getSerializableExtra("time");
         pname=(String) getIntent().getSerializableExtra("name");
-        phone= (String) getIntent().getSerializableExtra("phone");
+        pemail= (String) getIntent().getSerializableExtra("email");
         name.setText(pname);
 
         selectDate.setText(date);
@@ -89,7 +89,7 @@ public class PrescriptionActivity extends AppCompatActivity {
             }
         });
 
-        prescription_doctor.child(email).child(phone).child(date).child(time).addValueEventListener(new ValueEventListener() {
+        prescription_doctor.child(email).child(pemail).child(date).child(time).addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -154,7 +154,7 @@ public class PrescriptionActivity extends AppCompatActivity {
         PrescriptionDetails prescriptionDetails = new PrescriptionDetails(pname,gender_data,age_data,address_data,
                 Height_data,Weight_data,Consultation_type_data,date_data,Previous_Lab_reports_data,
                 relevent_point_data,Diagnosis_data,exmination_data,instructions_data,Rx_data,0);
-        prescription_doctor.child(email).child(phone).child(date).child(time).setValue(prescriptionDetails);
+        prescription_doctor.child(email).child(pemail).child(date).child(time).setValue(prescriptionDetails);
         Toast.makeText(PrescriptionActivity.this, "Prescription Uploaded Successful!", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(PrescriptionActivity.this,  Doctors.class));
 

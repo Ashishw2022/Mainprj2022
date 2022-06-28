@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.vcare.R;
 import com.example.vcare.chat.Doctor_MessageActivity;
 import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.model.Users;
 import com.example.vcare.patient.PrescriptionActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,10 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 public class Patient_Details_Doctors_Side extends AppCompatActivity {
 
     private TextView Quest, name, phone_no, date_booked, time_booked;
-    private String date, time, pname, Questions, phone, email;
+    private String date, time, pname, Questions, phone, email,pemail;
     private String[] gender;
     private ArrayAdapter<String> gender_adapter;
-    private DatabaseReference feedback;
+    private DatabaseReference feedback,userdetails;
     private Button btn;
 
     @Override
@@ -58,10 +59,26 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
         }
 
         name.setText(pname);
-        //phone_no.setText(phone);
+        phone_no.setText(phone);
         date_booked.setText(date);
         time_booked.setText(time);
+        userdetails = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users");
+        userdetails.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    Users userdata = snapshot1.getValue(Users.class);
+                    if(userdata.getPhMain().equals(phone) && userdata.getuser_type().equals("user")){
+                        pemail = userdata.getEmail();
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         feedback.child(email).child(date).child(time).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -87,7 +104,7 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
         intent.putExtra("name", pname);
         intent.putExtra("date", date);
         intent.putExtra("time", time);
-        intent.putExtra("email", email);
+        intent.putExtra("email", pemail);
 
 
         startActivity(intent);
@@ -97,7 +114,7 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
     public void Previous_Prescriptions(View view) {
         Intent intent = new Intent(Patient_Details_Doctors_Side.this, Doctor_Side_Previous_Prescriptions.class);
         intent.putExtra("name", pname);
-        intent.putExtra("email", email);
+        intent.putExtra("email", pemail);
         startActivity(intent);
 
 
