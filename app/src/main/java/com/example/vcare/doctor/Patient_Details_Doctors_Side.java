@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.vcare.R;
+import com.example.vcare.chat.Doctor_MessageActivity;
 import com.example.vcare.doctor.Doctors_Session_Mangement;
 import com.example.vcare.patient.PrescriptionActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Patient_Details_Doctors_Side extends AppCompatActivity {
 
     private TextView Quest, name, phone_no, date_booked, time_booked;
-    private String date, time, pname, Questions, phone,email;
+    private String date, time, pname, Questions, phone, email;
     private String[] gender;
     private ArrayAdapter<String> gender_adapter;
     private DatabaseReference feedback;
@@ -48,7 +49,7 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
         btn.setVisibility(View.INVISIBLE);
 
         Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        email = doctors_session_mangement.getDoctorSession()[0].replace(".", ",");
 
         if (!Questions.equals("")) {
             Quest.setText(Questions);
@@ -57,14 +58,14 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
         }
 
         name.setText(pname);
-        phone_no.setText(phone);
+        //phone_no.setText(phone);
         date_booked.setText(date);
         time_booked.setText(time);
 
-        feedback.child(email).child(phone).child(date).child(time).addValueEventListener(new ValueEventListener() {
+        feedback.child(email).child(date).child(time).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     btn.setVisibility(View.VISIBLE);
                 }
 
@@ -77,40 +78,42 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
         });
 
 
-        }
-//todo change the commented line
-      /* public void upload_prescription (View view){
+    }
 
-            Intent intent = new Intent(Patient_Details_Doctors_Side.this, PrescriptionActivity.class);
-            intent.putExtra("name", pname);
-            intent.putExtra("date", date);
-            intent.putExtra("time", time);
-            intent.putExtra("phone", phone);
+    //todo change the commented line
+    public void upload_prescription(View view) {
+
+        Intent intent = new Intent(Patient_Details_Doctors_Side.this, PrescriptionActivity.class);
+        intent.putExtra("name", pname);
+        intent.putExtra("date", date);
+        intent.putExtra("time", time);
+        intent.putExtra("email", email);
 
 
-            startActivity(intent);
+        startActivity(intent);
 
-        }*/
-//
-//        public void Previous_Prescriptions (View view){
-//            Intent intent = new Intent(Patient_Details_Doctors_Side.this, Doctor_Side_Previous_Prescriptions.class);
+    }
+
+    public void Previous_Prescriptions(View view) {
+        Intent intent = new Intent(Patient_Details_Doctors_Side.this, Doctor_Side_Previous_Prescriptions.class);
+        intent.putExtra("name", pname);
+        intent.putExtra("email", email);
+        startActivity(intent);
+
+
+//        public void available_feedbacks (View view){
+//            Intent intent = new Intent(Patient_Details_Doctors_Side.this, Doctors_Show_Feedback.class);
 //            intent.putExtra("name", pname);
 //            intent.putExtra("phone", phone);
+//            intent.putExtra("date", date);
+//            intent.putExtra("time", time);
 //            startActivity(intent);
-//
+//        }
 
-     /*   public void available_feedbacks (View view){
-            Intent intent = new Intent(Patient_Details_Doctors_Side.this, Doctors_Show_Feedback.class);
-            intent.putExtra("name", pname);
-            intent.putExtra("phone", phone);
-            intent.putExtra("date", date);
-            intent.putExtra("time", time);
-            startActivity(intent);
-        }*/
-
-   /* public void open_chat(View view) {
-        Intent intent = new Intent(Patient_Details_Doctors_Side.this, Doctor_MessageActivity.class);
-        intent.putExtra("phone",phone);
-        startActivity(intent);
-    }*/
+//    public void open_chat(View view) {
+//        Intent intent = new Intent(Patient_Details_Doctors_Side.this, Doctor_MessageActivity.class);
+//        intent.putExtra("phone",phone);
+//        startActivity(intent);
+//    }
     }
+}

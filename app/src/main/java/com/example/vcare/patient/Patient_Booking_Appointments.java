@@ -124,7 +124,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
         });
 
         Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.MONTH, 0);
+        startDate.add(Calendar.MONTH,0);
         Calendar endDate = Calendar.getInstance();
         endDate.add(Calendar.MONTH, 1);
         String[] monthName = {"Jan", "Feb",

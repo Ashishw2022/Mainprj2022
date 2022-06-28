@@ -294,7 +294,7 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                                                     int count = snapshot.getValue(Integer.class);
                                                                     count = count - 1;
                                                                     reference_booking.child(encoded_email).child(payment_class.getDate()).child(finalSlot_val).child("Count").setValue(count);
-                                                                    senddocmail(payment_class.getPemail().replace(",","."),"your appointment is Declined by  doctor for time slot"+payment_class.getTime()+"on"+payment_class.getDate());
+                                                                    senddocmail(payment_class.getPemail().replace(",","."),"your appointment is Declined by  doctor for time slot "+payment_class.getTime()+"on "+payment_class.getDate());
 
                                                                 }
 

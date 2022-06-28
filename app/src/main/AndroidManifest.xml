@@ -115,6 +115,21 @@
         <activity
             android:name=".patient.Patient_viewprofile"
             android:screenOrientation="portrait" />
+
+        <activity
+        android:name=".patient.Patient_side_prescription_recycler"
+        android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient.Presciption_PatientSide"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient.PrescriptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".patient.Feedback"
+            android:screenOrientation="portrait" />
+
+
         <activity
             android:name=".doctor.Doctor_appointment"
             android:screenOrientation="portrait" />
@@ -133,6 +148,18 @@
         <activity
             android:name=".doctor.Doctor_ChooseSlots"
             android:screenOrientation="portrait" />
+        <activity
+        android:name=".doctor.Doctors_Show_Feedback"
+        android:screenOrientation="portrait" />
+        <activity
+            android:name=".doctor.Doctors_Show_Previous_Prescription_Doctors"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".doctor.Doctor_Side_Previous_Prescriptions"
+            android:screenOrientation="portrait" />
+
+
+
         <activity
             android:name=".register.Login"
             android:screenOrientation="portrait" />
