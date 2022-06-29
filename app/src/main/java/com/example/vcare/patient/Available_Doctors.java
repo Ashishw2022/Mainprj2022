@@ -1,5 +1,6 @@
 package com.example.vcare.patient;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.example.vcare.R;
 import com.example.vcare.doctor.Doctors_Adapter;
 import com.example.vcare.doctor.Doctors_Profile;
+import com.example.vcare.model.Users;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -74,27 +76,45 @@ public class Available_Doctors extends AppCompatActivity {
                 filter(s.toString());
             }
         });
-
+        DatabaseReference doctorDetails = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users");
         final DatabaseReference nm = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
         nm.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listData = new ArrayList<>();
                 emaildata = new ArrayList<>();
+                Users user = new Users();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
                         String email = npsnapshot.getKey();
+
                         email = email.replace(",", ".");
+                        doctorDetails.child(email.replace(".",",")).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()){
+                                    Users user = snapshot.getValue(Users.class);
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                         Doctors_Profile l = npsnapshot.getValue(Doctors_Profile.class);
-                        if (flag.equals("1")) {
-                            if (speciality_type.equals(l.getType())) {
+
+
+                            if (flag.equals("1") && user.getU_active().equals(1)) {
+                                if (speciality_type.equals(l.getType())) {
+                                    emaildata.add(email);
+                                }
+                            } else if (flag.equals("0")) {
                                 listData.add(l);
                                 emaildata.add(email);
                             }
-                        } else if (flag.equals("0")) {
-                            listData.add(l);
-                            emaildata.add(email);
-                        }
+
 
                     }
                     if(listData.isEmpty()){

@@ -48,7 +48,7 @@ import retrofit2.Response;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 
-public class Doctors_Add_Admin extends AppCompatActivity {
+public class  Doctors_Add_Admin extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 

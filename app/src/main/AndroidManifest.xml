@@ -134,8 +134,14 @@
             android:name=".doctor.Doctor_appointment"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".doctor.Doctor_Prediction"
+            android:screenOrientation="portrait" />
+
+
+        <activity
             android:name=".register.ForgotPassword"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".doctor.Doctors_View_Profile"
             android:screenOrientation="portrait" />

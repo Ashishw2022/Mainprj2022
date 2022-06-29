@@ -263,6 +263,9 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
             case R.id.appointment:
                 startActivity(new Intent(this, Doctor_appointment.class));
                 break;
+            case R.id.predico:
+                startActivity(new Intent(this, Doctor_Prediction.class));
+                break;
             case R.id.chats:
                 startActivity(new Intent(Doctors.this, Doctor_Chat_Display.class));
                 break;

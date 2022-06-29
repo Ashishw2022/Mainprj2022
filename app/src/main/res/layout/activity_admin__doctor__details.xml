@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin_Doctor_Details"
     >
     ``<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -306,19 +305,20 @@
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.131"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/about_doctor"
-                app:layout_constraintVertical_bias="0.238"
+                app:layout_constraintVertical_bias="1.0"
                 tools:ignore="MissingConstraints" />
 
             <Button
                 android:id="@+id/enable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="113dp"
+                android:layout_height="49dp"
                 android:text="ENABLE"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.493"
+                app:layout_constraintHorizontal_bias="0.135"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/about_doctor"
                 app:layout_constraintVertical_bias="1.0"
@@ -328,26 +328,29 @@
                 android:id="@+id/notVrf"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Doctor Verify"
                 android:backgroundTint="@color/text_error"
+                android:text="Doctor Verify"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.86"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/disable"
+                app:layout_constraintTop_toBottomOf="@+id/about_doctor"
+                app:layout_constraintVertical_bias="0.0"
                 tools:ignore="MissingConstraints" />
 
             <Button
                 android:id="@+id/vrf"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_width="202dp"
+                android:layout_height="50dp"
                 android:backgroundTint="@color/text_success"
-                android:text="Verified"
 
+                android:text="Verified"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.87"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/disable"
+                app:layout_constraintTop_toBottomOf="@+id/about_doctor"
                 app:layout_constraintVertical_bias="0.0"
                 tools:ignore="MissingConstraints" />
 

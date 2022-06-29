@@ -6,11 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vcare.R;
+import com.example.vcare.doctor.Appointment_details;
+import com.example.vcare.doctor.Doctor_Appointment_Show_Adapter;
 import com.example.vcare.doctor.Doctor_Images;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Admin_Doctor_Details extends AppCompatActivity {
@@ -26,6 +30,7 @@ public class Admin_Doctor_Details extends AppCompatActivity {
     private TextView doctor_name, doctor_spec, doctor_experience, doctor_fee, doctor_slots, doctor_about, emailid;
     private ImageView doctor_image;
     private Doctor_Images doctor_images;
+    private ArrayList<Appointment_details> previous_payment;
     private Button disablebtn,enablebtn,notvrf,vrf;
     private DatabaseReference reference_doctor, reference_booking,reference_status,reference_book;
     private int start, end;
@@ -80,10 +85,6 @@ public class Admin_Doctor_Details extends AppCompatActivity {
                         vrf.setVisibility(View.GONE);
                         notvrf.setVisibility(View.VISIBLE);
                     }
-
-
-
-
                 }
             }
 
@@ -104,10 +105,6 @@ public class Admin_Doctor_Details extends AppCompatActivity {
                         enablebtn.setVisibility(View.GONE);
                         disablebtn.setVisibility(View.VISIBLE);
                     }
-
-
-
-
                 }
             }
 
@@ -119,19 +116,73 @@ public class Admin_Doctor_Details extends AppCompatActivity {
         disablebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                disablebtn.setVisibility(view.GONE);
+                enablebtn.setVisibility(view.VISIBLE);
                 reference_status.child(encoded_email).child("u_active").setValue("0");
-                //reference_book.child("appointment_approved").child(bookedemail_id).child(date).child(finalSlot).child("status").setValue(2);
+                reference_book.child("appointment_approved").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            previous_payment = new ArrayList<>();
+                            for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+                                    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                        Appointment_details appointment_data = snapshot3.getValue(Appointment_details.class);
+                                        appointment_data.getEmail();
+                                        if(appointment_data.getEmail().equals(encoded_email))
+                                        {
+                                            snapshot3.child("status").getRef().setValue(2);
+                                        }
+                                    }
+                                }
+                            }
 
-                disablebtn.setVisibility(View.GONE);
-                enablebtn.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
             }
+
         });
         enablebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                enablebtn.setVisibility(view.GONE);
+                disablebtn.setVisibility(view.VISIBLE);
                 reference_status.child(encoded_email).child("u_active").setValue("1");
-                enablebtn.setVisibility(View.GONE);
-                disablebtn.setVisibility(View.VISIBLE);
+                reference_book.child("appointment_approved").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            previous_payment = new ArrayList<>();
+                            for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+                                    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                        Appointment_details appointment_data = snapshot3.getValue(Appointment_details.class);
+                                        appointment_data.getEmail();
+                                        if(appointment_data.getEmail().equals(encoded_email))
+                                        {
+                                            //snapshot3.child("status").getRef().setValue(1);
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
@@ -139,17 +190,19 @@ public class Admin_Doctor_Details extends AppCompatActivity {
         notvrf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                notvrf.setVisibility(view.GONE);
+                vrf.setVisibility(view.VISIBLE);
                 reference_doctor.child(encoded_email).child("verf").setValue("0");
-                notvrf.setVisibility(View.GONE);
-                vrf.setVisibility(View.VISIBLE);
             }
         });
         vrf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                vrf.setVisibility(view.GONE);
+                notvrf.setVisibility(view.VISIBLE);
                 reference_doctor.child(encoded_email).child("verf").setValue("1");
-                vrf.setVisibility(View.GONE);
-                notvrf.setVisibility(View.VISIBLE);
             }
         });
 

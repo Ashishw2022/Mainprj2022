@@ -24,6 +24,12 @@
             android:title="Appointment" />
 
         <item
+            android:id="@+id/predico"
+            android:icon="@drawable/ic_baseline_health"
+            android:title="Predico" />
+
+
+        <item
             android:id="@+id/chats"
             android:icon="@drawable/ic_chat"
             android:title="Chats" />
