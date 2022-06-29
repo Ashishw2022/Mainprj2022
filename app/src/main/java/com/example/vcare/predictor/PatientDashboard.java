@@ -183,104 +183,79 @@ public class PatientDashboard extends AppCompatActivity{
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String sym = parent.getItemAtPosition(position).toString();
                 selectedSymList.add(sym);
+                if(!sym.equalsIgnoreCase("Select a symptom")){
+                    symList.add(sym);
+                }
                 //   int l =0;
                 input[position] = 1;
                 List<String> arrayList = new ArrayList<>();
                 arrayList =  displaySym(sym,arrayList);
-                String[] array = new String[arrayList.size()];
-
+                String[] array = new String[arrayList.size()+1];
+                array[0] = "Select a symptom";
                 for (int i = 0; i < arrayList.size(); i++) {
-                    array[i] = arrayList.get(i);
+                    array[i+1] = arrayList.get(i);
                 }
 
-                Log.d("main", "Main function 1");
-                ArrayAdapter aa2 = new ArrayAdapter(parent.getContext(), android.R.layout.simple_spinner_item,array);
-                aa2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spin2.setAdapter(aa2);
-                // spin2.setOnItemSelectedListener(this);
-                spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        String sym = parent.getItemAtPosition(position).toString();
-                        selectedSymList.add(sym);
-                        input[position] = 1;
-                       // List<String> spinner2list = Arrays.asList(array);
+    Log.d("main", "Main function 1");
+    ArrayAdapter aa2 = new ArrayAdapter(parent.getContext(), android.R.layout.simple_spinner_item, array);
+    aa2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    spin2.setAdapter(aa2);
+}
+               // if (parent.getId() == R.id.spinner2) {
+                    // spin2.setOnItemSelectedListener(this);
 
-                            List<String> spinner2list = new ArrayList<>();
-                            spinner2list = displaySym(sym, spinner2list);
-                            String[] array2 = new String[spinner2list.size() + 1];
-                            array2[0] = "Select a symptom";
-                        if(sym != null) {
-                            if (!spinner2list.contains(sym)) {
-                                for (int i = 1; i <= (spinner2list.size() + 1); i++) {
-                                    array2[i] = spinner2list.get(i);
-                                }
-                            }
+               // }
+
+
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                Log.i("GTOUTOUT", "Nothing Selected");
+            }
+        });
+        spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String sym = parent.getItemAtPosition(position).toString();
+                selectedSymList.add(sym);
+                if(!sym.equalsIgnoreCase("Select a symptom")){
+                    symList.add(sym);
+                }
+                for(int i=-0;i<all_symptoms.length;i++){
+                    if(all_symptoms[i].equals(sym)){
+                        input[i] = 1;
+                    }
+                }
+
+                // List<String> spinner2list = Arrays.asList(array);
+
+                List<String> spinner2list = new ArrayList<>();
+                spinner2list = displaySym(sym, spinner2list);
+                String[] array2 = new String[spinner2list.size() + 1];
+                array2[0] = "Select a symptom";
+
+
+                if (sym != null) {
+                    if (!spinner2list.contains(sym)) {
+                        for (int i = 0; i < (spinner2list.size()); i++) {
+                            array2[i + 1] = spinner2list.get(i);
                         }
-
-                        Log.d("main", "Main function 2");
-
-                        ArrayAdapter aa3 = new ArrayAdapter(parent.getContext(), android.R.layout.simple_spinner_item, array2);
-                        aa3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spin3.setAdapter(aa3);
-                        // spin3.setOnItemSelectedListener(this);
-                        spin3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int p, long l) {
-                                String sym = adapterView.getItemAtPosition(p).toString();
-                                selectedSymList.add(sym);
-                                input[position] = 1;
-                             //   List<String> spinner3list = Arrays.asList(array2);
-
-
-                                List<String> spinner3list = new ArrayList<>();
-                                spinner3list =  displaySym(sym,spinner3list);
-                                String[] array3 = new String[spinner3list.size()+1];
-                                array3[0] ="Select a symptom";
-                                if(sym != null) {
-                                    if (!spinner3list.contains(sym)) {
-                                        for (int i = 1; i <= (spinner3list.size() + 1); i++) {
-                                            array3[i] = spinner3list.get(i);
-                                        }
-                                    }
-                                }
-                                ArrayAdapter aa4 = new ArrayAdapter(adapterView.getContext(), android.R.layout.simple_spinner_item, array3);
-                                aa4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                spin4.setAdapter(aa4);
-                                spin4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                    @Override
-                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                        String sym = adapterView.getItemAtPosition(i).toString();
-
-                                        input[position] = 1;
-                                    }
-
-                                    @Override
-                                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                    }
-                                });
-                                // spin4.setOnItemSelectedListener(this);
-                                Log.d("main", "Main function 4");
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
-
-
-                        Log.d("main", "Main function 3");
                     }
+                }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+                Log.d("main", "Main function 2");
 
-                        Log.i("GTOUTOUT", "Nothing Selected");
-                    }
-                });
+                ArrayAdapter aa3 = new ArrayAdapter(parent.getContext(), android.R.layout.simple_spinner_item, array2);
+                aa3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spin3.setAdapter(aa3);
+                // spin3.setOnItemSelectedListener(this);
 
+
+
+                Log.d("main", "Main function 3");
             }
 
             @Override
@@ -289,9 +264,68 @@ public class PatientDashboard extends AppCompatActivity{
                 Log.i("GTOUTOUT", "Nothing Selected");
             }
         });
+       // if (parent.getId() == R.id.spinner3) {
+            spin3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int p, long l) {
+                    String sym = adapterView.getItemAtPosition(p).toString();
+                    selectedSymList.add(sym);
+                    if(!sym.equalsIgnoreCase("select a symptom")){
+                        symList.add(sym);
+                    }
+                    for(int i=-0;i<all_symptoms.length;i++){
+                        if(all_symptoms[i].equals(sym)){
+                            input[i] = 1;
+                        }
+                    }
+                    //   List<String> spinner3list = Arrays.asList(array2);
 
 
+                    List<String> spinner3list = new ArrayList<>();
+                    spinner3list = displaySym(sym, spinner3list);
+                    String[] array3 = new String[spinner3list.size() + 1];
+                    array3[0] = "Select a symptom";
+                    if (sym != null) {
+                        if (!spinner3list.contains(sym)) {
+                            for (int i = 0; i < (spinner3list.size()); i++) {
+                                array3[i + 1] = spinner3list.get(i);
+                            }
+                        }
+                    }
+                    ArrayAdapter aa4 = new ArrayAdapter(adapterView.getContext(), android.R.layout.simple_spinner_item, array3);
+                    aa4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin4.setAdapter(aa4);
 
+                    // spin4.setOnItemSelectedListener(this);
+                    Log.d("main", "Main function 4");
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+
+        spin4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String sym = adapterView.getItemAtPosition(i).toString();
+                if(!sym.equalsIgnoreCase("select a symptom")){
+                    symList.add(sym);
+                }
+                for(int k=-0;k<all_symptoms.length;k++){
+                    if(all_symptoms[k].equals(sym)){
+                        input[k] = 1;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
 

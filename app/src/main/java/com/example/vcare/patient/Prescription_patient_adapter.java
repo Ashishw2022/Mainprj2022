@@ -40,7 +40,7 @@ public class Prescription_patient_adapter extends RecyclerView.Adapter<Prescript
                     intent1.putExtra("email",obj.getText());
                     intent1.putExtra("date",obj.getDate());
                     intent1.putExtra("time",obj.getTime());
-                    intent1.putExtra("phone",obj.getPhone());
+                    intent1.putExtra("pemail",obj.getEmail());
                     view.getContext().startActivity(intent1);
 
                 }

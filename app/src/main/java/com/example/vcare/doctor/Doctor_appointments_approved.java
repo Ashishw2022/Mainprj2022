@@ -90,7 +90,10 @@ public class Doctor_appointments_approved extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         previous_payment = new ArrayList<>();
 
+
+        //doctor approved appointment can be view fragment
         reference = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Appointment");
+
         reference.child("appointment_approved").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -99,11 +102,11 @@ public class Doctor_appointments_approved extends Fragment {
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
                             for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                Appointment_details payment_data = snapshot3.getValue(Appointment_details.class);
-                                payment_data.getEmail();
-                                 if(payment_data.getEmail().equals(user.getEmail().replace(".",",")))
+                                Appointment_details appointment_data = snapshot3.getValue(Appointment_details.class);
+                                appointment_data.getEmail();
+                                 if(appointment_data.getEmail().equals(user.getEmail().replace(".",",")))
                                 {
-                                    previous_payment.add(payment_data);
+                                    previous_payment.add(appointment_data);
 
                                 }
 

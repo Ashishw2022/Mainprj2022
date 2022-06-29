@@ -85,7 +85,7 @@ public class Patient_Update_Profile extends AppCompatActivity {
         update = findViewById(R.id.update_btn);
         uploadButton = findViewById(R.id.uploadButton);
         myImage = findViewById(R.id.profile_image);
-        signimage = findViewById(R.id.signImage1);
+        //signimage = findViewById(R.id.signImage1);
 
         Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
         email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
@@ -128,7 +128,6 @@ public class Patient_Update_Profile extends AppCompatActivity {
                     email_box.setText(datasnapshot.child("email").getValue(String.class));
                     bio_box.setText(datasnapshot.child("desc").getValue(String.class));
                     phone.setText(datasnapshot.child("phMain").getValue(String.class));
-
 //                    fees_box.setText(datasnapshot.child("fees").getValue(String.class));
                     doctor_images = datasnapshot.child("doc_pic").getValue(Doctor_Images.class);
                   //  sign_images = datasnapshot.child("sign_pic").getValue(Doctor_Images.class);

@@ -43,7 +43,7 @@ public class Patient_viewprofile extends AppCompatActivity {
         phone = (TextView) findViewById(R.id.phone3);
         bio = (TextView) findViewById(R.id.bio);
         update = (ImageView) findViewById(R.id.imageView5);
-        sign = (ImageView) findViewById(R.id.signImage);
+        //sign = (ImageView) findViewById(R.id.signImage);
         circle_image = (CircleImageView) findViewById(R.id.profileImage);
 
         Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);

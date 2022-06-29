@@ -285,7 +285,7 @@ public class Doctor_ChooseSlots extends AppCompatActivity {
                         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                             return false;
                         }
-
+//doctor delete a slot from choose slot
                         @Override
                         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                             new AlertDialog.Builder(viewHolder.itemView.getContext())

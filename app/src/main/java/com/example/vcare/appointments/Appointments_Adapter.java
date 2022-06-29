@@ -61,7 +61,7 @@ public class Appointments_Adapter extends RecyclerView.Adapter<Appointments_Adap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Appointment_notif ld=appointments_notif.get(position);
-        holder.appointment.setText(String.format("Patient's Name: %s\nDate: %s\nTime: %s\nContact Number: %s\n", ld.getPname(), ld.getDate(), ld.getTime(), ld.getPhone()));
+        holder.appointment.setText(String.format("Patient's Name: %s\nDate: %s\nTime: %s\nContact Number: %s\n", ld.getPname(), ld.getDate(), ld.getTime(), ld.getPhone(),ld.getToken()));
     }
 
     @Override

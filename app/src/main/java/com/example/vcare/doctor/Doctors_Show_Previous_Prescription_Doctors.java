@@ -35,7 +35,7 @@ public class Doctors_Show_Previous_Prescription_Doctors extends AppCompatActivit
     private TextInputLayout gender_layout;
     private EditText gender_view;
     private String date,time,pname,phone,email,phone_No,dname;
-    private String patient_phone_No;
+    private String pemail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +65,11 @@ public class Doctors_Show_Previous_Prescription_Doctors extends AppCompatActivit
         doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users");
         prescription_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Prescription_By_Doctor");
 
-        patient_phone_No= (String) getIntent().getSerializableExtra("phone");
+        pemail= (String) getIntent().getSerializableExtra("email");
         date=(String) getIntent().getSerializableExtra("date");
         time=(String) getIntent().getSerializableExtra("time");
 
-        prescription_doctor.child(email).child(patient_phone_No).child(date).child(time).addValueEventListener(new ValueEventListener() {
+        prescription_doctor.child(email).child(pemail).child(date).child(time).addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

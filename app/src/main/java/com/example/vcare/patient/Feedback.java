@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vcare.R;
+import com.example.vcare.doctor.Doctors_Session_Mangement;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +26,7 @@ public class Feedback extends AppCompatActivity {
     private EditText feedbackEdit;
     private RatingBar feedbackRating;
     private DatabaseReference feedback, prescription, user;
-    private String date, email, time, phone;
+    private String date, email, time, phone,pemail;
     private Button submit;
     private float rating_val;
 
@@ -37,6 +38,9 @@ public class Feedback extends AppCompatActivity {
         feedbackText=findViewById(R.id.feedback);
         feedbackRating=findViewById(R.id.ratingBar);
         submit=findViewById(R.id.sendFeedback);
+
+        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
+        pemail = doctors_session_mangement.getDoctorSession()[0].replace(".", ",");
 
         feedbackRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -87,9 +91,9 @@ public class Feedback extends AppCompatActivity {
                 email= (String) getIntent().getSerializableExtra("email");
                 date=(String) getIntent().getSerializableExtra("date");
                 time=(String) getIntent().getSerializableExtra("time");
-                phone = (String) getIntent().getSerializableExtra("phone");
-                prescription.child(email).child(phone).child(date).child(time).child("flag").setValue(1);
-                feedback.child(email).child(phone).child(date).child(time).setValue(feedback_model);
+                pemail = (String) getIntent().getSerializableExtra("pemail");
+                prescription.child(email).child(pemail).child(date).child(time).child("flag").setValue(1);
+                feedback.child(email).child(pemail).child(date).child(time).setValue(feedback_model);
                 Toast.makeText(Feedback.this, "FeedBack Submitted", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Feedback.this, Patient_side_prescription_recycler.class);
                 intent.putExtra("email", email);

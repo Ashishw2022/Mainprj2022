@@ -9,18 +9,28 @@ public class DiseasePrediction {
     private String patientName;
     private String patientEmail;
     private String discategory;
+    int pid;
 
     public DiseasePrediction() {
     }
 
-    public DiseasePrediction(String symptoms, String predictedDisease, int approvalstatus, String precautions, String patientName, String patientEmail, String discategory) {
+    public DiseasePrediction(int pid,String symptoms, String predictedDisease, int approvalstatus, String precautions, String patientName, String patientEmail, String discategory) {
         this.symptoms = symptoms;
+        this.pid =pid;
         this.predictedDisease = predictedDisease;
         this.approvalstatus = approvalstatus;
         this.precautions = precautions;
         this.patientName = patientName;
         this.patientEmail = patientEmail;
         this.discategory = discategory;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
     }
 
     public String getSymptoms() {

@@ -83,7 +83,7 @@ public class Doctors_Update_Profile extends AppCompatActivity {
         update = findViewById(R.id.update_btn);
         uploadButton = findViewById(R.id.uploadButton);
         myImage = findViewById(R.id.profile_image);
-        signimage = findViewById(R.id.signImage1);
+        //signimage = findViewById(R.id.signImage1);
 
         Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
         email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
@@ -132,15 +132,15 @@ public class Doctors_Update_Profile extends AppCompatActivity {
                     experience_box.setText(datasnapshot.child("experience").getValue(String.class));
                     fees_box.setText(datasnapshot.child("fees").getValue(String.class));
                     doctor_images = datasnapshot.child("doc_pic").getValue(Doctor_Images.class);
-                    sign_images = datasnapshot.child("sign_pic").getValue(Doctor_Images.class);
+                    //sign_images = datasnapshot.child("sign_pic").getValue(Doctor_Images.class);
 
                     if(doctor_images != null) {
                         Picasso.with(Doctors_Update_Profile.this).load(doctor_images.getUrl()).into(myImage);
                     }
 
-                    if(sign_images != null){
-                        Picasso.with(Doctors_Update_Profile.this).load(sign_images.getUrl()).into(signimage);
-                    }
+//                    if(sign_images != null){
+//                        Picasso.with(Doctors_Update_Profile.this).load(sign_images.getUrl()).into(signimage);
+//                    }
 
                     String gender_v = datasnapshot.child("gender").getValue(String.class);
                     if (!(gender_v == null)) {
@@ -208,32 +208,32 @@ public class Doctors_Update_Profile extends AppCompatActivity {
             }
         });
 
-        signimage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                type3 = 1;
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                {
-                    if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
-                    {
-                        // permission not granted so we will request for that
-                        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                        // showing popup for runtime permission
-                        requestPermissions(permissions,PERMISSION_CODE);
-                    }
-                    else
-                    {
-                        //permission already granted
-                        pickImageFromGallery();
-                    }
-                }
-                else
-                {
-                    // system os is less than marshmallow
-                    pickImageFromGallery();
-                }
-            }
-        });
+//        signimage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                type3 = 1;
+//                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+//                {
+//                    if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
+//                    {
+//                        // permission not granted so we will request for that
+//                        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+//                        // showing popup for runtime permission
+//                        requestPermissions(permissions,PERMISSION_CODE);
+//                    }
+//                    else
+//                    {
+//                        //permission already granted
+//                        pickImageFromGallery();
+//                    }
+//                }
+//                else
+//                {
+//                    // system os is less than marshmallow
+//                    pickImageFromGallery();
+//                }
+//            }
+//        });
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -408,25 +408,26 @@ public class Doctors_Update_Profile extends AppCompatActivity {
                             });
                         }
                     });
-                } if (type3 == 1) {
-                    fileName = "/Image 1";
-                    StorageReference databaseReference1 = firebaseStorage.getReference().child(email + fileName);
-                    databaseReference1.putFile(selectImageUri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            String name1 = taskSnapshot.getMetadata().getName();
-                            final String[] url = new String[1];
-                            databaseReference1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    url[0] = uri.toString();
-                                    sign_images = new Doctor_Images(name1, url[0]);
-                                    reference_doctor.child(email).child("sign_pic").setValue(sign_images);
-                                }
-                            });
-                        }
-                    });
                 }
+//                if (type3 == 1) {
+//                    fileName = "/Image 1";
+//                    StorageReference databaseReference1 = firebaseStorage.getReference().child(email + fileName);
+//                    databaseReference1.putFile(selectImageUri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                            String name1 = taskSnapshot.getMetadata().getName();
+//                            final String[] url = new String[1];
+//                            databaseReference1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                @Override
+//                                public void onSuccess(Uri uri) {
+//                                    url[0] = uri.toString();
+//                                    sign_images = new Doctor_Images(name1, url[0]);
+//                                    reference_doctor.child(email).child("sign_pic").setValue(sign_images);
+//                                }
+//                            });
+//                        }
+//                    });
+//                }
             }
         });
     }

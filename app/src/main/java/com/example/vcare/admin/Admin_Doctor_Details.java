@@ -27,7 +27,7 @@ public class Admin_Doctor_Details extends AppCompatActivity {
     private ImageView doctor_image;
     private Doctor_Images doctor_images;
     private Button disablebtn,enablebtn,notvrf,vrf;
-    private DatabaseReference reference_doctor, reference_booking,reference_status;
+    private DatabaseReference reference_doctor, reference_booking,reference_status,reference_book;
     private int start, end;
     private String encoded_email;
 
@@ -61,6 +61,8 @@ public class Admin_Doctor_Details extends AppCompatActivity {
         reference_status = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users");
         reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
         reference_booking = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Chosen_Slots");
+        reference_book=FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Appointment");
+
         emailid.setText(email);
 
         reference_doctor.child(encoded_email).addValueEventListener(new ValueEventListener() {
@@ -118,6 +120,8 @@ public class Admin_Doctor_Details extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 reference_status.child(encoded_email).child("u_active").setValue("0");
+                //reference_book.child("appointment_approved").child(bookedemail_id).child(date).child(finalSlot).child("status").setValue(2);
+
                 disablebtn.setVisibility(View.GONE);
                 enablebtn.setVisibility(View.VISIBLE);
             }

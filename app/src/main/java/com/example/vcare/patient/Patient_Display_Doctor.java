@@ -153,12 +153,12 @@ public class Patient_Display_Doctor extends AppCompatActivity {
         });
     }
 
-//    public void current_prescription(View view) {
-//        Intent intent = new Intent(Patient_Display_Doctor.this, Patient_side_prescription_recycler.class);
-//        intent.putExtra("email", encoded_email);
-//        intent.putExtra("dr_name", doctor_name.getText().toString().trim());
-//        startActivity(intent);
-//    }
+    public void current_prescription(View view) {
+        Intent intent = new Intent(Patient_Display_Doctor.this, Patient_side_prescription_recycler.class);
+        intent.putExtra("email", encoded_email);
+        intent.putExtra("dr_name", doctor_name.getText().toString().trim());
+        startActivity(intent);
+    }
 //open chat for doctor and user
     public void open_chat(View view) {
         Intent intent = new Intent(Patient_Display_Doctor.this, Patient_MessageActivity.class);

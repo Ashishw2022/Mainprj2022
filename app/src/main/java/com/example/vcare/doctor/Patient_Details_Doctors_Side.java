@@ -84,7 +84,10 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
 
             }
         });
+
+        //add patient email ig todo
         feedback.child(email).child(date).child(time).addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -121,21 +124,21 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
         intent.putExtra("name", pname);
         intent.putExtra("email", pemail);
         startActivity(intent);
-
-
-//        public void available_feedbacks (View view){
-//            Intent intent = new Intent(Patient_Details_Doctors_Side.this, Doctors_Show_Feedback.class);
-//            intent.putExtra("name", pname);
-//            intent.putExtra("phone", phone);
-//            intent.putExtra("date", date);
-//            intent.putExtra("time", time);
-//            startActivity(intent);
-//        }
-
-//    public void open_chat(View view) {
-//        Intent intent = new Intent(Patient_Details_Doctors_Side.this, Doctor_MessageActivity.class);
-//        intent.putExtra("phone",phone);
-//        startActivity(intent);
-//    }
     }
+
+    public void available_feedbacks (View view){
+            Intent intent = new Intent(Patient_Details_Doctors_Side.this, Doctors_Show_Feedback.class);
+            intent.putExtra("name", pname);
+            intent.putExtra("email", pemail);
+            intent.putExtra("date", date);
+            intent.putExtra("time", time);
+            startActivity(intent);
+        }
+
+    public void open_chat(View view) {
+        Intent intent = new Intent(Patient_Details_Doctors_Side.this, Doctor_MessageActivity.class);
+        intent.putExtra("pemail",pemail);
+        startActivity(intent);
+    }
+
 }

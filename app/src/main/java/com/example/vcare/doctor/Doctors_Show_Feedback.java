@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Doctors_Show_Feedback extends AppCompatActivity {
-    private String phone,date,time,name,email;
+    private String pemail,date,time,name,email;
 
     private TextView feedbackText;
     private EditText feedbackEdit;
@@ -35,13 +35,13 @@ public class Doctors_Show_Feedback extends AppCompatActivity {
         date= (String) getIntent().getSerializableExtra("date");
         time= (String) getIntent().getSerializableExtra("time");
         name=(String) getIntent().getSerializableExtra("name");
-        phone=(String) getIntent().getSerializableExtra("phone");
+        pemail=(String) getIntent().getSerializableExtra("email");
 
         Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
         email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
         feedback = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Feedback");
 
-        feedback.child(email).child(phone).child(date).child(time).addValueEventListener(new ValueEventListener() {
+        feedback.child(email).child(pemail).child(date).child(time).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){

@@ -267,7 +267,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signImage1" />
+            app:layout_constraintTop_toBottomOf="@+id/consultationFeeLayout" />
 
         <ImageView
             android:id="@+id/uploadButton"
@@ -281,32 +281,32 @@
             app:srcCompat="@drawable/ic_camera"
             tools:ignore="VectorDrawableCompat" />
 
-        <TextView
-            android:id="@+id/signaturetext"
-            android:layout_width="0dp"
-            android:layout_height="72dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
-            android:gravity="center"
-            android:text="Upload Signature"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/consultationFeeLayout" />
+<!--        <TextView-->
+<!--            android:id="@+id/signaturetext"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="72dp"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginLeft="32dp"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            android:layout_marginRight="32dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Upload Signature"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/consultationFeeLayout" />-->
 
-        <ImageView
-            android:id="@+id/signImage1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="12dp"
-            android:src="@drawable/ic_signature"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signaturetext" />
+<!--        <ImageView-->
+<!--            android:id="@+id/signImage1"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:src="@drawable/ic_signature"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/signaturetext" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

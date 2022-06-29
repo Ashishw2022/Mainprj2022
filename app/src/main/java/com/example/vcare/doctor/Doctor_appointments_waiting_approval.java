@@ -50,8 +50,8 @@ public class Doctor_appointments_waiting_approval extends Fragment {
     private RecyclerView recyclerView;
     private FirebaseUser user;
     private DatabaseReference reference, reference_user, reference_doctor, reference_booking, reference_patient, reference_details, reference_doctor_appt;
-    private ArrayList<Appointment_details> current_payment;
-    private ArrayList<DataSnapshot> data_payment;
+    private ArrayList<Appointment_details> current_appoint;
+    private ArrayList<DataSnapshot> data_appoint;
     private String email;
     private Date d1, d2;
     private Doctor_Appointment_Show_Adapter adapter;
@@ -79,12 +79,7 @@ public class Doctor_appointments_waiting_approval extends Fragment {
             final String frommail = "ashishvwprj@gmail.com";
             final String fpass = "gqezrowmplvieddv";
             String subject = "Appointment Status";
-
-
-            //String msg="\n Welcome DR."+name+"\nYour Account credintials are: \n" +"    Email: "+mail+"\n   Password: "+pass;
-
             String message=msg;
-
             String stringHost = "smtp.gmail.com";
 
             Properties properties = System.getProperties();
@@ -155,8 +150,8 @@ public class Doctor_appointments_waiting_approval extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        current_payment = new ArrayList<>();
-        data_payment = new ArrayList<>();
+        current_appoint = new ArrayList<>();
+        data_appoint = new ArrayList<>();
        reference = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Appointment");
         reference_booking = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Chosen_Slots");
         reference_patient = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Chosen_Slots");
@@ -167,22 +162,22 @@ public class Doctor_appointments_waiting_approval extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    current_payment = new ArrayList<>();
-                    data_payment = new ArrayList<>();
+                    current_appoint = new ArrayList<>();
+                    data_appoint = new ArrayList<>();
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
                             for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                Appointment_details payment_data = snapshot3.getValue(Appointment_details.class);
-                                if(payment_data.getEmail().equals(user.getEmail().replace(".",",")))
+                                Appointment_details appoint_data = snapshot3.getValue(Appointment_details.class);
+                                if(appoint_data.getEmail().equals(user.getEmail().replace(".",",")))
                                 {
-                                    current_payment.add(payment_data);
-                                    data_payment.add(snapshot3);
+                                    current_appoint.add(appoint_data);
+                                    data_appoint.add(snapshot3);
                                 }
 
                             }
                         }
                     }
-                    adapter = new Doctor_Appointment_Show_Adapter(current_payment);
+                    adapter = new Doctor_Appointment_Show_Adapter(current_appoint);
                     recyclerView.setAdapter(adapter);
 
                     ItemTouchHelper.SimpleCallback touchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -194,33 +189,34 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                         @Override
                         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                             new AlertDialog.Builder(viewHolder.itemView.getContext())
-                                    .setMessage("Do you want to mark this Appointment as Done? or Cancel the Appointment")
+                                    .setMessage("Do you want to mark this Appointment as Done? or Cancel this Appointment")
                                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             int position = viewHolder.getAdapterPosition();
-                                            DataSnapshot data = data_payment.get(position);
-                                            Appointment_details payment_class = current_payment.get(position);
-                                            reference.child("appointment_approved").child(payment_class.getPemail()).child(payment_class.getDate()).child(payment_class.getTime()).setValue(payment_class);
-                                            reference.child("appointment_approved").child(payment_class.getPemail()).child(payment_class.getDate()).child(payment_class.getTime()).child("payment").setValue(1);
+                                            DataSnapshot data = data_appoint.get(position);
+                                            Appointment_details appoint_class = current_appoint.get(position);
+                                            //appointment approved by doctor
+                                            reference.child("appointment_approved").child(appoint_class.getPemail()).child(appoint_class.getDate()).child(appoint_class.getTime()).setValue(appoint_class);
+                                            reference.child("appointment_approved").child(appoint_class.getPemail()).child(appoint_class.getDate()).child(appoint_class.getTime()).child("payment").setValue(1);
                                             data.getRef().removeValue();
-                                            Patient_Details details = new Patient_Details(payment_class.getPemail().replace(".",","), payment_class.getName());
+                                            Patient_Details details = new Patient_Details(appoint_class.getPemail().replace(".",","), appoint_class.getName());
                                             //patient email added
-                                            String encoded_email = payment_class.getEmail().replace(".", ",");
-                                            reference_details.child(encoded_email).child(payment_class.getPemail().replace(".",",")).setValue(details);
-                                            reference_patient.child(encoded_email).child(payment_class.getDate()).child(payment_class.getTime()).child("payment").setValue(1);
-                                            reference_patient.child(encoded_email).child(payment_class.getDate()).child(payment_class.getTime()).child("question").addListenerForSingleValueEvent(new ValueEventListener() {
+                                            String encoded_email = appoint_class.getEmail().replace(".", ",");
+                                            reference_details.child(encoded_email).child(appoint_class.getPemail().replace(".",",")).setValue(details);
+                                            reference_patient.child(encoded_email).child(appoint_class.getDate()).child(appoint_class.getTime()).child("payment").setValue(1);
+                                            reference_patient.child(encoded_email).child(appoint_class.getDate()).child(appoint_class.getTime()).child("question").addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                     String ques = " ";
                                                     if (snapshot.exists()) {
                                                         ques = snapshot.getValue(String.class);
                                                     }
-                                                    Appointment_notif appointment_notif = new Appointment_notif("1", payment_class.getDate(), payment_class.getTime(), ques, payment_class.getPhone(), payment_class.getName(),payment_class.getTransaction());
-                                                    reference_doctor_appt.child(encoded_email).child(payment_class.getDate()).child(payment_class.getTime()).setValue(appointment_notif);
-                                                    String check = payment_class.getTime().split(" - ", 5)[0];
-                                                    Booking_Appointments booking = new Booking_Appointments(1, payment_class.getPhone());
-                                                    reference_booking.child(encoded_email).child(payment_class.getDate()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    Appointment_notif appointment_notif = new Appointment_notif("1", appoint_class.getDate(), appoint_class.getTime(), ques, appoint_class.getPhone(), appoint_class.getName(),appoint_class.getTransaction());
+                                                    reference_doctor_appt.child(encoded_email).child(appoint_class.getDate()).child(appoint_class.getTime()).setValue(appointment_notif);
+                                                    String check = appoint_class.getTime().split(" - ", 5)[0];
+                                                    Booking_Appointments booking = new Booking_Appointments(1, appoint_class.getPhone());
+                                                    reference_booking.child(encoded_email).child(appoint_class.getDate()).addListenerForSingleValueEvent(new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                             if (snapshot.exists()) {
@@ -229,16 +225,16 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                                                     String item = dataSnapshot.getKey();
                                                                     int s = Integer.parseInt(item.split(" - ", 5)[0]);
                                                                     int e = Integer.parseInt(item.split(" - ", 5)[1]);
-                                                                    int t = Integer.parseInt(payment_class.getTime().split(":", 5)[0]);
+                                                                    int t = Integer.parseInt(appoint_class.getTime().split(":", 5)[0]);
                                                                     if (s <= t && t < e) {
                                                                         slot_val = item;
                                                                         break;
                                                                     }
                                                                 }
-                                                                reference_booking.child(encoded_email).child(payment_class.getDate()).child(slot_val).child(check).child("email").setValue(payment_class.getPemail());
-                                                                senddocmail(payment_class.getPemail().replace(",","."),"\nHello "+payment_class.getName()+","+
+                                                                reference_booking.child(encoded_email).child(appoint_class.getDate()).child(slot_val).child(check).child("email").setValue(appoint_class.getPemail());
+                                                                senddocmail(appoint_class.getPemail().replace(",","."),"\nHello "+appoint_class.getName()+","+
                                                                         "\n Thanks for booking an appointment on V-Care."+
-                                                                        "\nyour appointment is Approved by  doctor for time slot "+payment_class.getTime()+" on "+payment_class.getDate());
+                                                                        "\nyour appointment is Approved by  doctor for time slot "+appoint_class.getTime()+" on "+appoint_class.getDate());
                                                             }
                                                         }
 
@@ -263,16 +259,16 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             int position = viewHolder.getAdapterPosition();
-                                            DataSnapshot data = data_payment.get(position);
-                                            Appointment_details payment_class = current_payment.get(position);
-                                            reference.child("appointment_approved").child(payment_class.getPemail()).child(payment_class.getDate()).child(payment_class.getTime()).setValue(payment_class);
-                                            reference.child("appointment_approved").child(payment_class.getPemail()).child(payment_class.getDate()).child(payment_class.getTime()).child("payment").setValue(2);
+                                            DataSnapshot data = data_appoint.get(position);
+                                            Appointment_details appoint_class = current_appoint.get(position);
+                                            reference.child("appointment_approved").child(appoint_class.getPemail()).child(appoint_class.getDate()).child(appoint_class.getTime()).setValue(appoint_class);
+                                            reference.child("appointment_approved").child(appoint_class.getPemail()).child(appoint_class.getDate()).child(appoint_class.getTime()).child("payment").setValue(2);
                                             data.getRef().removeValue();
-                                            String encoded_email = payment_class.getEmail().replace(".", ",");
-                                            reference_patient.child(payment_class.getPhone()).child(encoded_email).child(payment_class.getDate()).child(payment_class.getTime()).child("appointment").setValue(2);
-                                            String check = payment_class.getTime().split(" - ", 5)[0];
+                                            String encoded_email = appoint_class.getEmail().replace(".", ",");
+                                            reference_patient.child(appoint_class.getPhone()).child(encoded_email).child(appoint_class.getDate()).child(appoint_class.getTime()).child("appointment").setValue(2);
+                                            String check = appoint_class.getTime().split(" - ", 5)[0];
                                             Booking_Appointments booking = new Booking_Appointments(0, "null");
-                                            reference_booking.child(encoded_email).child(payment_class.getDate()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            reference_booking.child(encoded_email).child(appoint_class.getDate()).addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                     if (snapshot.exists()) {
@@ -281,24 +277,24 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                                             String item = dataSnapshot.getKey();
                                                             int s = Integer.parseInt(item.split(" - ", 5)[0]);
                                                             int e = Integer.parseInt(item.split(" - ", 5)[1]);
-                                                            int t = Integer.parseInt(payment_class.getTime().split(":", 5)[0]);
+                                                            int t = Integer.parseInt(appoint_class.getTime().split(":", 5)[0]);
                                                             if (s <= t && t < e) {
                                                                 slot_val = item;
                                                                 break;
                                                             }
                                                         }
                                                         if (!(slot_val.equals(""))) {
-                                                            reference_booking.child(encoded_email).child(payment_class.getDate()).child(slot_val).child(check).setValue(booking);
+                                                            reference_booking.child(encoded_email).child(appoint_class.getDate()).child(slot_val).child(check).setValue(booking);
                                                             String finalSlot_val = slot_val;
-                                                            reference_booking.child(encoded_email).child(payment_class.getDate()).child(slot_val).child("Count").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            reference_booking.child(encoded_email).child(appoint_class.getDate()).child(slot_val).child("Count").addListenerForSingleValueEvent(new ValueEventListener() {
                                                                 @Override
                                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                                     int count = snapshot.getValue(Integer.class);
                                                                     count = count - 1;
-                                                                    reference_booking.child(encoded_email).child(payment_class.getDate()).child(finalSlot_val).child("Count").setValue(count);
-                                                                    senddocmail(payment_class.getPemail().replace(",","."),"\nHello "+payment_class.getName()+","+
+                                                                    reference_booking.child(encoded_email).child(appoint_class.getDate()).child(finalSlot_val).child("Count").setValue(count);
+                                                                    senddocmail(appoint_class.getPemail().replace(",","."),"\nHello "+appoint_class.getName()+","+
                                                                             "\n Thanks for booking an appointment on V-Care."+
-                                                                            "\nyour appointment is Declined by  doctor for time slot "+payment_class.getTime()+" on "+payment_class.getDate());
+                                                                            "\nyour appointment is Declined by  doctor for time slot "+appoint_class.getTime()+" on "+appoint_class.getDate());
 
                                                                 }
 
@@ -343,7 +339,7 @@ public class Doctor_appointments_waiting_approval extends Fragment {
     private void filter(String text) {
 
         ArrayList<Appointment_details> filterdNames = new ArrayList<>();
-        for (Appointment_details data : current_payment) {
+        for (Appointment_details data : current_appoint) {
             //if the existing elements contains the search input
             if (data.getDate().toLowerCase().contains(text.toLowerCase())) {
                 //adding the element to filtered list

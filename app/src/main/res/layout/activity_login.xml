@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context=".Doctors">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -195,9 +195,9 @@
             android:fontFamily="sans-serif-black"
             android:gravity="center_horizontal"
             android:text="Forgot Password ?"
-            android:textColor="#03989E"
+            android:textColor="@color/teal_700"
             android:textSize="16sp"
-            app:backgroundTint="#03989E"
+           android:backgroundTint="@color/teal_700"
             app:layout_constraintBottom_toTopOf="@+id/loginButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.887"
@@ -213,9 +213,9 @@
             android:fontFamily="sans-serif-black"
             android:gravity="center_horizontal"
             android:text="Don't have an account ? Sign Up"
-            android:textColor="#03989E"
+            android:textColor="@color/teal_700"
             android:textSize="16sp"
-            app:backgroundTint="#03989E"
+            app:backgroundTint="@color/teal_700"
             app:layout_constraintBottom_toTopOf="@+id/loginButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

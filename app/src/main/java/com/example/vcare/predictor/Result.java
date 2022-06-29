@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
+
 public class Result extends AppCompatActivity {
     private DatabaseReference reference_prediction,reference_user_details;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -1046,22 +1048,39 @@ public class Result extends AppCompatActivity {
 
 
 
-        reference_prediction.child("new").child(patemail).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference_prediction.child("pending").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    DiseasePrediction details = snapshot.getValue(DiseasePrediction.class);
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+                        //    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
 
-                    reference_prediction.child("history").child(patemail).setValue(details);
+                            DiseasePrediction dp  = snapshot2.getValue(DiseasePrediction.class)  ;
+
+                    int total= dp.getPid();
+                    if(total>1){
+                        DiseasePrediction details= new   DiseasePrediction(total+1,symList,str, 0,"",pname,user.getEmail(),category) ;
+                        int finalVal = total + 1;//
+                        // reference_prediction.child("pending").child(patemail).child("token").setValue(finalVal);
+                        reference_prediction.child("pending").child(patemail).child(String.valueOf(new Date())).setValue(details);
+
+                    }}}
+                   /* D   iseasePrediction details = snapshot.getValue(DiseasePrediction.class);
+
+                    reference_prediction.child("approved").child(patemail).setValue(details);
                     DiseasePrediction details1= new   DiseasePrediction(symList,str, 0,"",pname,user.getEmail(),category) ;
 
-                    reference_prediction.child("new").child(patemail).setValue(details1);
+                    reference_prediction.child("pending").child(patemail).setValue(details1);
 
-                }else{
-                    DiseasePrediction details= new   DiseasePrediction(symList,str, 0,"",pname,user.getEmail(),category) ;
+                }else{*/
 
-                    reference_prediction.child("new").child(patemail).setValue(details);
 
+               }else {
+                    DiseasePrediction details = new DiseasePrediction(1000,symList, str, 0, "", pname, user.getEmail(), category);
+
+                  //  reference_prediction.child("pending").child(patemail).child("token").setValue(1000);
+                    reference_prediction.child("pending").child(patemail).child(String.valueOf(new Date())).setValue(details);
                 }
             }
             @Override

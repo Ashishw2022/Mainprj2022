@@ -43,7 +43,7 @@ public class Doctors_View_Profile extends AppCompatActivity {
         bio = (TextView) findViewById(R.id.bio);
         fees = (TextView) findViewById(R.id.consultation);
         update = (ImageView) findViewById(R.id.imageView5);
-        sign = (ImageView) findViewById(R.id.signImage);
+       // sign = (ImageView) findViewById(R.id.signImage);
         circle_image = (CircleImageView) findViewById(R.id.profileImage);
 
         Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
@@ -77,13 +77,13 @@ public class Doctors_View_Profile extends AppCompatActivity {
                     experience.setText(datasnapshot.child("experience").getValue(String.class)+ " years");
                     fees.setText("Rs. " + datasnapshot.child("fees").getValue(String.class));
                     doctor_images = datasnapshot.child("doc_pic").getValue(Doctor_Images.class);
-                    sign_images = datasnapshot.child("sign_pic").getValue(Doctor_Images.class);
+                    //sign_images = datasnapshot.child("sign_pic").getValue(Doctor_Images.class);
                     if(doctor_images != null) {
                         Picasso.with(Doctors_View_Profile.this).load(doctor_images.getUrl()).into(circle_image);
                     }
-                    if(sign_images != null){
-                        Picasso.with(Doctors_View_Profile.this).load(sign_images.getUrl()).into(sign);
-                    }
+//                    if(sign_images != null){
+//                        Picasso.with(Doctors_View_Profile.this).load(sign_images.getUrl()).into(sign);
+//                    }
                     progressBar.setVisibility(View.INVISIBLE);
                 }
                 progressBar.setVisibility(View.INVISIBLE);

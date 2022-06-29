@@ -2,19 +2,19 @@ package com.example.vcare.patient;
 
 public class Get_Prescription_Details {
 
-    private String text,date,time,dr,phone;
+    private String text,date,time,dr,email;
     private int flag;
 
     public Get_Prescription_Details() {
     }
 
-    public Get_Prescription_Details(String text, String date, String time, String dr, int flag, String phone) {
+    public Get_Prescription_Details(String text, String date, String time, String dr, int flag, String email) {
         this.text = text;
         this.date = date;
         this.time = time;
         this.dr = dr;
         this.flag = flag;
-        this.phone = phone;
+        this.email = email;
     }
 
     public String getText() {
@@ -57,11 +57,11 @@ public class Get_Prescription_Details {
         this.flag = flag;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

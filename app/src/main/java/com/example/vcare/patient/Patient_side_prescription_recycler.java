@@ -26,7 +26,7 @@ public class Patient_side_prescription_recycler extends AppCompatActivity {
 
     private RecyclerView rv;
     private String[] gender;
-    private String phone_No,email,dname;
+    private String email,dname;
     private FirebaseStorage firebaseStorage;
     private DatabaseReference prescription_doctor;
     private ArrayAdapter<String> gender_adapter;
@@ -78,7 +78,7 @@ public class Patient_side_prescription_recycler extends AppCompatActivity {
                     for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                         for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                             PrescriptionDetails prescriptionDetails=dataSnapshot1.getValue(PrescriptionDetails.class);
-                            Get_Prescription_Details gpd= new Get_Prescription_Details(email,prescriptionDetails.getConsultation_Date(),dataSnapshot1.getKey(),dname, prescriptionDetails.getFlag(), phone_No);
+                            Get_Prescription_Details gpd= new Get_Prescription_Details(email,prescriptionDetails.getConsultation_Date(),dataSnapshot1.getKey(),dname, prescriptionDetails.getFlag(), pemail);
                             presc.add(gpd);
                         }
                     }
