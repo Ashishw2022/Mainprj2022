@@ -20,10 +20,10 @@ public class Doctor_Prediction extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doc_prediction);
+        setContentView(R.layout.activity_doc_appoapproval);
         tabLayout=findViewById(R.id.tabLayout);
         viewPager=findViewById(R.id.viewPager);
-        Toast.makeText(Doctor_Prediction.this, "Swipe to mark the Prediction !", Toast.LENGTH_LONG).show();
+        Toast.makeText(Doctor_Prediction.this, "Swipe to mark the Appointment!", Toast.LENGTH_LONG).show();
         getTabs();
 
     }
@@ -42,8 +42,8 @@ public class Doctor_Prediction extends AppCompatActivity {
             @Override
             public void run() {
 
-                fragmentPagerAdapter.addFragment(Doctor_prediction_approved.getInstance(),"Completed");
-                fragmentPagerAdapter.addFragment(Doctor_prediction_waiting_approval.getInstance(),"Upcoming");
+                fragmentPagerAdapter.addFragment(Doctor_prediction_waiting_approval.getInstance(),"Completed");
+                fragmentPagerAdapter.addFragment(Doctor_appointments_waiting_approval.getInstance(),"Upcoming");
 
                 viewPager.setAdapter(fragmentPagerAdapter);
                 tabLayout.setupWithViewPager(viewPager);

@@ -125,6 +125,7 @@ public class Doctor_appointments_waiting_approval extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.row_current, container, false);
         user=firebaseAuth.getCurrentUser();

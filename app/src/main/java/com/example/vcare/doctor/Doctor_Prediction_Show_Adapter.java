@@ -9,54 +9,55 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
+import com.example.vcare.predictor.DiseasePrediction;
 
 import java.util.ArrayList;
 
 public class Doctor_Prediction_Show_Adapter extends RecyclerView.Adapter<Doctor_Prediction_Show_Adapter.ViewHolder> {
 
-    private ArrayList<Appointment_details> payments;
+    private ArrayList<DiseasePrediction> diseasePrediction;
 
-    public Doctor_Prediction_Show_Adapter(ArrayList<Appointment_details> payments){
-        this.payments = payments;
+    public Doctor_Prediction_Show_Adapter(ArrayList<DiseasePrediction> diseasePrediction){
+        this.diseasePrediction = diseasePrediction;
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_payment_rv, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.diseasepred_list, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Appointment_details p_class = payments.get(position);
-        holder.name.setText("Transaction ID: "+p_class.getTransaction());
-        holder.phone.setText("\n Name: "+p_class.getName() + "\n Phone No: " +p_class.getPhone());
-        holder.email.setText("Booked for: "+p_class.getDname());
-        holder.date.setText("Date: "+p_class.getDate());
-        holder.time.setText("Time: "+p_class.getTime());
+        DiseasePrediction p_class = diseasePrediction.get(position);
+        holder.name.setText("Name: "+p_class.getPatientName());
+        holder.symp.setText("\n Symptom: "+p_class.getSymptoms());
+        holder.email.setText("Email: "+p_class.getPatientEmail());
+        holder.approvalId.setText("Approval Id: "+p_class.getPid());
+        holder.predictedDisease.setText("Predicted Disease: "+p_class.getPredictedDisease());
     }
 
     @Override
     public int getItemCount() {
-        return payments.size();
+        return diseasePrediction.size();
     }
 
-    public void filterList(ArrayList<Appointment_details> filterdNames) {
-        this.payments=filterdNames;
+    public void filterList(ArrayList<DiseasePrediction> filterdNames) {
+        this.diseasePrediction=filterdNames;
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, phone, date, time, email;
+        TextView name, symp, email, approvalId, predictedDisease;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.name);
-            phone = (TextView) itemView.findViewById(R.id.phone);
+            symp = (TextView) itemView.findViewById(R.id.phone);
             email = (TextView) itemView.findViewById(R.id.email);
-            date = (TextView) itemView.findViewById(R.id.date);
-            time = (TextView) itemView.findViewById(R.id.time);
+            approvalId = (TextView) itemView.findViewById(R.id.date);
+            predictedDisease = (TextView) itemView.findViewById(R.id.time);
         }
     }
 }
