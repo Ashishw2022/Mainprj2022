@@ -15,6 +15,10 @@
             android:id="@+id/diseasepred"
             android:icon="@drawable/ic_baseline_health"
             android:title="Predico" />
+        <item
+            android:id="@+id/predstatus"
+            android:icon="@drawable/icons_checkup"
+            android:title="Predico-Status" />
      <item
             android:id="@+id/speciality_view_all"
             android:icon="@drawable/ic_special"

@@ -12,7 +12,7 @@ import com.example.vcare.register.Login;
 public class MainActivity extends AppCompatActivity {
 
 
-    private static int SPLASH_SCREEN_TIME_OUT=2500;
+    private static int SPLASH_SCREEN_TIME_OUT=2650;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

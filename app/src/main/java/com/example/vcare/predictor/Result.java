@@ -44,6 +44,7 @@ public class Result extends AppCompatActivity {
         Intent intent1=getIntent();
         String str=intent1.getStringExtra("Disease_name");
         String pname=intent1.getStringExtra("name");
+        String age=intent1.getStringExtra("age");
 
         String symList = intent1.getStringExtra("Symptoms");
         String category = intent1.getStringExtra("disease_category");
@@ -1044,43 +1045,41 @@ public class Result extends AppCompatActivity {
             tv2.setText(desc);
         }
         user = FirebaseAuth.getInstance().getCurrentUser();
-        reference_prediction = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("disease_prediction");
+     //   reference_prediction = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("disease_prediction");
 
 
 
-        reference_prediction.child("pending").addListenerForSingleValueEvent(new ValueEventListener() {
+        reference_prediction.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                  //      snapshot1.hasChildren().
                         for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                        //    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                            //    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                            int count = (int) snapshot1.getChildrenCount();
+                            DiseasePrediction dp = snapshot2.getValue(DiseasePrediction.class);
 
-                            DiseasePrediction dp  = snapshot2.getValue(DiseasePrediction.class)  ;
+                        //    int total = Integer.parseInt(dp.getPid());
+                            int k = 1000 + count +1;
+                            if (k > 1) {
+                                String date = String.valueOf(new Date());
+                                DiseasePrediction details = new DiseasePrediction(age, "", "" + k, symList, str, 0, "", pname, user.getEmail(), category, date);
+                                //int finalVal = total + 1;//
+                                // reference_prediction.child("pending").child(patemail).child("token").setValue(finalVal);
+                                reference_prediction.child(patemail).child(""+k).setValue(details);
 
-                    int total= dp.getPid();
-                    if(total>1){
-                        DiseasePrediction details= new   DiseasePrediction(total+1,symList,str, 0,"",pname,user.getEmail(),category) ;
-                        int finalVal = total + 1;//
-                        // reference_prediction.child("pending").child(patemail).child("token").setValue(finalVal);
-                        reference_prediction.child("pending").child(patemail).child(String.valueOf(new Date())).setValue(details);
-
-                    }}}
-                   /* D   iseasePrediction details = snapshot.getValue(DiseasePrediction.class);
-
-                    reference_prediction.child("approved").child(patemail).setValue(details);
-                    DiseasePrediction details1= new   DiseasePrediction(symList,str, 0,"",pname,user.getEmail(),category) ;
-
-                    reference_prediction.child("pending").child(patemail).setValue(details1);
-
-                }else{*/
+                            }
+                        }
+                    }
 
 
                }else {
-                    DiseasePrediction details = new DiseasePrediction(1000,symList, str, 0, "", pname, user.getEmail(), category);
+                    String date = String.valueOf(new Date());
+                    DiseasePrediction details = new DiseasePrediction(age,"","1000",symList, str, 0, "", pname, user.getEmail(), category,date);
 
                   //  reference_prediction.child("pending").child(patemail).child("token").setValue(1000);
-                    reference_prediction.child("pending").child(patemail).child(String.valueOf(new Date())).setValue(details);
+                    reference_prediction.child(patemail).child("1000").setValue(details);
                 }
             }
             @Override

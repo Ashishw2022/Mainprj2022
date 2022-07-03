@@ -9,12 +9,16 @@ public class DiseasePrediction {
     private String patientName;
     private String patientEmail;
     private String discategory;
-    int pid;
+    private String remarks;
+    private String age;
+    private String gender;
+    private String predictedDate;
+    String pid;
 
     public DiseasePrediction() {
     }
 
-    public DiseasePrediction(int pid,String symptoms, String predictedDisease, int approvalstatus, String precautions, String patientName, String patientEmail, String discategory) {
+    public DiseasePrediction(String age,String remarks,String pid,String symptoms, String predictedDisease, int approvalstatus, String precautions, String patientName, String patientEmail, String discategory,String predictedDate) {
         this.symptoms = symptoms;
         this.pid =pid;
         this.predictedDisease = predictedDisease;
@@ -23,13 +27,35 @@ public class DiseasePrediction {
         this.patientName = patientName;
         this.patientEmail = patientEmail;
         this.discategory = discategory;
+        this.remarks=remarks;
+        this.age= age;
+        this.predictedDate = predictedDate;
+
     }
 
-    public int getPid() {
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+
+    public String getPid() {
         return pid;
     }
 
-    public void setPid(int pid) {
+    public void setPid(String pid) {
         this.pid = pid;
     }
 
@@ -87,6 +113,14 @@ public class DiseasePrediction {
 
     public void setDiscategory(String discategory) {
         this.discategory = discategory;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }
 

@@ -10,8 +10,8 @@
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="162dp"
+        android:layout_width="411dp"
+        android:layout_height="218dp"
         android:padding="16dp">
 
         <!--        <TextView-->
@@ -70,17 +70,31 @@
             android:textSize="15dp" />
 
         <TextView
+            android:id="@+id/rmks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appid"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="17dp"
+            android:gravity="left"
+            android:text="Remarks"
+            android:textColor="@color/teal_700"
+            android:textSize="15dp" />
+
+        <TextView
             android:id="@+id/predicte_Disease"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/email"
+            android:layout_below="@+id/rmks"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="55dp"
-            xmnls:text="predicte_Disease" />/  android:layout_toBottom="@+id/appid"
-            android:gravity="left"
-            android:text="predicted Disease"
-            android:textColor="@color/teal_700"
-            android:textSize="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColor="@color/red"
+            xmnls:text="predicte_Disease" />
+        / android:layout_toBottom="@+id/appid"
+        android:gravity="left"
+        android:text="predicted Disease"
+        android:textColor="@color/teal_700"
+        android:textSize="15dp" />
 
     </RelativeLayout>
 

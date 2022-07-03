@@ -115,6 +115,13 @@ public class PatientDashboard extends AppCompatActivity{
         setContentView(R.layout.activity_patient_dashboard);
         ename = findViewById(R.id.edit_name);
         eage = findViewById(R.id.edit_age);
+
+
+
+        // find the radiobutton by returned id
+        //radioButton = (RadioButton) findViewById(selectedId);
+        // find the radiobutton by returned id
+       // radioButton = (RadioButton) findViewById(selectedId);
         radio_gender=findViewById(R.id.radio_gender);
         vali=findViewById(R.id.vali);
         user_name = ename.getText().toString();
@@ -462,9 +469,9 @@ public class PatientDashboard extends AppCompatActivity{
         {
             vali.setText("");
         }
-//        if (spin1.getSelectedItem().toString().trim().equals("select a symptom")) {
-//            Toast.makeText(PatientDashboard.this, "please select atleast 2 symptoms", Toast.LENGTH_SHORT).show();
-//        }
+        if (spin1.getSelectedItem().toString().trim().equals("select a symptom")) {
+            Toast.makeText(PatientDashboard.this, "please select atleast 2 symptoms", Toast.LENGTH_SHORT).show();
+        }
         Log.d("predict", "Predict method called");
         float[][] finalinput = {input};
         Log.d("predict", "finalinput" + Arrays.deepToString(finalinput));
@@ -485,6 +492,8 @@ public class PatientDashboard extends AppCompatActivity{
         String dis = predict_Diseases[element];
         intent1.putExtra("Disease_name", dis);
         intent1.putExtra("pname",lname);
+        intent1.putExtra("age",age);
+
         intent1.putExtra("disease_category", disease_category[element]);
         intent1.putExtra("Symptoms", String.valueOf(symList));
         startActivity(intent1);

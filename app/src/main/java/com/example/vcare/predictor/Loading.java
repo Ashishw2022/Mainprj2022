@@ -29,6 +29,7 @@ public class Loading extends AppCompatActivity {
                 String str2=intent1.getStringExtra("pname");
                 String str3=intent1.getStringExtra("disease_category");
                 String str4=intent1.getStringExtra("Symptoms");
+                String str5=intent1.getStringExtra("age");
 
                 Intent intent3 = new Intent(Loading.this, Result.class);
                 String dis = str;
@@ -39,6 +40,8 @@ public class Loading extends AppCompatActivity {
                 intent3.putExtra("name", pname);
                 intent3.putExtra("disease_category", dc);
                 intent3.putExtra("Symptoms", syp);
+                intent3.putExtra("age",str5);
+
 
                 startActivity(intent3);
                 //Intent i=new Intent(Loading.this,

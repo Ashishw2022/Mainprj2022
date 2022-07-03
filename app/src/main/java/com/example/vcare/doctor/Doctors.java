@@ -88,9 +88,6 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
 
         Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
         email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
-
-
-
         //navView = navigationView.inflateHeaderView(R.layout.header_doctor);
        // NavProfileImage = (CircleImageView)findViewById(R.id.doc_img);
         //mName = (TextView)navView.findViewById(R.id.ldoc_name);
@@ -264,7 +261,7 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(new Intent(this, Doctor_appointment.class));
                 break;
             case R.id.predico:
-                startActivity(new Intent(this, Doctor_Prediction.class));
+                startActivity(new Intent(this, Predico_detailview.class));
                 break;
             case R.id.chats:
                 startActivity(new Intent(Doctors.this, Doctor_Chat_Display.class));

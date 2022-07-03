@@ -30,6 +30,7 @@ import com.example.vcare.doctor.SliderAdapter;
 import com.example.vcare.doctor.Slider_Data;
 import com.example.vcare.news.news;
 import com.example.vcare.predictor.PatientDashboard;
+import com.example.vcare.predictor.PatientpredictionStatus;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -215,6 +216,9 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
                 break;
             case R.id.diseasepred:
                startActivity(new Intent(Patient.this, PatientDashboard.class));
+                break;
+            case R.id.predstatus:
+                startActivity(new Intent(Patient.this, Patient_Status_ListView.class));
                 break;
             case R.id.logout:
                 Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Patient.this);
