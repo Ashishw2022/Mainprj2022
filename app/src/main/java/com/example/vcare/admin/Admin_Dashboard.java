@@ -15,7 +15,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.vcare.R;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +44,7 @@ public class Admin_Dashboard extends AppCompatActivity implements NavigationView
         toggle.syncState();
         navigationView1.setNavigationItemSelectedListener(Admin_Dashboard.this);
         navigationView1.setCheckedItem(R.id.nav_home);
+
         doc=findViewById(R.id.doc);
         user=findViewById(R.id.user);
         appo=findViewById(R.id.app);
@@ -113,9 +114,7 @@ public class Admin_Dashboard extends AppCompatActivity implements NavigationView
             case R.id.appointment_doc:
                 startActivity(new Intent(this, Admin_Available_Appointments.class));
                 break;
-            case R.id.chat:
-                //startActivity(new Intent(Admin.this, Admin_ChatDisplay.class));
-                break;
+
             case R.id.Add_doc:
                 startActivity(new Intent(Admin_Dashboard.this, Doctors_Add_Admin.class));
                 break;
@@ -123,8 +122,8 @@ public class Admin_Dashboard extends AppCompatActivity implements NavigationView
                 startActivity(new Intent(Admin_Dashboard.this, Admin_FeedBack.class));
                 break;
             case R.id.logout:
-                Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Admin_Dashboard.this);
-                doctors_session_mangement.removeSession();
+                Session_Mangement _session_mangement = new Session_Mangement(Admin_Dashboard.this);
+                _session_mangement.removeSession();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent1 = new Intent(Admin_Dashboard.this, Login.class);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -47,7 +47,6 @@ public class Doctor_MessageAdapter extends RecyclerView.Adapter<Doctor_MessageAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Chat chat = mChat.get(position);
         if(chat.getType().equals("text")) {
-
             holder.show_message.setText(chat.getMessage());
             holder.show_time.setText(chat.getTime());
             holder.show_image.setVisibility(View.GONE);

@@ -136,7 +136,7 @@ public class  Doctors_Add_Admin extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Users user = new Users(fullName, email, "online", "Doctor", "1", "");
+                                    Users user = new Users(fullName, email, "offline", "Doctor", "1", "");
                                     String encodedemail = EncodeString(email);
                                     FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users")
                                             .child(encodedemail)

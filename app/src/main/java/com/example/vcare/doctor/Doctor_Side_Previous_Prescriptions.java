@@ -41,8 +41,8 @@ public class Doctor_Side_Previous_Prescriptions extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         presc = new ArrayList<>();
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        email = _session_mangement.getDoctorSession()[0].replace(".",",");
         name = getIntent().getStringExtra("pname");
         pemail = getIntent().getStringExtra("email");
 

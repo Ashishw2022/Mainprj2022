@@ -22,7 +22,7 @@ import com.example.vcare.admin.Admin_Dashboard;
 import com.example.vcare.doctor.Doctor_Email_Id;
 //import com.example.vcare.doctor.Doctors;
 import com.example.vcare.doctor.Doctors;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.example.vcare.model.Patient_email_id;
 import com.example.vcare.patient.Patient;
 import com.example.vcare.patient.Patient_Session_Management;
@@ -147,16 +147,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                                 progressBar.setVisibility(View.INVISIBLE);
                                             }*/
                                             Doctor_Email_Id doctor_email_id = new Doctor_Email_Id(emailMain, "Doctor");
-                                            Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Login.this);
-                                            doctors_session_mangement.saveDoctorSession(doctor_email_id);
+                                            Session_Mangement _session_mangement = new Session_Mangement(Login.this);
+                                            _session_mangement.saveDoctorSession(doctor_email_id);
 
                                             startActivity(new Intent(Login.this, Doctors.class));
                                             progressBar.setVisibility(View.INVISIBLE);
                                         } else if (usertype.equals("user")) {
 
                                             Doctor_Email_Id doctor_email_id = new Doctor_Email_Id(emailMain, "user");
-                                            Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Login.this);
-                                            doctors_session_mangement.saveDoctorSession(doctor_email_id);
+                                            Session_Mangement _session_mangement = new Session_Mangement(Login.this);
+                                            _session_mangement.saveDoctorSession(doctor_email_id);
                                             Patient_email_id patient = new Patient_email_id(encoded_email);
                                             Patient_Session_Management session_management = new Patient_Session_Management(Login.this);
                                             session_management.saveSession(patient);
@@ -165,8 +165,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                         } else {
 
                                             Doctor_Email_Id doctor_email_id = new Doctor_Email_Id(emailMain, "Admin");
-                                            Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Login.this);
-                                            doctors_session_mangement.saveDoctorSession(doctor_email_id);
+                                            Session_Mangement _session_mangement = new Session_Mangement(Login.this);
+                                            _session_mangement.saveDoctorSession(doctor_email_id);
                                             startActivity(new Intent(Login.this, Admin_Dashboard.class));
                                             progressBar.setVisibility(View.INVISIBLE);
                                         }
@@ -296,8 +296,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private void checkDoctorSession() {
 
-        Doctors_Session_Mangement doctors_session_mangement=new Doctors_Session_Mangement(Login.this);
-        String isDoctorLoggedin[] =doctors_session_mangement.getDoctorSession();
+        Session_Mangement _session_mangement =new Session_Mangement(Login.this);
+        String isDoctorLoggedin[] = _session_mangement.getDoctorSession();
         if(!isDoctorLoggedin[0].equals("-1")){
             moveToDoctorActivity();
         }
@@ -305,8 +305,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void moveToDoctorActivity() {
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Login.this);
-        String type[] = doctors_session_mangement.getDoctorSession();
+        Session_Mangement _session_mangement = new Session_Mangement(Login.this);
+        String type[] = _session_mangement.getDoctorSession();
 
 
         if(type[1].equals("Doctor")){

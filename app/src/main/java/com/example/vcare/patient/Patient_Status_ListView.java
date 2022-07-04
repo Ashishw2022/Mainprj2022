@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
 import com.example.vcare.doctor.Doctors_Profile;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.example.vcare.predictor.DiseasePrediction;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
@@ -56,8 +56,8 @@ public class Patient_Status_ListView extends AppCompatActivity {
 
         setContentView(R.layout.activity_predico_detailview);
       //  search= findViewById(R.id.editTextSearch_appointment);
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        encodedemail=doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        encodedemail= _session_mangement.getDoctorSession()[0].replace(".",",");
         rv=(RecyclerView)findViewById(R.id.recycler_prediction);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));

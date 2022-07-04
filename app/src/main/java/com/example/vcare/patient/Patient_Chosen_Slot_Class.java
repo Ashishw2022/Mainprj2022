@@ -2,16 +2,16 @@ package com.example.vcare.patient;
 
 public class Patient_Chosen_Slot_Class {
     private String time;
-    private int payment,status;
+    private int flag,status;
     private String question,patient_name, transaction_id;
 
 
     public Patient_Chosen_Slot_Class() {
     }
 
-    public Patient_Chosen_Slot_Class(String time, int payment, String question, String patient_name, int status, String transaction_id) {
+    public Patient_Chosen_Slot_Class(String time, int flag, String question, String patient_name, int status, String transaction_id) {
         this.time = time;
-        this.payment = payment;
+        this.flag = flag;
         this.question = question;
         this.patient_name = patient_name;
         this.status = status;
@@ -35,12 +35,12 @@ public class Patient_Chosen_Slot_Class {
         this.time = time;
     }
 
-    public int getPayment() {
-        return payment;
+    public int getflag() {
+        return flag;
     }
 
-    public void setPayment(int payment) {
-        this.payment = payment;
+    public void setflag(int flag) {
+        this.flag = flag;
     }
 
     public String getQuestion() {

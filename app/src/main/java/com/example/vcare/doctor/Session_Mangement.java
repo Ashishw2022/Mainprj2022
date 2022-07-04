@@ -3,7 +3,7 @@ package com.example.vcare.doctor;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class Doctors_Session_Mangement {
+public class Session_Mangement {
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor_doc;
@@ -11,7 +11,7 @@ public class Doctors_Session_Mangement {
     private String SESSION_KEY="doctors_session_user";
     private String SESSION_KEY_type="doctors_session";
 
-    public Doctors_Session_Mangement(Context context) {
+    public Session_Mangement(Context context) {
         sharedPreferences=context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         editor_doc=sharedPreferences.edit();
     }

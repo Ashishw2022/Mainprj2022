@@ -2,7 +2,6 @@ package com.example.vcare.doctor;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -10,8 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -57,8 +54,8 @@ public class Predico_detailview extends AppCompatActivity {
 
         setContentView(R.layout.activity_predico_detailview);
       //  search= findViewById(R.id.editTextSearch_appointment);
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        encodedemail=doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        encodedemail= _session_mangement.getDoctorSession()[0].replace(".",",");
         rv=(RecyclerView)findViewById(R.id.recycler_prediction);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));

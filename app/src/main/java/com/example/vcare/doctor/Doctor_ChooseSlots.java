@@ -64,8 +64,8 @@ public class Doctor_ChooseSlots extends AppCompatActivity {
 //        email = user.getEmail();
 //        email = email.replace(".",",");
 //session mangmen
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email = doctors_session_mangement.getDoctorSession()[0].replace(".", ",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        email = _session_mangement.getDoctorSession()[0].replace(".", ",");
         Toast.makeText(Doctor_ChooseSlots.this, "Swipe to cancel the slots from the chosen!", Toast.LENGTH_LONG).show();
         firebaseStorage = FirebaseStorage.getInstance();
 
@@ -104,7 +104,13 @@ public class Doctor_ChooseSlots extends AppCompatActivity {
             String month = monthName[cal.get(Calendar.MONTH)];
             int year = cal.get(Calendar.YEAR);
             //date here is gone as 1 not as 01
-            String value = day + " " + month + " " + year;
+            String value;
+            if(day <10){
+                value   = "0"+day + " " + month + " " + year;
+            }else{
+                value   = day + " " + month + " " + year;
+            }
+
             dates.add(value);
             cal.add(Calendar.DAY_OF_MONTH, 1);
         }
@@ -317,7 +323,7 @@ public class Doctor_ChooseSlots extends AppCompatActivity {
                                                             reference_patient.child(bookedemail_id).child(email).child(date).child(slot).addValueEventListener(new ValueEventListener() {
                                                                 @Override
                                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    int value = snapshot.child("payment").getValue(Integer.class);
+                                                                    int value = snapshot.child("flag").getValue(Integer.class);
                                                                     if (value == 1) {
                                                                         reference_appointment.child("appointment_approved").child(bookedemail_id).child(date).child(finalSlot).child("status").setValue(2);
                                                                     } else {

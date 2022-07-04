@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.vcare.R;
 import com.example.vcare.doctor.Appointment_details;
 import com.example.vcare.doctor.Doctor_Images;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,8 +53,8 @@ public class PatientpredictionStatus extends AppCompatActivity {
         doctor_image = (ImageView) findViewById(R.id.imageView_doc_display);*/
         declinebtn=(Button)findViewById(R.id.decline);
         approvebtn=(Button)findViewById(R.id.approve);
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        String email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        String email = _session_mangement.getDoctorSession()[0].replace(".",",");
         notvrf=findViewById(R.id.notVrf);
         vrf=findViewById(R.id.vrf);
 

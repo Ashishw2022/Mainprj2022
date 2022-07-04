@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -86,8 +86,8 @@ public class CurrentFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         current_appt = new ArrayList<>();
         reference = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Appointments");
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(getActivity());
-        email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(getActivity());
+        email = _session_mangement.getDoctorSession()[0].replace(".",",");
 
         String[] monthName = {"Jan", "Feb",
                 "Mar", "Apr", "May", "Jun", "Jul",

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.vcare.R;
 import com.example.vcare.doctor.Doctor_Images;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,8 +46,8 @@ public class Patient_viewprofile extends AppCompatActivity {
         //sign = (ImageView) findViewById(R.id.signImage);
         circle_image = (CircleImageView) findViewById(R.id.profileImage);
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email_id = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        email_id = _session_mangement.getDoctorSession()[0].replace(".",",");
 
         progressBar.setVisibility(View.VISIBLE);
         reference_patient = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_data");

@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vcare.R;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,8 +39,8 @@ public class Feedback extends AppCompatActivity {
         feedbackRating=findViewById(R.id.ratingBar);
         submit=findViewById(R.id.sendFeedback);
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        pemail = doctors_session_mangement.getDoctorSession()[0].replace(".", ",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        pemail = _session_mangement.getDoctorSession()[0].replace(".", ",");
 
         feedbackRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override

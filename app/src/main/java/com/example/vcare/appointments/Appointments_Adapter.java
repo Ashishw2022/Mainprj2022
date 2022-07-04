@@ -45,7 +45,6 @@ public class Appointments_Adapter extends RecyclerView.Adapter<Appointments_Adap
 
                 Intent intent=new Intent(view.getContext(), Patient_Details_Doctors_Side.class);
                 intent.putExtra("date",date);
-                intent.putExtra("trans",date);
                 intent.putExtra("time",time);
                 intent.putExtra("name",name);
                 intent.putExtra("Questions",Questions);

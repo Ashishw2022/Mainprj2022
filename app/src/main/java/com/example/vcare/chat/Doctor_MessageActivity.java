@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.example.vcare.model.Chat;
 import com.example.vcare.model.Users;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -60,7 +60,7 @@ public class Doctor_MessageActivity extends AppCompatActivity {
     private Doctor_MessageAdapter messageAdapter;
     private List<Chat> mchat;
     private RecyclerView recyclerView;
-    private String userid, phone;
+    private String userid, pemail;
     private StorageReference databaseReference;
     private FirebaseStorage firebaseStorage;
     private static final int IMAGE_PICK_CODE = 1000;
@@ -100,11 +100,11 @@ public class Doctor_MessageActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        userid = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        userid = _session_mangement.getDoctorSession()[0].replace(".",",");
         firebaseStorage = FirebaseStorage.getInstance();
         databaseReference = firebaseStorage.getReference().child(userid);
-        phone = getIntent().getSerializableExtra("pemail").toString();
+        pemail = getIntent().getSerializableExtra("pemail").toString();
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +113,7 @@ public class Doctor_MessageActivity extends AppCompatActivity {
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                     Date date = new Date();
                     String time = formatter.format(date);
-                    sendMessage_Text(userid, phone, msg, time, false);
+                    sendMessage_Text(userid, pemail, msg, time, false);
                 } else {
                     Toast.makeText(Doctor_MessageActivity.this, "You can't send an empty message", Toast.LENGTH_SHORT).show();
                 }
@@ -145,8 +145,8 @@ public class Doctor_MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users user = snapshot.getValue(Users.class);
-                username.setText(phone);
-                readMessage(userid, phone, null);
+                username.setText(pemail);
+                readMessage(userid, pemail, null);
             }
 
             @Override
@@ -154,9 +154,9 @@ public class Doctor_MessageActivity extends AppCompatActivity {
 
             }
         });
-        seenMessage(phone);
+        seenMessage(pemail);
     }
-    private  void seenMessage(String phone){
+    private  void seenMessage(String pemail){
         reference=FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Chats");
         seenListener=reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -164,7 +164,7 @@ public class Doctor_MessageActivity extends AppCompatActivity {
                 for(DataSnapshot snapshot1: snapshot.getChildren()){
                     Chat chat=snapshot1.getValue(Chat.class);
 
-                    if ((chat.getReceiver().equals(userid) && chat.getSender().equals(phone))){
+                    if ((chat.getReceiver().equals(userid) && chat.getSender().equals(pemail))){
                         HashMap<String,Object> hashMap=new HashMap<>();
                         hashMap.put("seen",true);
                         snapshot1.getRef().updateChildren(hashMap);
@@ -260,6 +260,7 @@ public class Doctor_MessageActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PERMISSION_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -290,7 +291,7 @@ public class Doctor_MessageActivity extends AppCompatActivity {
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                                 Date date = new Date();
                                 String time = formatter.format(date);
-                                sendMessage_image(userid, phone, url[0], time, false);
+                                sendMessage_image(userid, pemail, url[0], time, false);
                             }
                         });
                     }

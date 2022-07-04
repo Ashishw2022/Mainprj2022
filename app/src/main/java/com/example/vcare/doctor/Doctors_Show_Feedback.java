@@ -37,8 +37,8 @@ public class Doctors_Show_Feedback extends AppCompatActivity {
         name=(String) getIntent().getSerializableExtra("name");
         pemail=(String) getIntent().getSerializableExtra("email");
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        email = _session_mangement.getDoctorSession()[0].replace(".",",");
         feedback = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Feedback");
 
         feedback.child(email).child(pemail).child(date).child(time).addValueEventListener(new ValueEventListener() {

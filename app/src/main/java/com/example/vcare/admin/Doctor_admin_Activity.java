@@ -21,8 +21,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
+import com.example.vcare.admin.adapter.Admin_All_Doctor_Adapter;
 import com.example.vcare.doctor.Doctors_Profile;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,8 +67,8 @@ public class Doctor_admin_Activity extends AppCompatActivity implements Navigati
         setContentView(R.layout.activity_admin_);
 
         search= findViewById(R.id.editTextSearch_appointment);
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        encodedemail=doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        encodedemail= _session_mangement.getDoctorSession()[0].replace(".",",");
         rv=(RecyclerView)findViewById(R.id.recycler_doc);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -160,7 +161,7 @@ public class Doctor_admin_Activity extends AppCompatActivity implements Navigati
 
             @Override
             public void afterTextChanged(Editable s) {
-               // filter(s.toString());
+                filter(s.toString());
             }
         });
     }
@@ -174,9 +175,7 @@ public class Doctor_admin_Activity extends AppCompatActivity implements Navigati
             case R.id.appointment_doc:
                 startActivity(new Intent(this, Admin_Available_Appointments.class));
                 break;
-            case R.id.chat:
-               // startActivity(new Intent(Doctor_admin_Activity.this, Admin_ChatDisplay.class));
-                break;
+
             case R.id.Add_doc:
                 startActivity(new Intent(Doctor_admin_Activity.this, Doctors_Add_Admin.class));
                 break;
@@ -184,8 +183,8 @@ public class Doctor_admin_Activity extends AppCompatActivity implements Navigati
                 startActivity(new Intent(Doctor_admin_Activity.this, Admin_FeedBack.class));
                 break;
             case R.id.logout:
-                Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Doctor_admin_Activity.this);
-                doctors_session_mangement.removeSession();
+                Session_Mangement _session_mangement = new Session_Mangement(Doctor_admin_Activity.this);
+                _session_mangement.removeSession();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent1 = new Intent(Doctor_admin_Activity.this, Login.class);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -195,44 +194,44 @@ public class Doctor_admin_Activity extends AppCompatActivity implements Navigati
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-//    public  void  filter(String text){
-//
-//        ArrayList<User_Profile> filterdNames = new ArrayList<>();
-//        for (User_Profile doc_data: listData) {
-//            //if the existing elements contains the search input
-//            if (doc_data.getName().toLowerCase().contains(text.toLowerCase())) {
-//                //adding the element to filtered list
-//                filterdNames.add(doc_data);
-//            }
-//        }
-//
-//        //calling a method of the adapter class and passing the filtered list
-//        adapter.filterList(filterdNames);
-//    }
-//
-//        @Override
-//    public void onBackPressed() {
-//
-//        if(drawerLayout.isDrawerOpen(GravityCompat.START))
-//        {
-//            drawerLayout.closeDrawer(GravityCompat.START);
-//        }
-//        else
-//        {
-//            if(backPressedTime+2000>System.currentTimeMillis())
-//            {
-//                finishAffinity();
-//                backToast.cancel();
-//                super.onBackPressed();
-//                return;
-//            }
-//            else
-//            {
-//                backToast = Toast.makeText(getBaseContext(),"Press Back again to exit",Toast.LENGTH_SHORT);
-//                backToast.show();
-//            }
-//            backPressedTime = System.currentTimeMillis();
-//        }
-   // }
+    public  void  filter(String text){
+
+        ArrayList<Doctors_Profile> filterdNames = new ArrayList<>();
+        for (Doctors_Profile doc_data: listData) {
+            //if the existing elements contains the search input
+            if (doc_data.getName().toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(doc_data);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        adapter.filterList(filterdNames);
+    }
+
+        @Override
+    public void onBackPressed() {
+
+        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else
+        {
+            if(backPressedTime+2000>System.currentTimeMillis())
+            {
+                finishAffinity();
+                backToast.cancel();
+                super.onBackPressed();
+                return;
+            }
+            else
+            {
+                backToast = Toast.makeText(getBaseContext(),"Press Back again to exit",Toast.LENGTH_SHORT);
+                backToast.show();
+            }
+            backPressedTime = System.currentTimeMillis();
+        }
+    }
 
 }

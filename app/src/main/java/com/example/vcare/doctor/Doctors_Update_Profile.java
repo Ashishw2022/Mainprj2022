@@ -85,8 +85,8 @@ public class Doctors_Update_Profile extends AppCompatActivity {
         myImage = findViewById(R.id.profile_image);
         //signimage = findViewById(R.id.signImage1);
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        email = _session_mangement.getDoctorSession()[0].replace(".",",");
 
         firebaseStorage = FirebaseStorage.getInstance();
         databaseReference = firebaseStorage.getReference().child(email);

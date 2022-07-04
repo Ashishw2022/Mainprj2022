@@ -417,7 +417,7 @@ public class PatientDashboard extends AppCompatActivity{
     }*/
 
     private MappedByteBuffer loadModelFile() throws IOException {
-        AssetFileDescriptor assetFileDescriptor = this.getAssets().openFd("MPtflite.tflite");
+        AssetFileDescriptor assetFileDescriptor = this.getAssets().openFd("vcare.tflite");
         FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
         FileChannel fileChannel = fileInputStream.getChannel();
         long startOffset = assetFileDescriptor.getStartOffset();

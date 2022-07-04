@@ -12,19 +12,33 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.vcare.R;
-import com.example.vcare.admin.Admin_Dashboard;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Doctor_Images;
+import com.example.vcare.doctor.Session_Mangement;
 import com.example.vcare.predictor.PatientDashboard;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Patient_home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
     private DrawerLayout drawerLayout4;
     private Toolbar toolbar;
     private LinearLayout search;
+    private TextView mName;
+    private CircleImageView mImageView;
+    private DatabaseReference reference_user_details;
+    private String patemail;
+    private Doctor_Images doctor_images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +49,10 @@ public class Patient_home extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar2= findViewById(R.id.toolbar);
         search=findViewById(R.id.home_search_view);
         setSupportActionBar(toolbar);
+        mName   = (TextView)navigationView1.getHeaderView(0).findViewById(R.id.lpat_name);
+        mImageView = (CircleImageView) navigationView1.getHeaderView(0).findViewById(R.id.pat_img);
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        patemail = _session_mangement.getDoctorSession()[0].replace(".",",");
 
         navigationView1.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout4, toolbar2, R.string.nav_drawer_open, R.string.nav_drawer_close);
@@ -42,6 +60,27 @@ public class Patient_home extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         navigationView1.setNavigationItemSelectedListener(Patient_home.this);
         navigationView1.setCheckedItem(R.id.nav_home);
+        reference_user_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_data");
+
+        reference_user_details.child(patemail).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //Fetch values from you database child and set it to the specific view object.
+                mName.setText(dataSnapshot.child("name").getValue().toString());
+//                String link =dataSnapshot.child("doc_pic").getValue().toString();
+//                Picasso.with(getBaseContext()).load(link).into(mImageView);
+                doctor_images = dataSnapshot.child("doc_pic").getValue(Doctor_Images.class);
+                //sign_images = datasnapshot.child("sign_pic").getValue(Doctor_Images.class);
+                if(doctor_images != null) {
+                    Picasso.with(Patient_home.this).load(doctor_images.getUrl()).into(mImageView);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,15 +104,12 @@ public class Patient_home extends AppCompatActivity implements NavigationView.On
             case R.id.appointments:
                 startActivity(new Intent(Patient_home.this, Patient_Appointments.class));
                 break;
-            case R.id.chats:
-                //startActivity(new Intent(Patient.this, Patient_Chat_Display.class));
-                break;
             case R.id.diseasepred:
                 startActivity(new Intent(Patient_home.this, PatientDashboard.class));
                 break;
             case R.id.logout:
-                Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Patient_home.this);
-                doctors_session_mangement.removeSession();
+                Session_Mangement _session_mangement = new Session_Mangement(Patient_home.this);
+                _session_mangement.removeSession();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent1 = new Intent(Patient_home.this, Login.class);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

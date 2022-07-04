@@ -31,7 +31,7 @@ public class Patient_Appointment_Status extends AppCompatActivity {
     private EditText tid;
     private DatabaseReference reference_user, reference_doctor, reference_booking, reference_patient,reference_user_details, reference_details, reference_doctor_appt, reference_appointment;
     private Button pay_app;
-    private TextView timeslot;
+    private TextView timeslot,tokenid;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
 
@@ -59,8 +59,9 @@ public class Patient_Appointment_Status extends AppCompatActivity {
         check = getIntent().getSerializableExtra("check").toString();
         name = (TextView) findViewById(R.id.name);
         timeslot = (TextView) findViewById(R.id.timeslot);
+        tokenid = (TextView) findViewById(R.id.tokenid);
         name.setText(pname);
-        timeslot.setText(chosen_time );
+        timeslot.setText(date_val+"-"+chosen_time);
         firebaseUser=firebaseAuth.getCurrentUser();
         Users users=null;
         reference_user_details.child(firebaseUser.getEmail().replace(".",",")).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -90,6 +91,7 @@ public class Patient_Appointment_Status extends AppCompatActivity {
                     int count = snapshot.getValue(Integer.class);
                     count = count + 1;
                     String token = "100"+Integer.toString(count);
+                    tokenid.setText(token);
                     Booking_Appointments booking_appointments = new Booking_Appointments(1, bookemail_id);
                     reference_booking.child(email).child(date_val).child(slot_val).child(check).setValue(booking_appointments);
                     reference_booking.child(email).child(date_val).child(finalSlot_val).child("Count").setValue(count);

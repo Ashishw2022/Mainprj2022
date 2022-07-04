@@ -34,7 +34,7 @@ public class Doctor_appointments_approved extends Fragment {
     private RecyclerView recyclerView;
     private FirebaseUser user;
     private DatabaseReference reference;
-    private ArrayList<Appointment_details> previous_payment;
+    private ArrayList<Appointment_details> previous_app;
     private String email;
     private Date d1, d2;
     private Doctor_Appointment_Show_Adapter adapter;
@@ -88,7 +88,7 @@ public class Doctor_appointments_approved extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        previous_payment = new ArrayList<>();
+        previous_app = new ArrayList<>();
 
 
         //doctor approved appointment can be view fragment
@@ -98,7 +98,7 @@ public class Doctor_appointments_approved extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    previous_payment = new ArrayList<>();
+                    previous_app = new ArrayList<>();
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
                             for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
@@ -106,14 +106,14 @@ public class Doctor_appointments_approved extends Fragment {
                                 appointment_data.getEmail();
                                  if(appointment_data.getEmail().equals(user.getEmail().replace(".",",")))
                                 {
-                                    previous_payment.add(appointment_data);
+                                    previous_app.add(appointment_data);
 
                                 }
 
                             }
                         }
                    }
-                    adapter = new Doctor_Appointment_Show_Adapter(previous_payment);
+                    adapter = new Doctor_Appointment_Show_Adapter(previous_app);
                     recyclerView.setAdapter(adapter);
                 } else {
                     if (mcontext != null) {
@@ -133,7 +133,7 @@ public class Doctor_appointments_approved extends Fragment {
     private void filter(String text) {
 
         ArrayList<Appointment_details> filterdNames = new ArrayList<>();
-        for (Appointment_details data : previous_payment) {
+        for (Appointment_details data : previous_app) {
             //if the existing elements contains the search input
             if (data.getDate().toLowerCase().contains(text.toLowerCase())) {
                 //adding the element to filtered list

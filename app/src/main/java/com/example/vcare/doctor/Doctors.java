@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +28,6 @@ import com.example.vcare.appointments.Appointments_Adapter;
 import com.example.vcare.appointments.Retrieve_Appointments;
 import com.example.vcare.chat.Doctor_Chat_Display;
 import com.example.vcare.news.news;
-import com.example.vcare.patient.Patient_viewprofile;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -86,8 +84,8 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
         appointment_notifs=new ArrayList<>();
         appointments=new ArrayList<>();
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        email = _session_mangement.getDoctorSession()[0].replace(".",",");
         //navView = navigationView.inflateHeaderView(R.layout.header_doctor);
        // NavProfileImage = (CircleImageView)findViewById(R.id.doc_img);
         //mName = (TextView)navView.findViewById(R.id.ldoc_name);
@@ -165,7 +163,7 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //Fetch values from you database child and set it to the specific view object.
-                mName.setText(dataSnapshot.child("name").getValue().toString());
+                mName.setText(dataSnapshot.child("name").getValue().toString().toUpperCase());
 //                String link =dataSnapshot.child("doc_pic").getValue().toString();
 //                Picasso.with(getBaseContext()).load(link).into(mImageView);
                 doctor_images = dataSnapshot.child("doc_pic").getValue(Doctor_Images.class);
@@ -270,8 +268,8 @@ public class Doctors extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(new Intent(Doctors.this, news.class));
                 break;
             case R.id.logout:
-                Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Doctors.this);
-                doctors_session_mangement.removeSession();
+                Session_Mangement _session_mangement = new Session_Mangement(Doctors.this);
+                _session_mangement.removeSession();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent1 = new Intent(Doctors.this, Login.class);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

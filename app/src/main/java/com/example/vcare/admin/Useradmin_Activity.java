@@ -21,7 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.admin.adapter.Admin_All_User_Adapter;
+import com.example.vcare.doctor.Session_Mangement;
 import com.example.vcare.patient.Patient_Profile;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
@@ -62,8 +63,8 @@ public class Useradmin_Activity extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_useradmin);
         search= findViewById(R.id.editTextSearch_appointment);
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        encodedemail=doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        encodedemail= _session_mangement.getDoctorSession()[0].replace(".",",");
         rv=(RecyclerView)findViewById(R.id.recycler_doc);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -169,9 +170,7 @@ public class Useradmin_Activity extends AppCompatActivity implements NavigationV
             case R.id.appointment_doc:
                 startActivity(new Intent(this, Admin_Available_Appointments.class));
                 break;
-            case R.id.chat:
-                //startActivity(new Intent(Useradmin_Activity.this, Admin_ChatDisplay.class));
-                break;
+
             case R.id.Add_doc:
                 startActivity(new Intent(Useradmin_Activity.this, Doctors_Add_Admin.class));
                 break;
@@ -179,8 +178,8 @@ public class Useradmin_Activity extends AppCompatActivity implements NavigationV
                 startActivity(new Intent(Useradmin_Activity.this, Admin_FeedBack.class));
                 break;
             case R.id.logout:
-                Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Useradmin_Activity.this);
-                doctors_session_mangement.removeSession();
+                Session_Mangement _session_mangement = new Session_Mangement(Useradmin_Activity.this);
+                _session_mangement.removeSession();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent1 = new Intent(Useradmin_Activity.this, Login.class);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -190,28 +189,28 @@ public class Useradmin_Activity extends AppCompatActivity implements NavigationV
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-   // @Override
-//    public void onBackPressed() {
-//
-//        if(drawerLayout.isDrawerOpen(GravityCompat.START))
-//        {
-//            drawerLayout.closeDrawer(GravityCompat.START);
-//        }
-//        else
-//        {
-//            if(backPressedTime+2000>System.currentTimeMillis())
-//            {
-//                finishAffinity();
-//                backToast.cancel();
-//                super.onBackPressed();
-//                return;
-//            }
-//            else
-//            {
-//                backToast = Toast.makeText(getBaseContext(),"Press Back again to exit",Toast.LENGTH_SHORT);
-//                backToast.show();
-//            }
-//            backPressedTime = System.currentTimeMillis();
-//        }
-//    }
+    @Override
+    public void onBackPressed() {
+
+        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else
+        {
+            if(backPressedTime+2000>System.currentTimeMillis())
+            {
+                finishAffinity();
+                backToast.cancel();
+                super.onBackPressed();
+                return;
+            }
+            else
+            {
+                backToast = Toast.makeText(getBaseContext(),"Press Back again to exit",Toast.LENGTH_SHORT);
+                backToast.show();
+            }
+            backPressedTime = System.currentTimeMillis();
+        }
+    }
 }

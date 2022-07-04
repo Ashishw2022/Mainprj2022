@@ -46,8 +46,8 @@ public class Doctors_View_Profile extends AppCompatActivity {
        // sign = (ImageView) findViewById(R.id.signImage);
         circle_image = (CircleImageView) findViewById(R.id.profileImage);
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email_id = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        email_id = _session_mangement.getDoctorSession()[0].replace(".",",");
 
         progressBar.setVisibility(View.VISIBLE);
         reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");

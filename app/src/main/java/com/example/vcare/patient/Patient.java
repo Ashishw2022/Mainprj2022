@@ -20,17 +20,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
-import com.example.vcare.chat.Doctor_Chat_Display;
 import com.example.vcare.chat.Patient_Chat_Display;
 import com.example.vcare.doctor.Doctor_Images;
-import com.example.vcare.doctor.Doctors;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.example.vcare.doctor.Main_Specialisation;
 import com.example.vcare.doctor.SliderAdapter;
 import com.example.vcare.doctor.Slider_Data;
 import com.example.vcare.news.news;
 import com.example.vcare.predictor.PatientDashboard;
-import com.example.vcare.predictor.PatientpredictionStatus;
 import com.example.vcare.register.Login;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,8 +60,8 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
         setContentView(R.layout.activity_patient);
         tvname=findViewById(R.id.doc_name);
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        patemail = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        patemail = _session_mangement.getDoctorSession()[0].replace(".",",");
 
         RecyclerView recyclerView_spec = (RecyclerView) findViewById(R.id.recycler_spec);
         ImageView all_doctors = (ImageView) findViewById(R.id.imageView_doc);
@@ -76,7 +73,7 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
 
         setSupportActionBar(toolbar1);
         mName   = (TextView)navigationView1.getHeaderView(0).findViewById(R.id.lpat_name);
-        mImageView = (CircleImageView) navigationView1.getHeaderView(0).findViewById(R.id.pat_img);;
+        mImageView = (CircleImageView) navigationView1.getHeaderView(0).findViewById(R.id.pat_img);
 
         navigationView1.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout1, toolbar1, R.string.nav_drawer_open, R.string.nav_drawer_close);
@@ -221,8 +218,8 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(new Intent(Patient.this, Patient_Status_ListView.class));
                 break;
             case R.id.logout:
-                Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(Patient.this);
-                doctors_session_mangement.removeSession();
+                Session_Mangement _session_mangement = new Session_Mangement(Patient.this);
+                _session_mangement.removeSession();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent1 = new Intent(Patient.this, Login.class);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

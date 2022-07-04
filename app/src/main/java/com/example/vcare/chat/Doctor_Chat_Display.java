@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
-import com.example.vcare.chat.Doctor_UserAdapter;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.example.vcare.model.Chat;
 import com.example.vcare.patient.Patient_Details;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -36,7 +33,7 @@ public class Doctor_Chat_Display extends AppCompatActivity {
     private FirebaseUser fuser;
     private String email;
     private HashSet<Patient_Details> hashSet;
-    private ArrayList<String> phone_num;
+    private ArrayList<String> p_email;
     private TextView chatview;
 
     @Override
@@ -48,8 +45,8 @@ public class Doctor_Chat_Display extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setHasFixedSize(true);
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email = doctors_session_mangement.getDoctorSession()[0].replace(".", ",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        email = _session_mangement.getDoctorSession()[0].replace(".", ",");
         usersList = new ArrayList<>();
         reference = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
@@ -92,27 +89,27 @@ public class Doctor_Chat_Display extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mUsers = new ArrayList<>();
-        phone_num = new ArrayList<>();
+        p_email = new ArrayList<>();
         status_val = new ArrayList<>();
         reference_patient = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Patient_Details");
         reference_patient.child(email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mUsers.clear();
-                phone_num = new ArrayList<>();
+                p_email = new ArrayList<>();
                 status_val = new ArrayList<>();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     Patient_Details details = snapshot1.getValue(Patient_Details.class);
                     mUsers.add(details);
-                    phone_num.add(details.getPemail());
+                    p_email.add(details.getPemail());
                 }
 
                 reference_patient.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (String phone : phone_num) {
-                            if (snapshot.child(phone).child("status").exists()) {
-                                status_val.add(snapshot.child(phone).child("status").getValue(String.class));
+                        for (String pemail : p_email) {
+                            if (snapshot.child(pemail).child("status").exists()) {
+                                status_val.add(snapshot.child(pemail).child("status").getValue(String.class));
                             }
                             else{
                                 status_val.add("offline");

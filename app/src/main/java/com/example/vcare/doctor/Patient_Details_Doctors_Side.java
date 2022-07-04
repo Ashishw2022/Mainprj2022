@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.vcare.R;
 import com.example.vcare.chat.Doctor_MessageActivity;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
 import com.example.vcare.model.Users;
 import com.example.vcare.patient.PrescriptionActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -52,8 +51,8 @@ public class Patient_Details_Doctors_Side extends AppCompatActivity {
         btn = findViewById(R.id.show_feedback);
         btn.setVisibility(View.INVISIBLE);
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email = doctors_session_mangement.getDoctorSession()[0].replace(".", ",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        email = _session_mangement.getDoctorSession()[0].replace(".", ",");
 
         if (!Questions.equals("")) {
             Quest.setText(Questions);

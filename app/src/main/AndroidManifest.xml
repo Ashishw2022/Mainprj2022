@@ -68,16 +68,13 @@
             android:name=".admin.Admin_FeedBack"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".admin.Admin_User_Details"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".admin.Doctor_admin_Activity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".admin.Useradmin_Activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".admin.Admin_Show_FeedBack"
+            android:name=".admin.adapter.Admin_Show_FeedBack"
             android:screenOrientation="portrait" />
         <activity
             android:name=".appointments.Appointments"

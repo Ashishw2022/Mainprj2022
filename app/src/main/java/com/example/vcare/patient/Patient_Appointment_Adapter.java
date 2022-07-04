@@ -47,10 +47,10 @@ public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Ap
         holder.transaction.setText("Token ID: "+ admin_payment_class.getTransaction());
         holder.date.setText("Date: "+ admin_payment_class.getDate());
         holder.time.setText("Time: "+admin_payment_class.getTime());
-        if(admin_payment_class.getPayment() == 0){
+        if(admin_payment_class.getflag() == 0){
             holder.payment.setText("Approval On Progress");
         }
-        else if(admin_payment_class.getPayment() == 1){
+        else if(admin_payment_class.getflag() == 1){
             holder.payment.setText("Approved by Doctor!");
             holder.payment.setTextColor(Color.GREEN);
         }
@@ -68,7 +68,7 @@ public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Ap
         else{
             holder.cancel.setText("Upcoming Appointment!");
         }
-        if(admin_payment_class.getPayment()==1 && admin_payment_class.getStatus()==0) {
+        if(admin_payment_class.getflag()==1 && admin_payment_class.getStatus()==0) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

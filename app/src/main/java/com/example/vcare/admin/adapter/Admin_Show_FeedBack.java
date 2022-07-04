@@ -1,4 +1,4 @@
-package com.example.vcare.admin;
+package com.example.vcare.admin.adapter;
 
 import android.os.Bundle;
 import android.widget.EditText;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vcare.R;
+import com.example.vcare.admin.Feedback_Model;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

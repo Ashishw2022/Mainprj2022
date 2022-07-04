@@ -58,8 +58,8 @@ public class Doctors_Show_Previous_Prescription_Doctors extends AppCompatActivit
         send_pres=(Button) findViewById(R.id.send_prescription);
         gender_view = findViewById(R.id.genderTextView_pres);
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        email = _session_mangement.getDoctorSession()[0].replace(".",",");
 
 
         doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users");

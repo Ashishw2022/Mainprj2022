@@ -8,7 +8,7 @@
     android:layout_gravity="start"
     android:theme="@style/Theme.MaterialComponents.Light"
     app:menu="@menu/patient_menu"
-    app:headerLayout="@layout/header"
+    app:headerLayout="@layout/header_pat"
     tools:ignore="MissingClass">
 
 </com.google.android.material.navigation.NavigationView>

@@ -27,8 +27,7 @@ import android.widget.Toast;
 
 import com.example.vcare.R;
 import com.example.vcare.doctor.Doctor_Images;
-import com.example.vcare.doctor.Doctors;
-import com.example.vcare.doctor.Doctors_Session_Mangement;
+import com.example.vcare.doctor.Session_Mangement;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -87,8 +86,8 @@ public class Patient_Update_Profile extends AppCompatActivity {
         myImage = findViewById(R.id.profile_image);
         //signimage = findViewById(R.id.signImage1);
 
-        Doctors_Session_Mangement doctors_session_mangement = new Doctors_Session_Mangement(this);
-        email = doctors_session_mangement.getDoctorSession()[0].replace(".",",");
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        email = _session_mangement.getDoctorSession()[0].replace(".",",");
 
         firebaseStorage = FirebaseStorage.getInstance();
         databaseReference = firebaseStorage.getReference().child(email);

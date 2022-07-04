@@ -1,4 +1,4 @@
-package com.example.vcare.admin;
+package com.example.vcare.admin.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
+import com.example.vcare.admin.Admin_Doctor_Details;
 import com.example.vcare.doctor.Doctors_Profile;
 import com.squareup.picasso.Picasso;
 

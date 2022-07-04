@@ -1,4 +1,4 @@
-package com.example.vcare.admin;
+package com.example.vcare.admin.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
