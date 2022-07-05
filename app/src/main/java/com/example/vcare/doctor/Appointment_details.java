@@ -3,12 +3,12 @@ package com.example.vcare.doctor;
 public class Appointment_details {
 
     private String transaction, dname, phone,name, date, time, email,pemail;
-    private int status, flag;
+    private int status, flag,payment_status;
 
     public Appointment_details() {
     }
 
-    public Appointment_details(String transaction, String dname, String email,String pemail,String phone, String name, int status, String date, String time, int flag) {
+    public Appointment_details(String transaction, String dname, String email,String pemail,String phone, String name, int status, String date, String time, int flag,int payment_status) {
         this.transaction = transaction;
         this.dname = dname;
         this.email = email;
@@ -20,6 +20,7 @@ public class Appointment_details {
         this.date = date;
         this.time = time;
         this.flag = flag;
+        this.payment_status=payment_status;
     }
 
     public String getTransaction() {
@@ -86,12 +87,20 @@ public class Appointment_details {
         this.time = time;
     }
 
-    public int getflag() {
+    public int getFlag() {
         return flag;
     }
 
-    public void setflag(int flag) {
+    public void setFlag(int flag) {
         this.flag = flag;
+    }
+
+    public int getPayment_status() {
+        return payment_status;
+    }
+
+    public void setPayment_status(int payment_status) {
+        this.payment_status = payment_status;
     }
 
     public String getPemail() {

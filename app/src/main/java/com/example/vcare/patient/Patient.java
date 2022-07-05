@@ -215,7 +215,7 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
                startActivity(new Intent(Patient.this, PatientDashboard.class));
                 break;
             case R.id.predstatus:
-                startActivity(new Intent(Patient.this, Patient_Status_ListView.class));
+                startActivity(new Intent(Patient.this, Patient_Prediction_Status_ListView.class));
                 break;
             case R.id.logout:
                 Session_Mangement _session_mangement = new Session_Mangement(Patient.this);

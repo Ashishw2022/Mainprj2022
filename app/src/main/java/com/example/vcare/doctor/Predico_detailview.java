@@ -102,7 +102,7 @@ public class Predico_detailview extends AppCompatActivity {
                 String strCounter = String.valueOf(studentCounter);
 
                 //Showing the user counter in the textview
-                textView_appointments.setText("Predictions : " +strCounter);
+                //textView_appointments.setText("Predictions : " +strCounter);
 
             }
 

@@ -44,14 +44,14 @@ public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Ap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Appointment_details admin_payment_class = appointments.get(position);
         holder.name.setText("Booked For: "+ admin_payment_class.getDname());
-        holder.transaction.setText("Token ID: "+ admin_payment_class.getTransaction());
+        holder.transaction.setText("Token ID: "+ admin_payment_class.getTransaction() );
         holder.date.setText("Date: "+ admin_payment_class.getDate());
         holder.time.setText("Time: "+admin_payment_class.getTime());
-        if(admin_payment_class.getflag() == 0){
-            holder.payment.setText("Approval On Progress");
+        if(admin_payment_class.getFlag() == 0 && admin_payment_class.getPayment_status() == 1 ){
+            holder.payment.setText("Appointment Approval On Progress");
         }
-        else if(admin_payment_class.getflag() == 1){
-            holder.payment.setText("Approved by Doctor!");
+        else if(admin_payment_class.getFlag() == 1 && admin_payment_class.getPayment_status() == 1 ){
+            holder.payment.setText("Appointment Approved by Doctor!");
             holder.payment.setTextColor(Color.GREEN);
         }
         else{
@@ -68,7 +68,7 @@ public class Patient_Appointment_Adapter extends RecyclerView.Adapter<Patient_Ap
         else{
             holder.cancel.setText("Upcoming Appointment!");
         }
-        if(admin_payment_class.getflag()==1 && admin_payment_class.getStatus()==0) {
+        if(admin_payment_class.getFlag()==1 && admin_payment_class.getStatus()==0) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Patient_Status_ListView extends AppCompatActivity {
+public class Patient_Prediction_Status_ListView extends AppCompatActivity {
     private RecyclerView rv;
     private TextView textView_appointments;
     private FirebaseUser user;
@@ -72,40 +72,6 @@ public class Patient_Status_ListView extends AppCompatActivity {
 
 
         final DatabaseReference nm= FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("disease_prediction");
-        nm.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                studentCounter = studentCounter + 1;
-
-                //Convert counter to string
-                String strCounter = String.valueOf(studentCounter);
-
-                //Showing the user counter in the textview
-                textView_appointments.setText("Predictions : " +strCounter);
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         nm.child(encodedemail).addValueEventListener(new ValueEventListener() {
             @Override
@@ -127,7 +93,7 @@ public class Patient_Status_ListView extends AppCompatActivity {
 
                     }
 
-                    adapter=new Patient_Status_Adapter(listData,emaildata, Patient_Status_ListView.this);
+                    adapter=new Patient_Status_Adapter(listData,emaildata, Patient_Prediction_Status_ListView.this);
                     rv.setAdapter(adapter);
                 }
             }

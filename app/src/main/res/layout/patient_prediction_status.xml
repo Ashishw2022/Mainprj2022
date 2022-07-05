@@ -40,8 +40,8 @@
         app:layout_constraintTop_toBottomOf="@+id/doctor_know">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="406dp"
-                android:layout_height="497dp">
+                android:layout_width="412dp"
+                android:layout_height="523dp">
 
 
                 <TextView
@@ -49,10 +49,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40dp"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="40dp"
-                    android:layout_marginRight="40dp"
                     android:paddingLeft="4dp"
                     android:paddingTop="4dp"
                     android:paddingRight="4dp"
@@ -61,6 +59,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/diseasename" />
 
@@ -102,7 +101,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Exp_textview" />
 
-                <EditText
+                <TextView
                     android:id="@+id/docremark"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -117,6 +116,18 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/doc_rmk" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Generate Report"
+                    android:gravity="left"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/docremark">
+
+                </Button>
                 <!--            <ImageView-->
                 <!--                android:id="@+id/imageView_doc_display"-->
                 <!--                android:layout_width="140dp"-->
@@ -218,8 +229,8 @@
 
                 <TextView
                     android:id="@+id/symptoms"
-                    android:layout_width="177dp"
-                    android:layout_height="101dp"
+                    android:layout_width="238dp"
+                    android:layout_height="84dp"
                     android:gravity="center"
                     android:text="symptoms"
                     android:textColor="#009688"
@@ -241,10 +252,10 @@
 
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.567"
+                    app:layout_constraintHorizontal_bias="0.453"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.594"
+                    app:layout_constraintVertical_bias="0.606"
                     tools:ignore="MissingConstraints" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

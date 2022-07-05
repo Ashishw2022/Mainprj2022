@@ -200,8 +200,10 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                             //appointment approved by doctor
                                             reference.child("appointment_approved").child(appoint_class.getPemail()).child(appoint_class.getDate()).child(appoint_class.getTime()).setValue(appoint_class);
                                             reference.child("appointment_approved").child(appoint_class.getPemail()).child(appoint_class.getDate()).child(appoint_class.getTime()).child("flag").setValue(1);
+                                            reference.child("appointment_approved").child(appoint_class.getPemail()).child(appoint_class.getDate()).child(appoint_class.getTime()).child("payment_status").setValue(1);
+
                                             data.getRef().removeValue();
-                                            Patient_Details details = new Patient_Details(appoint_class.getPemail().replace(".",","), appoint_class.getName());
+                                           Patient_Details details = new Patient_Details(appoint_class.getPemail().replace(".",","), appoint_class.getName());
                                             //patient email added
                                             String encoded_email = appoint_class.getEmail().replace(".", ",");
                                             reference_details.child(encoded_email).child(appoint_class.getPemail().replace(".",",")).setValue(details);
@@ -264,6 +266,7 @@ public class Doctor_appointments_waiting_approval extends Fragment {
                                             Appointment_details appoint_class = current_appoint.get(position);
                                             reference.child("appointment_approved").child(appoint_class.getPemail()).child(appoint_class.getDate()).child(appoint_class.getTime()).setValue(appoint_class);
                                             reference.child("appointment_approved").child(appoint_class.getPemail()).child(appoint_class.getDate()).child(appoint_class.getTime()).child("flag").setValue(2);
+                                            reference.child("appointment_approved").child(appoint_class.getPemail()).child(appoint_class.getDate()).child(appoint_class.getTime()).child("payment_status").setValue(2);
                                             data.getRef().removeValue();
                                             String encoded_email = appoint_class.getEmail().replace(".", ",");
                                             reference_patient.child(appoint_class.getPhone()).child(encoded_email).child(appoint_class.getDate()).child(appoint_class.getTime()).child("appointment").setValue(2);

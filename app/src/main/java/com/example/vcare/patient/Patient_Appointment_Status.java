@@ -1,9 +1,13 @@
 package com.example.vcare.patient;
 
 import android.content.Intent;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,12 +30,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Patient_Appointment_Status extends AppCompatActivity {
 
-    private String check,date_val,fees,phone,email,chosen_time,question_data,pname,slot_val,fees_val,bookemail_id,phn;
+    private String check,date_val,fees,phone,email,chosen_time,question_data,pname,slot_val,fees_val,bookemail_id,phn,paymentstatus,docname,spec;
     private TextView name;
     private EditText tid;
     private DatabaseReference reference_user, reference_doctor, reference_booking, reference_patient,reference_user_details, reference_details, reference_doctor_appt, reference_appointment;
-    private Button pay_app;
-    private TextView timeslot,tokenid;
+    private ImageButton pay_app,download;
+    private TextView timeslot,tokenid,fee;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
 
@@ -51,15 +55,21 @@ public class Patient_Appointment_Status extends AppCompatActivity {
         bookemail_id = session.getSession();
         pname = getIntent().getSerializableExtra("pname").toString();
         email = getIntent().getSerializableExtra("email").toString();
+        docname = getIntent().getSerializableExtra("docname").toString();
+        spec = getIntent().getSerializableExtra("speci").toString();
         chosen_time = getIntent().getSerializableExtra("chosen_time").toString();
         question_data = getIntent().getSerializableExtra("question").toString();
         slot_val = getIntent().getSerializableExtra("slot_val").toString();
         date_val = getIntent().getSerializableExtra("date").toString();
         fees_val = getIntent().getSerializableExtra("fees").toString();
         check = getIntent().getSerializableExtra("check").toString();
+        paymentstatus = getIntent().getSerializableExtra("paymentstatus").toString();
+        download=(ImageButton) findViewById(R.id.download);
         name = (TextView) findViewById(R.id.name);
         timeslot = (TextView) findViewById(R.id.timeslot);
         tokenid = (TextView) findViewById(R.id.tokenid);
+        fee = (TextView) findViewById(R.id.fee);
+        fee.setText(fees_val);
         name.setText(pname);
         timeslot.setText(date_val+"-"+chosen_time);
         firebaseUser=firebaseAuth.getCurrentUser();
@@ -102,7 +112,7 @@ public class Patient_Appointment_Status extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
                                 String dname = snapshot.getValue(String.class);
-                                Appointment_details payment = new Appointment_details(token, dname, email.replace(".",","),firebaseUser.getEmail().replace(".",","),""+phn.toString(), pname, 0, date_val, chosen_time, 0);
+                                Appointment_details payment = new Appointment_details(token, dname, email.replace(".",","),firebaseUser.getEmail().replace(".",","),""+phn.toString(), pname, 0, date_val, chosen_time, 0,1);
                                 reference_appointment.child("waiting_approval").child(firebaseUser.getEmail().replace(".",",")).child(date_val).child(chosen_time).setValue(payment);
                             }
                         }
@@ -127,6 +137,20 @@ public class Patient_Appointment_Status extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT,"Thanks for booking an appointment on V-Care. \n Patient's name\t: "+pname+"\n Date: "+date_val+" | Time Slot: "+chosen_time);
+                intent.setType("text/plain");
+
+                if(intent.resolveActivity(getPackageManager())!=null)
+                {
+                    startActivity(intent);
+                }
             }
         });
 
@@ -162,6 +186,64 @@ public class Patient_Appointment_Status extends AppCompatActivity {
 //                });
 
     }
+    /*private void generatePDF() {
+        // creating an object variable
+        // for our PDF document.
+        PdfDocument pdfDocument = new PdfDocument();
+
+        // two variables for paint "paint" is used
+        // for drawing shapes and we will use "title"
+        // for adding text in our PDF file.
+        Paint paint = new Paint();
+        Paint title = new Paint();
+
+        // we are adding page info to our PDF file
+        // in which we will be passing our pageWidth,
+        // pageHeight and number of pages and after that
+        // we are calling it to create our PDF.
+        PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(pagewidth, pageHeight, 1).create();
+
+        // below line is used for setting
+        // start page for our PDF file.
+        PdfDocument.Page myPage = pdfDocument.startPage(mypageInfo);
+
+        Canvas canvas = myPage.getCanvas();
+
+        canvas.drawBitmap(scaledbmp, 56, 40, paint);
+
+        title.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+
+        title.setTextSize(15);
+
+        title.setColor(ContextCompat.getColor(this, R.color.purple_200));
+
+
+        canvas.drawText("A portal for IT professionals.", 209, 100, title);
+        canvas.drawText("Geeks for Geeks", 209, 80, title);
+
+
+        title.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        title.setColor(ContextCompat.getColor(this, R.color.purple_200));
+        title.setTextSize(15);
+
+        title.setTextAlign(Paint.Align.CENTER);
+        canvas.drawText("This is sample document which we have created.", 396, 560, title);
+.
+        pdfDocument.finishPage(myPage);
+
+        File file = new File(Environment.getExternalStorageDirectory(), "GFG.pdf");
+
+        try {
+            pdfDocument.writeTo(new FileOutputStream(file));
+
+            Toast.makeText(MainActivity.this, "PDF file generated successfully.", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+        pdfDocument.close();
+    }*/
 
     @Override
     public void onBackPressed() {

@@ -19,6 +19,14 @@ public class Patient_Chosen_Slot_Class {
 
     }
 
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
     public String getPatient_name() {
         return patient_name;
     }
@@ -35,13 +43,6 @@ public class Patient_Chosen_Slot_Class {
         this.time = time;
     }
 
-    public int getflag() {
-        return flag;
-    }
-
-    public void setflag(int flag) {
-        this.flag = flag;
-    }
 
     public String getQuestion() {
         return question;

@@ -1,9 +1,14 @@
 package com.example.vcare.patient;
 
+import static com.airbnb.lottie.L.TAG;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,7 +34,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,8 +49,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
-public class Patient_Booking_Appointments extends AppCompatActivity {
-    private String phone,email,date_val,chosen_time="",question_data,fees,bookemail_id,name;
+public class Patient_Booking_Appointments extends AppCompatActivity implements PaymentResultListener {
+    private String phone,email,date_val,chosen_time="",question_data,fees,bookemail_id,name,finalSlot_val,check,slot_val,pname;
     private TextView doctor_name, speciality;
     private HorizontalCalendar horizontalCalendar;
     private DatabaseReference reference_user, reference_doctor,reference_user_details, reference_booking, reference_patient, reference_details, reference_doctor_appt;
@@ -73,6 +82,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
         reference_doctor_appt = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Appointments");
         reference_user_details = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_data");
 
+        Checkout.preload(getApplicationContext());
 
 
         dates = new ArrayList<>();
@@ -298,7 +308,7 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
                 }
                 question_data = question.getText().toString().trim();
 
-                String pname = patient_name.getText().toString().trim();
+                 pname = patient_name.getText().toString().trim();
 
                 if(pname.isEmpty()){
                     patient_name.setError("Patient's Name is a required field");
@@ -306,9 +316,9 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
                     return;
                 }
 
-                String check = chosen_time.split(" - ", 5)[0];
+                check = chosen_time.split(" - ", 5)[0];
                 Booking_Appointments booking_appointments = new Booking_Appointments(1, bookemail_id);
-                String slot_val="";
+                 slot_val="";
                 for(String item: set_timeSlot){
                     int s = Integer.parseInt(item.split(" - ",5)[0]);
                     int e = Integer.parseInt(item.split(" - ",5)[1]);
@@ -321,54 +331,66 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
                 }
 
                 Booking_Appointments booking = new Booking_Appointments(1, bookemail_id);
-                String finalSlot_val = slot_val;
-                reference_booking.child(email).child(date_val).child(slot_val).child(check).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()) {
-                            Booking_Appointments booking = snapshot.getValue(Booking_Appointments.class);
-
-                            if (booking.getValue() == 1) {
-                                Toast.makeText(Patient_Booking_Appointments.this, "The Slot is already Booked. Please Choose other Slot!", Toast.LENGTH_SHORT).show();
-                                return;
-
-                            } else {
-                                Booking_Appointments booking_appointments = new Booking_Appointments(1, "null");
-                                reference_booking.child(email).child(date_val).child(finalSlot_val).child(check).setValue(booking_appointments);
-                                Toast.makeText(Patient_Booking_Appointments.this, "The Slot is Booked.", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Patient_Booking_Appointments.this, Patient_Appointment_Status.class);
-                                intent.putExtra("pname", pname);
-                                intent.putExtra("email", email);
-                                intent.putExtra("chosen_time", chosen_time);
-                                intent.putExtra("question", question_data);
-                                intent.putExtra("slot_val", finalSlot_val);
-                                intent.putExtra("date", date_val);
-                                intent.putExtra("fees", fees);
-                                intent.putExtra("check", check);
-                                intent.putExtra("check", check);
-                                startActivity(intent);
-                            }
-                        }
-                        else{
-                            Toast.makeText(Patient_Booking_Appointments.this, "The Doctor is not available! Select other slot!", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                  finalSlot_val = slot_val;
 
 
 
 //                Appointment_notif appointment_notif = new Appointment_notif("", date_val, chosen_time, question_data, bookemail_id, pname);
 //                reference_doctor_appt.child(email).child(date_val).child(chosen_time).setValue(appointment_notif);
-
+                startpayment();
 
             }
         });
+    }
+    @SuppressLint("RestrictedApi")
+    private void startpayment()
+    {
+        /**
+         * Instantiate Checkout
+         */
+        Checkout checkout = new Checkout();
+        checkout.setKeyID("rzp_test_120xIdwi4pRz5t");
+
+        /**
+         * Set your logo here
+         */
+        checkout.setImage(R.drawable.logo);
+
+        /**
+         * Reference to current activity
+         */
+        final Activity activity = this;
+
+        /**
+         * Pass your payment options to the Razorpay Checkout as a JSONObject
+         */
+        try {
+            JSONObject options = new JSONObject();
+
+            int i=Integer.parseInt(fees);
+            int tot=i*100;
+            String mail=bookemail_id.replace(",",".");
+
+            options.put("name", "V-Care");
+            options.put("description", "Reference No. #1001");
+            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
+        //    options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
+            options.put("theme.color", "#3399cc");
+            options.put("currency", "INR");
+            options.put("amount", tot);//pass amount in currency subunits
+            options.put("prefill.email","ashi@gmail.com");
+           // options.put("prefill.contact","9988776655");
+            JSONObject retryObj = new JSONObject();
+            retryObj.put("enabled", true);
+            retryObj.put("max_count", 4);
+            options.put("retry", retryObj);
+
+            checkout.open(activity, options);
+
+        } catch(Exception e) {
+            Log.e(TAG, "Error in starting Razorpay Checkout", e);
+        }
+
     }
 
     @Override
@@ -388,4 +410,55 @@ public class Patient_Booking_Appointments extends AppCompatActivity {
         return isresumed;
     }
 
+    @Override
+    public void onPaymentSuccess(String s) {
+
+        reference_booking.child(email).child(date_val).child(slot_val).child(check).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    Booking_Appointments booking = snapshot.getValue(Booking_Appointments.class);
+
+                    if (booking.getValue() == 1) {
+                        Toast.makeText(Patient_Booking_Appointments.this, "The Slot is already Booked. Please Choose other Slot!", Toast.LENGTH_SHORT).show();
+                        return;
+
+                    } else {
+                        Booking_Appointments booking_appointments = new Booking_Appointments(1, "null");
+                        reference_booking.child(email).child(date_val).child(finalSlot_val).child(check).setValue(booking_appointments);
+                        Toast.makeText(Patient_Booking_Appointments.this, "The Slot is Booked.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Patient_Booking_Appointments.this, Patient_Appointment_Status.class);
+                        intent.putExtra("pname", pname);
+                        intent.putExtra("email", email);
+                        intent.putExtra("docname", String.valueOf(doctor_name));
+                        intent.putExtra("speci", String.valueOf(speciality));
+                        intent.putExtra("chosen_time", chosen_time);
+                        intent.putExtra("question", question_data);
+                        intent.putExtra("slot_val", finalSlot_val);
+                        intent.putExtra("date", date_val);
+                        intent.putExtra("fees", fees);
+                        intent.putExtra("check", check);
+                        intent.putExtra("paymentstatus", 1);
+
+                        startActivity(intent);
+                    }
+                }
+                else{
+                    Toast.makeText(Patient_Booking_Appointments.this, "The Doctor is not available! Select other slot!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+
+    }
 }

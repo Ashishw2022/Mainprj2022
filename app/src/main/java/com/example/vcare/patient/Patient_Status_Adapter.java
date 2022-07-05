@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
 import com.example.vcare.doctor.Doctors_Profile;
-import com.example.vcare.doctor.predictiondetails;
 import com.example.vcare.predictor.DiseasePrediction;
 
 import java.util.ArrayList;
@@ -46,16 +45,17 @@ public class Patient_Status_Adapter extends RecyclerView.Adapter<Patient_Status_
                 name = d.getPatientName();
                 email = emaildata.get(viewHolder.getAdapterPosition());
                 symptoms = d.getSymptoms();
-                Intent intent=new Intent(view.getContext(), predictiondetails.class);
+                Intent intent=new Intent(view.getContext(), PatientpredictionStatus.class);
                 intent.putExtra("Patient Name",name);
                 intent.putExtra("Email ID",email);
                 intent.putExtra("Symptoms",symptoms);
                 intent.putExtra("ApprovalId",d.getPid());
                 intent.putExtra("speciality",d.getDiscategory());
                 intent.putExtra("age",d.getAge());
-              //  intent.putExtra("gender",d.getGender());
+               // intent.putExtra("gender",d.getGender());
+                intent.putExtra("remarks",d.getRemarks());
                 intent.putExtra("PredictedDisease",d.getPredictedDisease());
-            //    view.getContext().startActivity(intent);
+                view.getContext().startActivity(intent);
             }
         });
         return viewHolder;
