@@ -26,7 +26,7 @@ import java.util.Calendar;
 
 public class PatientpredictionStatus extends AppCompatActivity {
 
-    private TextView patientname, symptomsdis, diseasename, specialitytype, patientage, docremark,patientgender;
+    private TextView patientname, symptomsdis, diseasename, specialitytype, patientage, docremark,patientgender,tdname;
     private ImageView imageicon;
     private Doctor_Images doctor_images;
     private ArrayList<Appointment_details> previous_payment;
@@ -46,10 +46,11 @@ public class PatientpredictionStatus extends AppCompatActivity {
         specialitytype = (TextView) findViewById(R.id.specialitytype);
         patientage = (TextView) findViewById(R.id.patientage);
         patientgender =(TextView) findViewById(R.id.patientgender);
-        docremark =(TextView) findViewById(R.id.docremark);
+         docremark=(TextView) findViewById(R.id.docremark);
+        tdname =(TextView) findViewById(R.id.dname);
 
 
-       //  imageicon = (ImageView)findViewById(R.id.imageicon);
+       imageicon = (ImageView)findViewById(R.id.imageicon);
        /* doctor_slots = (TextView) findViewById(R.id.Available_text_val);
         doctor_about = (TextView) findViewById(R.id.about_doctor);
         emailid = (TextView) findViewById(R.id.email_text_val);
@@ -72,15 +73,29 @@ public class PatientpredictionStatus extends AppCompatActivity {
         String age = getIntent().getSerializableExtra("age").toString();
        // String gender = getIntent().getSerializableExtra("gender").toString();
         String remarks = getIntent().getSerializableExtra("remarks").toString();
+        int approval = (int) getIntent().getSerializableExtra("approval");
+        String dname = getIntent().getSerializableExtra("dname").toString();
+        String demail = getIntent().getSerializableExtra("demail").toString();
 
 //        String gender = getIntent().getSerializableExtra("gender").toString();
       /*  String age = getIntent().getSerializableExtra("age").toString();*/
         patientname.setText(name);
-        symptomsdis.setText(symptoms);
+        symptomsdis.setText(symptoms.replace("[","").replace("]",""));
         diseasename.setText(predictedDisease);
         specialitytype.setText(speciality);
         patientage.setText(age);
-       //  patientgender.setText(gender);
+        tdname.setText("Dr."+dname+"\n Email: "+demail.replace(",","."));
+        if(approval==1)
+        {
+            imageicon.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+              imageicon.setVisibility(View.GONE);
+
+        }
+
+        //  patientgender.setText(gender);
         docremark.setText(remarks);
 
         reference_dispred = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("disease_prediction");

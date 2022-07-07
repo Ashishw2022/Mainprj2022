@@ -40,8 +40,8 @@
         app:layout_constraintTop_toBottomOf="@+id/doctor_know">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="412dp"
-                android:layout_height="523dp">
+                android:layout_width="match_parent"
+                android:layout_height="570dp">
 
 
                 <TextView
@@ -81,15 +81,51 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Exp_textview" />
 
+
+                <TextView
+                    android:id="@+id/docname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="40dp"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="4dp"
+                    android:paddingBottom="4dp"
+                    android:text="Approval By"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/specialitytype" />
+
+                <TextView
+                    android:id="@+id/dname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="40dp"
+
+                    android:paddingLeft="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="4dp"
+                    android:paddingBottom="4dp"
+                    android:text="Doctor name | email"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/docname" />
+
                 <TextView
                     android:id="@+id/doc_rmk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40dp"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="40dp"
-                    android:layout_marginRight="40dp"
                     android:paddingLeft="4dp"
                     android:paddingTop="4dp"
                     android:paddingRight="4dp"
@@ -98,8 +134,9 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Exp_textview" />
+                    app:layout_constraintTop_toBottomOf="@+id/dname" />
 
                 <TextView
                     android:id="@+id/docremark"
@@ -117,17 +154,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/doc_rmk" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Generate Report"
-                    android:gravity="left"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/docremark">
+                <!--                <Button-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="Generate Report"-->
+                <!--                    android:gravity="left"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/docremark">-->
 
-                </Button>
+                <!--                </Button>-->
                 <!--            <ImageView-->
                 <!--                android:id="@+id/imageView_doc_display"-->
                 <!--                android:layout_width="140dp"-->
@@ -144,7 +181,7 @@
                     android:id="@+id/predictedisease"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="48dp"
+                    android:layout_marginTop="36dp"
                     android:layout_marginEnd="240dp"
                     android:gravity="center"
                     android:paddingLeft="4dp"
@@ -163,7 +200,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:layout_marginEnd="256dp"
+                    android:layout_marginEnd="248dp"
                     android:gravity="center"
                     android:paddingLeft="4dp"
                     android:paddingTop="4dp"
@@ -174,24 +211,24 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView_doc_display"
                     app:layout_constraintTop_toBottomOf="@+id/predictedisease"
-                    app:layout_constraintVertical_bias="0.021" />
+                    app:layout_constraintVertical_bias="0.004" />
 
                 <TextView
                     android:id="@+id/patientname"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="44dp"
-                    android:layout_marginEnd="312dp"
+                    android:layout_marginEnd="308dp"
                     android:gravity="center"
                     android:text="name"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/symptoms"
+                    app:layout_constraintBottom_toBottomOf="@+id/diseasename"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView_doc_display"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.004" />
 
                 <TextView
                     android:id="@+id/patientage"
@@ -222,10 +259,10 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/patientage"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.88"
+                    app:layout_constraintHorizontal_bias="0.875"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
                     android:id="@+id/symptoms"
@@ -238,10 +275,10 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.071"
+                    app:layout_constraintHorizontal_bias="0.197"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.273" />
+                    app:layout_constraintVertical_bias="0.195" />
 
                 <ImageView
                     android:id="@+id/imageicon"
@@ -252,10 +289,9 @@
 
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.453"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.606"
+                    app:layout_constraintVertical_bias="0.454"
                     tools:ignore="MissingConstraints" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

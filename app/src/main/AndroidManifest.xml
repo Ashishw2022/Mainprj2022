@@ -94,7 +94,7 @@
             android:name=".appointments.Appointments"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".patient.Patient_home"
+            android:name=".patient.Patient_predico"
             android:screenOrientation="portrait" />
         <activity
             android:name=".patient.Patient_Appointments"
@@ -109,7 +109,7 @@
             android:name=".doctor.Patient_Details_Doctors_Side"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".patient.View_All_Speciality"
+            android:name=".doctor.View_All_Speciality"
             android:screenOrientation="portrait" />
         <activity
             android:name=".patient.Patient"

@@ -1,4 +1,4 @@
-package com.example.vcare.patient;
+package com.example.vcare.doctor;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,17 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
-import com.example.vcare.doctor.Main_Specialisation;
+import com.example.vcare.patient.Available_Doctors;
 
 import java.util.ArrayList;
 
-public class Specialist_Adapter extends RecyclerView.Adapter<Specialist_Adapter.ViewHolder> {
+public class View_All_Adapter extends RecyclerView.Adapter<View_All_Adapter.ViewHolder> {
 
     private ArrayList<Main_Specialisation> main_specialisations;
     private Context context;
     private String specialtiy_type;
 
-    public Specialist_Adapter(ArrayList<Main_Specialisation> main_specialisations, Context context) {
+    public View_All_Adapter(ArrayList<Main_Specialisation> main_specialisations, Context context) {
         this.main_specialisations = main_specialisations;
         this.context = context;
     }
@@ -30,7 +30,6 @@ public class Specialist_Adapter extends RecyclerView.Adapter<Specialist_Adapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view= LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.speciality_item,parent,false);
 
@@ -56,7 +55,6 @@ public class Specialist_Adapter extends RecyclerView.Adapter<Specialist_Adapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.spec_image.setImageResource(main_specialisations.get(position).getSpecialisation_pic());
         holder.spec_text.setText(main_specialisations.get(position).getSpecialisation_type());
-
     }
 
     @Override
@@ -64,17 +62,18 @@ public class Specialist_Adapter extends RecyclerView.Adapter<Specialist_Adapter.
         return main_specialisations.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void filterList(ArrayList<Main_Specialisation> filterdNames) {
+        this.main_specialisations=filterdNames;
+        notifyDataSetChanged();
+    }
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView spec_image;
         TextView spec_text;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             spec_image=itemView.findViewById(R.id.imageView_doc);
             spec_text=itemView.findViewById(R.id.speciality_textview);
-
         }
     }
 }

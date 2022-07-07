@@ -18,7 +18,7 @@ import com.example.vcare.predictor.DiseasePrediction;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Patient_Status_Adapter extends RecyclerView.Adapter<Patient_Status_Adapter.ViewHolder> {
+public class Patient_predico_Status_Adapter extends RecyclerView.Adapter<Patient_predico_Status_Adapter.ViewHolder> {
 
     private List<DiseasePrediction> listData;
     private List<String> emaildata;
@@ -27,7 +27,7 @@ public class Patient_Status_Adapter extends RecyclerView.Adapter<Patient_Status_
     private String email;
     private String symptoms;
 
-    public Patient_Status_Adapter(List<DiseasePrediction> listData, List<String> emaildata, Context mContext) {
+    public Patient_predico_Status_Adapter(List<DiseasePrediction> listData, List<String> emaildata, Context mContext) {
         this.listData = listData;
         this.emaildata = emaildata;
         this.mContext = mContext;
@@ -52,6 +52,10 @@ public class Patient_Status_Adapter extends RecyclerView.Adapter<Patient_Status_
                 intent.putExtra("ApprovalId",d.getPid());
                 intent.putExtra("speciality",d.getDiscategory());
                 intent.putExtra("age",d.getAge());
+                intent.putExtra("approval",d.getApprovalstatus());
+                intent.putExtra("dname",d.getDocname());
+                intent.putExtra("demail",d.getDocemail());
+
                // intent.putExtra("gender",d.getGender());
                 intent.putExtra("remarks",d.getRemarks());
                 intent.putExtra("PredictedDisease",d.getPredictedDisease());

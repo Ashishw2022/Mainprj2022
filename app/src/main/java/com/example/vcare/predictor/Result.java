@@ -1039,7 +1039,7 @@ public class Result extends AppCompatActivity {
                     " Inhaled allergens can also lead to increased production of mucus in the lungs, shortness of breath, coughing, and wheezing\n" +
                     "Risk factors for allergy can be placed in two general categories, namely host and environmental factors." +
                     " Host factors include heredity, sex, race, and age, with heredity being by far the most significant. However, there have been recent increases in the incidence of allergic disorders that cannot be explained by genetic factors alone. " +
-                    "Four major environmental candidates are alterations in exposure to infectious diseases during early childhood, environmental pollution, allergen levels, and dietary changes.\n" +
+                    "Four major environmental candidates are alterations in exposure to General Medicines during early childhood, environmental pollution, allergen levels, and dietary changes.\n" +
                     "A drug allergy is an allergy to a drug, most commonly a medication, and is a form of adverse drug reaction. Medical attention should be sought immediately if an allergic reaction is suspected.\n" +
                     "An allergic reaction will not occur on the first exposure to a substance. The first exposure allows the body to create antibodies and memory lymphocyte cells for the antigen. However, drugs often contain many different substances, including dyes, which could cause allergic reactions.\n";
             tv2.setText(desc);
@@ -1064,7 +1064,7 @@ public class Result extends AppCompatActivity {
                             int k = 1000 + count +1;
                             if (k > 1) {
                                 String date = String.valueOf(new Date());
-                                DiseasePrediction details = new DiseasePrediction(age, "", "" + k, symList, str, 0, "", pname, user.getEmail(), category, date);
+                                DiseasePrediction details = new DiseasePrediction(age, "", "" + k, symList, str, 0, "", pname, user.getEmail(), category, date,"","");
                                 //int finalVal = total + 1;//
                                 // reference_prediction.child("pending").child(patemail).child("token").setValue(finalVal);
                                 reference_prediction.child(patemail).child(""+k).setValue(details);
@@ -1076,7 +1076,7 @@ public class Result extends AppCompatActivity {
 
                }else {
                     String date = String.valueOf(new Date());
-                    DiseasePrediction details = new DiseasePrediction(age,"","1000",symList, str, 0, "", pname, user.getEmail(), category,date);
+                    DiseasePrediction details = new DiseasePrediction(age,"","1000",symList, str, 0, "", pname, user.getEmail(), category,date,"","");
 
                   //  reference_prediction.child("pending").child(patemail).child("token").setValue(1000);
                     reference_prediction.child(patemail).child("1000").setValue(details);

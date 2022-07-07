@@ -1,4 +1,4 @@
-package com.example.vcare.patient;
+package com.example.vcare.doctor;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.vcare.R;
-import com.example.vcare.doctor.Main_Specialisation;
 
 import java.util.ArrayList;
 
@@ -36,7 +35,7 @@ public class View_All_Speciality extends AppCompatActivity {
                 R.drawable.thyroid,R.drawable.hormone, R.drawable.immunology, R.drawable.rheuma, R.drawable.neuro, R.drawable.ophtha, R.drawable.cardiac, R.drawable.cancer,
                 R.drawable.gastro, R.drawable.ent};
 
-        String[] specialisation_type={"Infectious Disease","Dermatology & Venereology","Leprology","Endocrinology & Diabetes","Thyroid","Hormone","Immunology","Rheumatology","Neurology","Ophthalmology","Cardiac Sciences","Cancer Care / Oncology","Gastroenterology, Hepatology & Endoscopy","Ear Nose Throat"};
+        String[] specialisation_type={"General Medicine","Dermatology & Venereology","Leprology","Endocrinology & Diabetes","Thyroid","Hormone","Immunology","Rheumatology","Neurology","Ophthalmology","Cardiac Sciences","Cancer Care / Oncology","Gastroenterology, Hepatology & Endoscopy","Ear Nose Throat"};
 
         main_specialisations=new ArrayList<>();
 

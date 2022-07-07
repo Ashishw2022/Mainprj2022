@@ -101,11 +101,11 @@ public class PatientDashboard extends AppCompatActivity{
             "Acne", "Urinary tract infection", "Psoriasis", "Impetigo"};
 
     String[] disease_category = {"Dermatology & Venereology","Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","Gastroenterology, Hepatology & Endoscopy",
-            "Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","Infectious Disease","Endocrinology & Diabetes","Gastroenterology, Hepatology & Endoscopy",
+            "Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","General Medicine","Endocrinology & Diabetes","Gastroenterology, Hepatology & Endoscopy",
             "Immunology","Hormone", "Ear Nose Throat","Gastroenterology, Hepatology & Endoscopy","Dermatology & Venereology","Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","Gastroenterology, Hepatology & Endoscopy",
-            "Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","Infectious Disease","Endocrinology & Diabetes","Gastroenterology, Hepatology & Endoscopy",
+            "Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","General Medicine","Endocrinology & Diabetes","Gastroenterology, Hepatology & Endoscopy",
             "Immunology","Hormone", "Ear Nose Throat","Gastroenterology, Hepatology & Endoscopy","Dermatology & Venereology","Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","Gastroenterology, Hepatology & Endoscopy",
-            "Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","Infectious Disease","Endocrinology & Diabetes","Gastroenterology, Hepatology & Endoscopy",
+            "Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","General Medicine","Endocrinology & Diabetes","Gastroenterology, Hepatology & Endoscopy",
             "Immunology","Hormone", "Ear Nose Throat","Gastroenterology, Hepatology & Endoscopy"};
     Map<Integer, List<String>> resultMap = new HashMap<Integer, List<String>>();
     List<String> selectedSymList = new ArrayList<>();

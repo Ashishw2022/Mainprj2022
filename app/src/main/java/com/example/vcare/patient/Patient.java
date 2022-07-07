@@ -20,12 +20,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vcare.R;
+import com.example.vcare.appointments.Appointment_notif;
+import com.example.vcare.appointments.Appointments_Adapter;
 import com.example.vcare.chat.Patient_Chat_Display;
 import com.example.vcare.doctor.Doctor_Images;
+import com.example.vcare.doctor.Doctors;
 import com.example.vcare.doctor.Session_Mangement;
 import com.example.vcare.doctor.Main_Specialisation;
 import com.example.vcare.doctor.SliderAdapter;
 import com.example.vcare.doctor.Slider_Data;
+import com.example.vcare.doctor.Specialist_Adapter;
+import com.example.vcare.doctor.View_All_Speciality;
 import com.example.vcare.news.news;
 import com.example.vcare.predictor.PatientDashboard;
 import com.example.vcare.register.Login;
@@ -39,18 +44,27 @@ import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Patient extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView tvname;
     String patemail;
-    private DatabaseReference reference_user_details;
+    private Appointments_Adapter adapter ;
+
+    private DatabaseReference reference_user_details,reference;
     private Toast backToast;
     private long backPressedTime;
     private DrawerLayout drawerLayout1;
     FirebaseAuth mauth;
+    private ArrayList<Appointment_notif> current_appt;
+    private RecyclerView rv;
+
     private CircleImageView mImageView;
     private TextView mName;
     private Doctor_Images doctor_images;
@@ -62,6 +76,8 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
 
         Session_Mangement _session_mangement = new Session_Mangement(this);
         patemail = _session_mangement.getDoctorSession()[0].replace(".",",");
+
+
 
         RecyclerView recyclerView_spec = (RecyclerView) findViewById(R.id.recycler_spec);
         ImageView all_doctors = (ImageView) findViewById(R.id.imageView_doc);
@@ -104,11 +120,12 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
             }
         });
 
+
         Integer [] specialisation_pic={R.drawable.infectious,R.drawable.dermavenereolepro,R.drawable.skin,R.drawable.diabetes,
                                         R.drawable.thyroid,R.drawable.hormone, R.drawable.immunology, R.drawable.rheuma, R.drawable.neuro, R.drawable.ophtha, R.drawable.cardiac, R.drawable.cancer,
                                         R.drawable.gastro, R.drawable.ent};
 
-        String[] specialisation_type={"Infectious Disease","Dermatology & Venereology","Leprology","Endocrinology & Diabetes","Thyroid","Hormone","Immunology","Rheumatology","Neurology","Ophthalmology","Cardiac Sciences","Cancer Care / Oncology","Gastroenterology, Hepatology & Endoscopy","Ear Nose Throat"};
+        String[] specialisation_type={"General Medicine","Dermatology & Venereology","Leprology","Endocrinology & Diabetes","Thyroid","Hormone","Immunology","Rheumatology","Neurology","Ophthalmology","Cardiac Sciences","Cancer Care / Oncology","Gastroenterology, Hepatology & Endoscopy","Ear Nose Throat"};
 
         ArrayList<Main_Specialisation> main_specialisations = new ArrayList<>();
 
@@ -158,8 +175,6 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
 
     }
 
-
-
     @Override
     public void onBackPressed() {
 
@@ -192,7 +207,7 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                startActivity(new Intent(this, Patient_home.class));
+                startActivity(new Intent(this, Patient.class));
                 break;
             case R.id.doctors:
                 Intent intent=new Intent(Patient.this,Available_Doctors.class);
@@ -212,7 +227,7 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(new Intent(Patient.this, Patient_Chat_Display.class));
                 break;
             case R.id.diseasepred:
-               startActivity(new Intent(Patient.this, PatientDashboard.class));
+               startActivity(new Intent(Patient.this, Patient_predico.class));
                 break;
             case R.id.predstatus:
                 startActivity(new Intent(Patient.this, Patient_Prediction_Status_ListView.class));
@@ -226,7 +241,7 @@ public class Patient extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(intent1);
                 break;
             case R.id.speciality_view_all:
-                startActivity(new Intent(Patient.this,View_All_Speciality.class));
+                startActivity(new Intent(Patient.this, View_All_Speciality.class));
                 break;
 
         }

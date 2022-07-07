@@ -6,7 +6,7 @@ public class DiseasePrediction {
     private String predictedDisease;
     private int approvalstatus;
     private String precautions;
-    private String patientName;
+    private String patientName,docname,docemail;
     private String patientEmail;
     private String discategory;
     private String remarks;
@@ -18,7 +18,15 @@ public class DiseasePrediction {
     public DiseasePrediction() {
     }
 
-    public DiseasePrediction(String age,String remarks,String pid,String symptoms, String predictedDisease, int approvalstatus, String precautions, String patientName, String patientEmail, String discategory,String predictedDate) {
+    public String getDocemail() {
+        return docemail;
+    }
+
+    public void setDocemail(String docemail) {
+        this.docemail = docemail;
+    }
+
+    public DiseasePrediction(String age, String remarks, String pid, String symptoms, String predictedDisease, int approvalstatus, String precautions, String patientName, String patientEmail, String discategory, String predictedDate, String docname, String docemail) {
         this.symptoms = symptoms;
         this.pid =pid;
         this.predictedDisease = predictedDisease;
@@ -30,6 +38,8 @@ public class DiseasePrediction {
         this.remarks=remarks;
         this.age= age;
         this.predictedDate = predictedDate;
+        this.docemail= docemail;
+        this.docname = docname;
 
     }
 
@@ -121,6 +131,14 @@ public class DiseasePrediction {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public String getDocname() {
+        return docname;
+    }
+
+    public void setDocname(String docname) {
+        this.docname = docname;
     }
 }
 

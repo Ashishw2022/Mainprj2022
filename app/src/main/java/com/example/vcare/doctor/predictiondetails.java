@@ -29,9 +29,9 @@ public class predictiondetails extends AppCompatActivity {
     private Doctor_Images doctor_images;
     private ArrayList<Appointment_details> previous_payment;
     private Button declinebtn,approvebtn,notvrf,vrf;
-    private DatabaseReference reference_dispred, reference_doctor,reference_status,reference_book;
+    private DatabaseReference reference_dispred, reference_doctor,reference_status,reference_book,reference_doctor_name;
     private int start, end;
-    private String encoded_email;
+    private String encoded_email,demail,dname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,8 @@ public class predictiondetails extends AppCompatActivity {
 
         notvrf=findViewById(R.id.notVrf);
         vrf=findViewById(R.id.vrf);
-
+        Session_Mangement _session_mangement = new Session_Mangement(this);
+        demail = _session_mangement.getDoctorSession()[0].replace(".", ",");
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.MONTH, 0);
 
@@ -77,12 +78,29 @@ public class predictiondetails extends AppCompatActivity {
         encoded_email = email.replace(".", ",");
         reference_dispred = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("disease_prediction");
         reference_doctor = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("User_data");
+        reference_doctor_name = FirebaseDatabase.getInstance("https://vcare-healthapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Doctors_Data");
+
         reference_doctor.child(email.replace(".",",")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String gender = snapshot.child("gender").getValue(String.class);
                     patientgender.setText(gender);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        reference_doctor_name.child(demail.replace(".",",")).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                     dname = snapshot.child("name").getValue(String.class);
+                    //patientgender.setText(dname);
                 }
             }
 
@@ -118,6 +136,10 @@ public class predictiondetails extends AppCompatActivity {
                                     if(dp.getPid().equals(approvalId)){
                                        // reference_dispred.child("approved").child(dp.getPatientEmail().replace(".",",")).child(approvalId).setValue(dp);
                                         reference_dispred.child(dp.getPatientEmail().replace(".",",")).child(approvalId).child("approvalstatus").setValue(1);
+                                        reference_dispred.child(dp.getPatientEmail().replace(".",",")).child(approvalId).child("docemail").setValue(demail);
+                                        reference_dispred.child(dp.getPatientEmail().replace(".",",")).child(approvalId).child("docname").setValue(dname);
+
+
                                         reference_dispred.child(dp.getPatientEmail().replace(".",",")).child(approvalId).child("remarks").setValue(docremark.getText().toString().trim());
                                      //   imageicon.setVisibility(view.VISIBLE);
                                         approvebtn.setVisibility(view.GONE);
@@ -159,6 +181,8 @@ public class predictiondetails extends AppCompatActivity {
                                       //  reference_dispred.child("approved").child(dp.getPatientEmail().replace(".",",")).child(approvalId).setValue(dp);
                                         reference_dispred.child(dp.getPatientEmail().replace(".",",")).child(approvalId).child("approvalstatus").setValue(2);
                                         reference_dispred.child(dp.getPatientEmail().replace(".",",")).child(approvalId).child("remarks").setValue(docremark.getText().toString().trim());
+                                        reference_dispred.child(dp.getPatientEmail().replace(".",",")).child(approvalId).child("docemail").setValue(demail);
+                                        reference_dispred.child(dp.getPatientEmail().replace(".",",")).child(approvalId).child("docname").setValue(dname);
 
                                         //  imageicon.setVisibility(view.GONE);
                                         approvebtn.setVisibility(view.GONE);

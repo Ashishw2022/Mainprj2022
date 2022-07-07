@@ -54,6 +54,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginTop="24dp"
         android:hint="Full Name"
+        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

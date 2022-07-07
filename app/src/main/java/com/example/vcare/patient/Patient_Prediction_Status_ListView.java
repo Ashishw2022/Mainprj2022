@@ -6,8 +6,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -20,7 +18,6 @@ import com.example.vcare.doctor.Session_Mangement;
 import com.example.vcare.predictor.DiseasePrediction;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +37,7 @@ public class Patient_Prediction_Status_ListView extends AppCompatActivity {
     private DatabaseReference reference_doc,patient;
     private int flag;
     private String encodedemail;
-    private Patient_Status_Adapter adapter ;
+    private Patient_predico_Status_Adapter adapter ;
     private EditText search;
     private Toast backToast;
     private long backPressedTime;
@@ -93,7 +90,7 @@ public class Patient_Prediction_Status_ListView extends AppCompatActivity {
 
                     }
 
-                    adapter=new Patient_Status_Adapter(listData,emaildata, Patient_Prediction_Status_ListView.this);
+                    adapter=new Patient_predico_Status_Adapter(listData,emaildata, Patient_Prediction_Status_ListView.this);
                     rv.setAdapter(adapter);
                 }
             }

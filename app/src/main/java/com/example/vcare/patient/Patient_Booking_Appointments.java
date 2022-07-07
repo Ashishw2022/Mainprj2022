@@ -43,7 +43,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
@@ -424,9 +434,13 @@ public class Patient_Booking_Appointments extends AppCompatActivity implements P
                         return;
 
                     } else {
+
                         Booking_Appointments booking_appointments = new Booking_Appointments(1, "null");
                         reference_booking.child(email).child(date_val).child(finalSlot_val).child(check).setValue(booking_appointments);
                         Toast.makeText(Patient_Booking_Appointments.this, "The Slot is Booked.", Toast.LENGTH_SHORT).show();
+                        sendmail(bookemail_id.replace(",","."),"\nHello "+pname+
+                                ",\n Thanks for booking an appointment on V-Care."+
+                                "\nyour appointment is Booked on "+date_val+"|"+chosen_time+" and payment is confirmed please wait for doctor confirmation ");
                         Intent intent = new Intent(Patient_Booking_Appointments.this, Patient_Appointment_Status.class);
                         intent.putExtra("pname", pname);
                         intent.putExtra("email", email);
@@ -451,10 +465,58 @@ public class Patient_Booking_Appointments extends AppCompatActivity implements P
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Patient_Booking_Appointments.this, "Payment not done! ", Toast.LENGTH_SHORT).show();
 
             }
         });
 
+    }
+
+    private void sendmail(String rvmai,String msg) {
+        try {
+            final String frommail = "ashishvwprj@gmail.com";
+            final String fpass = "gqezrowmplvieddv";
+            String subject = "Appointment Status";
+            String message=msg;
+            String stringHost = "smtp.gmail.com";
+
+            Properties properties = System.getProperties();
+
+            properties.put("mail.smtp.host", stringHost);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+
+            Session session = Session.getInstance(properties,
+                    new javax.mail.Authenticator() {
+                        @Override
+                        protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(frommail,fpass);
+                        }
+                    });
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.setFrom(new InternetAddress(frommail));
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(rvmai));
+            mimeMessage.setSubject(subject);
+            mimeMessage.setText(message);
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Transport.send(mimeMessage);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+
+        } catch (AddressException e) {
+            e.printStackTrace();
+        }
+        catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

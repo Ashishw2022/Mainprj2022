@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/pathomedraw"
-    tools:context=".patient.Patient_home">
+    tools:context=".patient.Patient_predico">
     <include layout="@layout/patientnav"/>
     <include layout="@layout/toolbar"/>
 

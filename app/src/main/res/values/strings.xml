@@ -8,7 +8,7 @@
     </string-array>
     <string name="nav_drawer_open">Open Navigation Drawer</string>
     <string name="nav_drawer_close">Close Navigation Drawer</string>
-
+    <string name="Rs">\u20B9</string>
     <string name="account_info_btn_done">Done</string>
     <string name="account_info_txt_title">Personal Information</string>
     <string name="account_info_doctor_experience">Experience (Year)</string>
@@ -21,7 +21,7 @@
     <string name="account_info_txt_subtitle">Please fill in your personal information</string>
 
     <string-array name="Speciality">
-        <item>Infectious Disease</item>
+        <item>General Medicine</item>
         <item>Dermatology &amp; Venereology</item>
         <item>Leprology</item>
         <item>Endocrinology &amp; Diabetes</item>
