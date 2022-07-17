@@ -64,7 +64,7 @@ public class CurrentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.row_current,container,false);
-        search=(EditText) view.findViewById(R.id.editTextSearch_current);
+       search=(EditText) view.findViewById(R.id.editTextSearch_current);
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

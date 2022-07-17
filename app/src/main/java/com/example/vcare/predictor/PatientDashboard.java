@@ -100,13 +100,15 @@ public class PatientDashboard extends AppCompatActivity{
             "Osteoarthristis", "Arthritis", "(vertigo) Paroymsal  Positional Vertigo",
             "Acne", "Urinary tract infection", "Psoriasis", "Impetigo"};
 
-    String[] disease_category = {"Dermatology & Venereology","Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","Gastroenterology, Hepatology & Endoscopy",
-            "Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","General Medicine","Endocrinology & Diabetes","Gastroenterology, Hepatology & Endoscopy",
-            "Immunology","Hormone", "Ear Nose Throat","Gastroenterology, Hepatology & Endoscopy","Dermatology & Venereology","Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","Gastroenterology, Hepatology & Endoscopy",
-            "Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","General Medicine","Endocrinology & Diabetes","Gastroenterology, Hepatology & Endoscopy",
-            "Immunology","Hormone", "Ear Nose Throat","Gastroenterology, Hepatology & Endoscopy","Dermatology & Venereology","Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","Gastroenterology, Hepatology & Endoscopy",
-            "Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","General Medicine","Endocrinology & Diabetes","Gastroenterology, Hepatology & Endoscopy",
-            "Immunology","Hormone", "Ear Nose Throat","Gastroenterology, Hepatology & Endoscopy"};
+    String[] disease_category = {	"Dermatology & Venereology","Dermatology & Venereology","Gastroenterology, Hepatology & Endoscopy","General Medicine",
+            "Dermatology & Venereology","Immunology","Endocrinology & Diabetes", "Gastroenterology, Hepatology & Endoscopy", "General Medicine",
+            "General Medicine", "Ear Nose Throat", "Gastroenterology, Hepatology & Endoscopy", "Ear Nose Throat",
+            "General Medicine", "General Medicine", "General Medicine", "General Medicine", "General Medicine", "General Medicine", "General Medicine",
+            "General Medicine", "General Medicine", "General Medicine", "General Medicine", "General Medicine",
+            "General Medicine", "General Medicine", "Gastroenterology, Hepatology & Endoscopy", "Gastroenterology, Hepatology & Endoscopy",
+            "Gastroenterology, Hepatology & Endoscopy", "Ear Nose Throat", "Ear Nose Throat", "Ear Nose Throat",
+            "Gastroenterology, Hepatology & Endoscopy", "Dermatology & Venereology", "Gastroenterology, Hepatology & Endoscopy",
+            "Hormone", "General Medicine", "Dermatology & Venereology", "Dermatology & Venereology"};
     Map<Integer, List<String>> resultMap = new HashMap<Integer, List<String>>();
     List<String> selectedSymList = new ArrayList<>();
     @Override

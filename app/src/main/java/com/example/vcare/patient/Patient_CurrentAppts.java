@@ -64,7 +64,7 @@ public class Patient_CurrentAppts extends Fragment {
         View view = inflater.inflate(R.layout.row_current,container,false);
         Patient_Session_Management session = new Patient_Session_Management(getContext());
         email = session.getSession();
-        search=(EditText) view.findViewById(R.id.editTextSearch_current);
+       search=(EditText) view.findViewById(R.id.editTextSearch_current);
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

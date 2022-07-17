@@ -64,7 +64,7 @@ public class PreviousFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.row_previous,container,false);
 
-        search=(EditText) view.findViewById(R.id.editTextSearch_previous);
+        //search=(EditText) view.findViewById(R.id.editTextSearch_previous);
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
