@@ -61,7 +61,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public static Boolean validate(String userName, String password)
     {
 
-        if(userName.equals("ashish123@gmail.com") && password.equals("user123456"))
+        if(userName.equals("ashish1234@gmail.com") && password.equals("user12345678"))
             return true;
         else
             return false;

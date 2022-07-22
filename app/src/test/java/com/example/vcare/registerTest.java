@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import com.example.vcare.register.Signup;
 
-public class registerTest {
+public class registerTestcase{
     @Test
     public void testExampleWithCorrectValues() {
         String lname ="anu"; String emailMain ="ashish123@gmail.com";String phMain="9878945156";String passwordMain="user1234";String cpasswordMain ="user1234";

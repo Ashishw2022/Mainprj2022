@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 import com.example.vcare.register.Login;
 
-public class ExampleUnitTest {
+public class ExampleUnitTestcase {
     @Test
     public void testExampleWithCorrectValues() {
         String validEmail = "ashish123@gmail.com";
