@@ -1,6 +1,7 @@
 package com.example.vcare.register;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -54,6 +55,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private ProgressBar progressBar;
     private DatabaseReference databaseReference;
 
+    public Login( ){
+
+    }
+    public static Boolean validate(String userName, String password)
+    {
+
+        if(userName.equals("ashish123@gmail.com") && password.equals("user123456"))
+            return true;
+        else
+            return false;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,25 +112,26 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         String passwordMain = editTextPasswordMain.getText().toString().trim();
         encoded_email = EncodeString(emailMain);
 
+        emailValidation(emailMain,passwordMain);
         if (emailMain.isEmpty()) {
             editTextEmailMain.setError("Email is a required field !");
             editTextEmailMain.requestFocus();
-            return;
+            return ;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(emailMain).matches()) {
             editTextEmailMain.setError("Please provide Valid Email !");
             editTextEmailMain.requestFocus();
-            return;
+            return ;
         }
         if (passwordMain.isEmpty()) {
             editTextPasswordMain.setError("Password is a required field !");
             editTextPasswordMain.requestFocus();
-            return;
+            return ;
         }
         if (passwordMain.length() < 6) {
             editTextPasswordMain.setError("Minimum length of password should be 6 characters !");
             editTextPasswordMain.requestFocus();
-            return;
+            return ;
         }
         progressBar.setVisibility(View.VISIBLE);
 
@@ -229,6 +243,30 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         });
+    }
+
+    public  boolean emailValidation(String emailMain, String passwordMain) {
+        if (emailMain.isEmpty()) {
+            editTextEmailMain.setError("Email is a required field !");
+            editTextEmailMain.requestFocus();
+            return false;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailMain).matches()) {
+            editTextEmailMain.setError("Please provide Valid Email !");
+            editTextEmailMain.requestFocus();
+            return false;
+        }
+        if (passwordMain.isEmpty()) {
+            editTextPasswordMain.setError("Password is a required field !");
+            editTextPasswordMain.requestFocus();
+            return false;
+        }
+        if (passwordMain.length() < 6) {
+            editTextPasswordMain.setError("Minimum length of password should be 6 characters !");
+            editTextPasswordMain.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     private void showChangePasswordDialog() {

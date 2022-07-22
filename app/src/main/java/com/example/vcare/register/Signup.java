@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.regex.Pattern;
+
 public class Signup extends AppCompatActivity implements View.OnClickListener {
     private TextView login;
     private EditText edname,edph,editTextEmailMain, editTextPasswordMain,edcpwd;
@@ -35,6 +37,32 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     private ProgressBar progressBar;
     String email, name, user_type,status;
 
+    public static Boolean validate(String lname, String emailMain,String phMain,String passwordMain,String cpasswordMain) {
+        if (lname.isEmpty()) {
+            return false;
+        }
+        if (emailMain.isEmpty()) {
+            return false;
+        }
+          // Pattern EMAIL_ADDRESS = null;
+
+        if (phMain.isEmpty()) {
+            return false;
+        }
+        if (passwordMain.isEmpty()) {
+            return false;
+        }
+        if (passwordMain.length() < 6) {
+            return false;
+        }
+        if (cpasswordMain.isEmpty()) {
+            return false;
+        } else if (!passwordMain.equals(cpasswordMain)) {
+
+            return false;
+        }
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
